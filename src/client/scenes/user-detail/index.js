@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import JohnGreen from "./../../images/profile-pics/JohnGreen.png";
+import JohnGreen from "./../../../images/profile-pics/JohnGreen.png";
 import UserPicture from "./../../services/pictures/UserPicture";
 import "./user-detail.css";
 /**

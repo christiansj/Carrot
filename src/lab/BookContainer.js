@@ -1,5 +1,5 @@
 import React from "react";
-import StarButton from "./../services/StarButton";
+import StarButton from "./../client/services/StarButton";
 /**
  * 
  * @param {*} bookImage 
@@ -7,7 +7,7 @@ import StarButton from "./../services/StarButton";
 export default function (bookImage) {
   return (
     <div className="bookContainer">
-      <img className="bookCover" src={bookImage} style={{boxShadow: "3px 3px"}} />
+      <img className="bookCover" src={bookImage} alt={"This wer"}style={{boxShadow: "3px 3px"}} />
       <br />
       
       <button
@@ -31,4 +31,13 @@ export default function (bookImage) {
               <StarButton isStarred={false}/>
     </div>
   )
+}
+function renderImage(imgPath){
+  var img = null;
+  try{
+    img = require(imgPath);
+  }catch(err){
+    console.log("Image Load Error: " + err);
+  }
+  return img;
 }

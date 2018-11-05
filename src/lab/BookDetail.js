@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import "./book-detail.css";
 import WeebHouse from "./../images/book-banners/WeebHouse1.png";
 import Weebs from "./../images/book-covers/Weebs.jpg";
-import ChapterList from "./../components/lists/chapter-list";
-import GenreTag from "./../services/GenreTag";
+import ChapterList from "./../client/components/lists/chapter-list";
+import GenreTag from "./../client/services/GenreTag";
 import BookContainer from "./BookContainer";
 const dummyBook = { title: "The Weeb" };
+try {
+  require("./../images/book-covers/dummy.jpg")
+} catch (err) {
+  console.log(err);
+}
 
 /**
  * 
@@ -20,15 +25,15 @@ export default class BookDetail extends Component {
             backgroundSize: "cover", backgroundPosition: "50%"
           }}>
 
-            {BookContainer(Weebs)}
+          {BookContainer("This")}
 
         </div>
 
         <div className="bookDetail">
-
-
-          <span className="book-title">The Weeb House</span>
-          <br/>
+          <span className="book-title">
+            The Weeb House
+          </span>
+          <br />
           By Steve the Dweeb
           <br /><br />
           {GenreTag("Romance")}
@@ -47,5 +52,15 @@ export default class BookDetail extends Component {
 
       </div>
     )
+  }
+
+  renderPicture(imgSrcPath) {
+    var img = null;
+    try {
+      img = require(imgSrcPath)
+    } catch (err) {
+      console.log(err)
+    }
+    return (<img src={img} alt={imgSrcPath} className />)
   }
 }

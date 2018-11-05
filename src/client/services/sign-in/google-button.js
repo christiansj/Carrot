@@ -1,6 +1,6 @@
 import React from "react";
 import GoogleLogin from "react-google-login";
-import GoogleCreds from "./../../google-creds";
+import GoogleCreds from "./../../../google-creds";
 const responseGoogle = (response) => {
   console.log(response);
 }

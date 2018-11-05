@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import DataTable from "./../components/tables/DataTable";
 import Modal from "./../services/modal";
 import RecordDelete from "./../services/RecordDelete";
-const TABLE_NAMES = require("./../server/data/TableNames");
+const TABLE_NAMES = require("./../../server/data/TableNames");
 class DatabaseScene extends Component {
   state = { rows: dummyData, previousIndex: this.props.index }
   

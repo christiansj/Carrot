@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import SiteHeader from "./components/header/SiteHeader.jsx";
-import SiteRoutes from "./routes/routes";
-import store from "./redux/stores/index";
-import ErrorScene from "./scenes/errors/ErrorScene";
+import SiteHeader from "./client/components/header/SiteHeader.jsx";
+import SiteRoutes from "./client/routes/routes";
+import store from "./client/redux/stores/index";
+import ErrorScene from "./client/scenes/errors/ErrorScene";
 
 import "popper.js";
 import "jquery";
 import "bootstrap/dist/css/bootstrap.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { setServerStatus, setHttpCode } from "./redux/actions/index";
+import { setServerStatus, setHttpCode } from "./client/redux/actions/index";
 
-import notificationContainer from "./components/sections/notification-section";
+import notificationContainer from "./client/components/sections/notification-section";
 class App extends Component {
   //id for server status interval timer
   state = { checkerId: null };
@@ -55,6 +55,7 @@ class App extends Component {
     }
     return (
       <div className="App">
+        
         <SiteHeader />
         {SiteRoutes}
        

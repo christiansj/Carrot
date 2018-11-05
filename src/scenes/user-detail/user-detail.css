@@ -1,0 +1,22 @@
+.user-detail.container{
+  padding: 40px;
+}
+.author-profile-pic{
+  height: 125px;
+  width: 125px;
+  border-radius: 100px;
+  background-color: grey;
+}
+
+.follow-numbers{
+  margin: auto;
+  font-size: 28px;
+}
+.user-general{
+ 
+  padding: 10px;
+ 
+}
+.profile-number{
+  padding: 25px;
+}

@@ -1,0 +1,63 @@
+/*Genre tag*/
+.genre-tag{
+  background-color: lightgray;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  color: black;
+}
+.genre-tag:hover{
+  background-color: skyblue;
+  color: white;
+  text-decoration: none;
+}
+/****/
+
+/*Star Button*/
+.star-button{
+  height: 120px;
+  width: 120px;
+  background-color: orange;
+  border-radius: 75px;
+  position: relative;
+  bottom: 115%;
+  left: 75%;
+  opacity: .9;
+}
+.star-button:hover{
+  background-color: rgb(243, 190, 92);
+  cursor: pointer;
+}
+/*Rating Box*/
+.ratingBox{
+  height: 45px;
+  width: 45px;
+  background-color: grey;
+  margin: 0px 5px;
+  border-radius: 10px;
+}
+
+.ratingBox:hover{
+  background-color: purple !important;
+  cursor: pointer;
+}
+
+/* Social media button*/
+.social-media{
+  border: 1px solid transparent;
+  margin-right: 3px;
+
+}
+.social-media:hover{
+  cursor: pointer;
+}
+.social-media.reg{
+  height: 40px;
+  width: 90px;
+}
+.social-media.mail{
+  height: 40px;
+  width: 60px;
+  
+}
+

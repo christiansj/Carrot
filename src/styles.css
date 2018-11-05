@@ -1,0 +1,97 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+header {
+  color: white;
+  font-size:  16px;
+  padding: 5px 45px !important;
+  border-bottom: 3px solid orange;
+ 
+ 
+}
+.error-container{
+  margin: auto;
+  text-align: center;
+}
+header > div > ul > li > .btn-primary:hover{
+  color: yellow !important;
+}
+
+li {
+  margin-left: 15px;
+}
+
+header > div > button {
+  margin: 0px 5px;
+}
+header > a{
+  color: orange;
+}
+.title{
+  font-size: 24px;
+  text-align: left;
+  font-family: Tahoma;
+  font-weight: bold;
+}
+#FeatureSection {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  padding: 40px 80px;
+  text-align: center;
+  margin: auto;
+  background-color: #cccccc; 
+ 
+}
+
+section {
+  padding: 50px 70px;
+}
+.book-row{
+  border: .5px solid #f4f4f4;
+  margin: 30px 50px;
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-family: Tahoma;
+  box-shadow: 1px 1px 1px 2px grey;
+}
+.book {
+  height: 300px;
+  width: 200px;
+  background-color: red;
+  margin: 0px 10px;
+}
+table {
+  margin: auto;
+  width: 95%;
+}
+
+.app-name{
+  font-size: 20px;
+}
+.app-name:hover{
+  color: orange;
+}
+
+
+
+
+.chapters{
+  grid-area: chapters;
+}
+.notification-container{
+  position: relative;
+  top: -400px;
+  
+  width: 400px;
+  border:1px solid red;
+  
+}
+.error-container > .http-code{
+  font-size: 175px;
+}
+.error-container > .http-message{
+  font-size: 64px;
+  color: rgb(235, 167, 43);
+}

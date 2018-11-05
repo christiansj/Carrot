@@ -1,0 +1,40 @@
+
+.book-detail.container{
+  display: grid;
+  grid-template-rows: 500px 300px;
+  grid-template-columns: auto 190px 400px 190px;
+  grid-template-areas: 
+    "bookCover bookInfo bookInfo bookInfo"
+    ". chapters chapters chapters";
+  padding: 55px 5px;
+  text-align: left;
+  font-size: 18px;
+}
+
+
+
+
+
+.book-detail.container > .bookCover{
+  grid-area: bookCover;
+  background-color: grey;   
+  padding-top: 20px;
+  padding-bottom: 0px;
+}
+.book-detail.container >  .bookCover > #BookCoverMed{
+  height: 400px;
+  background-color: snow;
+  border: 1px solid brown;
+  padding: 15px;
+  margin: auto;
+  width: 300px;
+  box-shadow: 3px 3px;
+}
+.book-detail.container >  .bookInfo{
+  grid-area: bookInfo;
+   background-color: lightgrey;  
+  padding: 20px;
+  padding-top: 90px;
+  padding-bottom: 0px;
+  /* border: .5px solid black; */
+}

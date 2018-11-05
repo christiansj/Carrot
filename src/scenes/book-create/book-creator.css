@@ -1,0 +1,43 @@
+/**grid layout*/
+.book-creator.container{
+  display: grid;
+  grid-template-columns: 200px auto;
+  grid-template-rows: auto;
+  grid-column-gap: 50px;
+  grid-template-areas: "createNav formContainer";
+  padding-top: 30px;
+ 
+}
+/**create-nav*/
+.book-creator.container > #create-nav {
+  grid-area: createNav;
+  list-style: none;
+  text-align: left;
+  padding: 30px 20px; 
+
+  padding-top: 30px;
+}
+
+a:hover{
+  text-decoration: none !important;
+}
+.container-link:hover > span, a{
+  color: orange;
+  text-decoration: none;
+  
+}
+
+.book-creator.container > #form-container{
+  grid-area: formContainer;
+  text-align: left;
+  font-weight: bold;
+  padding-top: 30px;
+}
+
+.form-row > .col{
+  margin-bottom: 20px;
+}
+/**checkbox*/
+.form-check {
+  margin: 10px;
+}

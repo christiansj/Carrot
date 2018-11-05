@@ -1,0 +1,7 @@
+node_modules
+package-lock.json
+/src/google-creds.js
+.env
+TODO
+NOTES
+config/

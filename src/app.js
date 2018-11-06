@@ -58,7 +58,7 @@ class App extends Component {
         
         <SiteHeader />
         {SiteRoutes}
-       
+        {notificationContainer}
       </div>
     );
   }

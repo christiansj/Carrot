@@ -2,12 +2,12 @@ import React from "react";
 import StarButton from "./../client/services/StarButton";
 /**
  * 
- * @param {*} bookImage 
+ * @param {String} imgPath 
  */
-export default function (bookImage) {
+export default function (imgPath) {
   return (
     <div className="bookContainer">
-      <img className="bookCover" src={bookImage} alt={"This wer"}style={{boxShadow: "3px 3px"}} />
+      <img className="bookCover" src={renderImage(imgPath)} alt={"This wer"}style={{boxShadow: "3px 3px"}} />
       <br />
       
       <button
@@ -32,6 +32,7 @@ export default function (bookImage) {
     </div>
   )
 }
+
 function renderImage(imgPath){
   var img = null;
   try{

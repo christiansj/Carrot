@@ -81,11 +81,11 @@ table {
   grid-area: chapters;
 }
 .notification-container{
-  position: relative;
-  top: -400px;
-  
+  position: fixed;
+  bottom: 0px;
+
   width: 400px;
-  border:1px solid red;
+  /* border:1px solid red; */
   
 }
 .error-container > .http-code{

@@ -49,15 +49,17 @@ class App extends Component {
 
 
   render() {
+    const {onlineUser} = this.props;
+    
+    /**render ErrorScene if not connected */
     if (!this.props.isConnected) {
       store.dispatch(setHttpCode("504"));
       return (ErrorScene(this.props.currentHttpCode))
     }
     return (
       <div className="App">
-        
         <SiteHeader />
-        {SiteRoutes}
+        {SiteRoutes(onlineUser.isLoggedIn)}
         {notificationContainer}
       </div>
     );
@@ -81,7 +83,8 @@ function matchDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     isConnected: state.isConnected,
-    currentHttpCode: state.currentHttpCode
+    currentHttpCode: state.currentHttpCode,
+    onlineUser: state.onlineUser
   };
 }
 export default connect(mapStateToProps, matchDispatchToProps)(App);

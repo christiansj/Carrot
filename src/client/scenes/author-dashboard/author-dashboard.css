@@ -1,0 +1,17 @@
+.author-dashboard.container{
+  display: grid;
+  grid-template-columns: 200px auto;
+  padding: 0px;
+  margin: 0px;
+  grid-template-areas: "dashNav content";
+}
+
+.author-dashboard.dashNav{
+  grid-area: dashNav;
+  background-color: yellow;
+}
+
+.author-dashboard.content{
+  grid-area: content;
+  background-color: #d4d4d4;
+}

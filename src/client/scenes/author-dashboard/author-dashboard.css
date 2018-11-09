@@ -7,7 +7,15 @@
   padding: 0px; 
   margin: 0px;
 }
-
+.edit-mode{
+  background-color: Transparent;
+  border: none;
+  overflow: hidden;
+  color: inherit;
+}
+.edit-mode:hover{
+  cursor: pointer;
+}
 .author-dashboard.dashboard{
   grid-area: dashNav;
 

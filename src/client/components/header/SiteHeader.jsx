@@ -32,7 +32,7 @@ class SiteHeader extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {renderNavLinks([databaseLink, DropDown(dummyGenres)])}
+          {renderNavLinks([databaseLink, DropDown("Genres",dummyGenres)])}
           <input type="text" placeholder="Search book, author, ..." />
         </div>
         {rightSide(this.props.onlineUserJSON)}

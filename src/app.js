@@ -59,7 +59,7 @@ class App extends Component {
     return (
       <div className="App">
         <SiteHeader />
-        {SiteRoutes(onlineUser.isLoggedIn)}
+        {SiteRoutes(onlineUser)}
         {notificationContainer}
       </div>
     );

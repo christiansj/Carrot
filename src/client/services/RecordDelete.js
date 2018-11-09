@@ -1,4 +1,7 @@
 import React from "react";
+import makeNotification from "./notifications/notification-maker";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
 /**
  * 
  * @param {String} recordName 
@@ -39,7 +42,15 @@ function handleDelete(record, tableIndex) {
   new Promise(function (resolve, reject) {
     (fetch("/deleteData/" + tableIndex + "/" + record.id, {
       method: "DELETE"
-    }));
+    })).then(function(){
+      var message = (
+        <span>
+          {record.dataName + " was delete!"} 
+          <FontAwesomeIcon icon={faTrashAlt}/>
+        </span>
+      )
+      makeNotification("card1", message)
+    });
   })
 }
 

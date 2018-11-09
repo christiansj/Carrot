@@ -7,6 +7,9 @@ import { appId } from "./../../config/facebook-sigin";
 class Facebook extends Component {
   state = { result: null }
   isUserRegistered(userJSON) {
+    if(!userJSON.isLoggedIn){
+      return;
+    }
     fetch("facebookUser/doesExist/" + userJSON.fbID)
       .then(data => data.json())
       .then((result) => {

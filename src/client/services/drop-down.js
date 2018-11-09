@@ -1,8 +1,8 @@
 import React from "react";
 
-const DropDown = (items) => (
+const DropDown = (name ,items) => (
   <div className="btn-group">
-    {buttonDropdown}
+    {buttonDropdown(name)}
     <div className="dropdown-menu">
       {items.map((item, index) => {
         return (
@@ -15,12 +15,12 @@ const DropDown = (items) => (
   </div>
 );
 
-const buttonDropdown = (
+const buttonDropdown = (name) => (
   <button type="button"
       className="btn btn-primary dropdown-toggle"
       data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
-      Genres
+      {name}
   </button>
 )
 export default DropDown;

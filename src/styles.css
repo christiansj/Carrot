@@ -45,9 +45,9 @@ header > a{
  
 }
 
-section {
+/* section {
   padding: 50px 70px;
-}
+} */
 .book-row{
   border: .5px solid #f4f4f4;
   margin: 30px 50px;
@@ -62,9 +62,9 @@ section {
   background-color: red;
   margin: 0px 10px;
 }
-table {
+#DataTable {
   margin: auto;
-  width: 95%;
+  
 }
 
 .app-name{

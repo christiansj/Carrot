@@ -10,16 +10,15 @@ import UserDetail from "./../scenes/user-detail/index";
 import ContactRoute from "./../scenes/contact-us/index";
 import ErrorScene from "./../scenes/errors/ErrorScene";
 import AuthorDashboard from "./../scenes/author-dashboard/index";
-const routes = (isLoggedIn) => (
+const routes = (userJSON) => (
   <BrowserRouter>
 
     <div>
-
       <Route exact path="/" render={() => (
-        !isLoggedIn ? (<SignIn />) : (<Redirect to="/home" />)
+        !userJSON.isLoggedIn ? (<SignIn />) : (<Redirect to="/dashboard/profile/" />)
       )} />
-      <Route path="/home" exact strict render={() => 
-        (!isLoggedIn ? (<Redirect to="/" />) : (<AuthorDashboard/>))} />
+      <Route path="/dashboard/"  render={() => 
+        (!userJSON.isLoggedIn ? (<Redirect to="/" />) : (<AuthorDashboard userJSON={userJSON}/>))} />
       <Route exact path="/error/" component={ErrorScene} />
 
 

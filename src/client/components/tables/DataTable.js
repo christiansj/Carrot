@@ -9,7 +9,7 @@ import { setActiveBook } from "./../../redux/actions/";
  * @param {JSON} data 
  */
 const DataTable = (data) => (
-  <table className="table table-striped table-light" style={{ marginTop: '15px', border: '1px solid black' }}>
+  <table className="table table-striped table-light" id="DataTable" style={{ marginTop: '15px', border: '1px solid black' }}>
     <thead>
       <tr>
         <th />

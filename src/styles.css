@@ -34,16 +34,7 @@ header > a{
   font-family: Tahoma;
   font-weight: bold;
 }
-#FeatureSection {
-  position: relative;
-  top: 0px;
-  left: 0px;
-  padding: 40px 80px;
-  text-align: center;
-  margin: auto;
-  background-color: #cccccc; 
- 
-}
+
 
 /* section {
   padding: 50px 70px;
@@ -64,7 +55,7 @@ header > a{
 }
 #DataTable {
   margin: auto;
-  
+  width: 100%;
 }
 
 .app-name{

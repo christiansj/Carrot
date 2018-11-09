@@ -4,7 +4,7 @@ import "./book-creator.css";
 import { setActiveCreateForm } from "./../../redux/actions/index";
 
 /**link colors */
-const activeLinkColor = "orange";
+const activeLinkColor = "black";
 const unactiveLinkColor = "grey";
 /**
  * An unordered list populated by the 
@@ -19,6 +19,9 @@ const unactiveLinkColor = "grey";
  */
 const containerNav = (links, activeIndex, hrIndex) => (
   <ul id="create-nav">
+    <h2 style={{fontWeight: "bold", color: "grey", textAlign: "center", fontFamily: "'Secular One', sans-serif"}}>
+      Database
+    </h2>
     {links.map((linkJSON, index) => {
       return renderLink(linkJSON, index, activeIndex, hrIndex);
     })}

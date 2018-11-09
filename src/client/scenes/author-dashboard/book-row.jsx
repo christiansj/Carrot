@@ -4,7 +4,7 @@ const bookRow = () => (
   <tr className="author-dashboard profile-book">
     <td style={{textAlign: "left", minWidth: "400px"}}>
      
-      <div className="book" style={{ height: "125px", width: "90px", float: "left" }} />
+      <a href="/lab/"className="book" style={{ height: "125px", width: "90px", float: "left" }} />
       <h4>This is the title</h4>
       #ISBN
 

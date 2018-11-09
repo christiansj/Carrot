@@ -1,15 +1,16 @@
 .author-dashboard.container{
   display: grid;
-  grid-template-columns: 250px 900px;
+  grid-template-columns: 275px 900px;
   
   grid-template-areas: "dashNav content";
-  
+  grid-template-rows: "100%";
   padding: 0px; 
   margin: 0px;
 }
 
 .author-dashboard.dashboard{
   grid-area: dashNav;
+
   padding: 40px 10px;
   margin: 0px;
   background-color: rgb(56, 60, 71);

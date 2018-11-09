@@ -10,7 +10,7 @@ const authorBookTable = () => (
     <tbody>
       {bookRow()}
       {bookRow()}
-
+      {bookRow()}
     </tbody>
   </table>
 )

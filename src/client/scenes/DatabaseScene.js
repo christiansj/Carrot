@@ -35,8 +35,8 @@ class DatabaseScene extends Component {
     var heading = TABLE_NAMES[this.props.index];
     heading = heading[0].toUpperCase() + heading.slice(1);
     return (
-      <div style={{ padding: "30px 20px", backgroundColor: "grey" }}>
-        <h1>{heading}</h1>
+      <div style={{ padding: "30px 20px", backgroundColor: "snow" }}>
+        <h1>{heading + " Table"}</h1>
         {DataTable(this.state.rows)}
         {Modal("deleteModal", RecordDelete(this.props.activeRecord, this.props.index))}
       </div>

@@ -1,21 +1,12 @@
 .author-dashboard.container{
   display: grid;
   grid-template-columns: 275px 900px;
-  
   grid-template-areas: "dashNav content";
-  grid-template-rows: "100%";
+
   padding: 0px; 
   margin: 0px;
 }
-.edit-mode{
-  background-color: Transparent;
-  border: none;
-  overflow: hidden;
-  color: inherit;
-}
-.edit-mode:hover{
-  cursor: pointer;
-}
+/**dashboard (left)*/
 .author-dashboard.dashboard{
   grid-area: dashNav;
 
@@ -27,37 +18,8 @@
 .author-dashboard.dashNav{
   padding: 5px 25px;
 }
-.dashboard-profile.container{
-  padding: 40px;
-}
-.dashboard-profile.container >  img{
-  background-color: lightgrey;
-  float: left;
-  margin-left: 10px;
-  
-  height: 250px;
-  margin-right: 15px;
-}
 
-.author-dashboard.dashNav > .author-dashboard.profile-pic{
-  height: 80px;
-  
-}
-.add-book{
-  color: forestgreen;
-}
-.profile-book{
-  height: 200px;
-  background-color: white;
-  margin: 0px;
-}
-.add-book{
-  border: 3px dotted transparent;
-}
-.add-book:hover{
-  cursor: pointer;
-  border: 3px dotted green;
-}
+
 .author-dashboard.dashNav > ul{
   padding: 0px;
 }
@@ -66,28 +28,59 @@
   text-align: left;
   margin: 25px;
 }
-.author-dashboard-link{
-  margin: 100px;
-}
+
 .author-dashboard.dashNav > ul > li > a {
   color: white;
   font-size: 18px;
   font-weight: bold;
-  padding: 25px 0px;
-
 }
 .author-dashboard.dashNav > ul > li > a:hover{
   color: yellow;
 }
+
+/** dashboard content (right)*/
 .author-dashboard.content{
   grid-area: content;
- 
-  margin: 0px;
   padding: 30px 50px;
   text-align: left;
- 
 }
 
+/** profile view*/
+.dashboard-profile.container{
+  padding: 40px;
+}
+/*profile picture*/
+.dashboard-profile.container >  img{
+  background-color: lightgrey;
+  
+  height: 250px;
+  float: left;
+
+  margin: 0px 10px;
+}
+
+.edit-mode{
+  background-color: Transparent;
+  border: none;
+  overflow: hidden;
+  color: inherit;
+}
+
+.edit-mode:hover{
+  cursor: pointer;
+}
+
+/** book view*/
 #AuthorBookTable > tbody > tr > td{
   padding: 40px
+}
+
+.add-book{
+  color: forestgreen;
+  border: 3px dotted transparent;
+}
+
+.add-book:hover{
+  cursor: pointer;
+  border: 3px dotted green;
 }

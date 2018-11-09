@@ -2,82 +2,52 @@
   font-family: sans-serif;
   text-align: center;
 }
+/** header */
 header {
   color: white;
-  font-size:  16px;
+
   padding: 5px 45px !important;
+  font-size:  16px;
+  
   border-bottom: 3px solid orange;
- 
- 
-}
-.error-container{
-  margin: auto;
-  text-align: center;
-}
-header > div > ul > li > .btn-primary:hover{
-  color: yellow !important;
 }
 
-li {
-  margin-left: 15px;
+header > div > ul > li > .btn-primary:hover{
+  color: yellow !important;
 }
 
 header > div > button {
   margin: 0px 5px;
 }
+
 header > a{
   color: orange;
 }
-.title{
-  font-size: 24px;
-  text-align: left;
-  font-family: Tahoma;
-  font-weight: bold;
-}
-
-
-/* section {
-  padding: 50px 70px;
-} */
-.book-row{
-  border: .5px solid #f4f4f4;
-  margin: 30px 50px;
-  padding: 15px 20px;
-  border-radius: 5px;
-  font-family: Tahoma;
-  box-shadow: 1px 1px 1px 2px grey;
-}
-.book {
-  height: 300px;
-  width: 200px;
-  background-color: red;
-  margin: 0px 10px;
-}
-#DataTable {
-  margin: auto;
-  width: 100%;
-}
-
 .app-name{
   font-size: 20px;
 }
 .app-name:hover{
   color: orange;
 }
+/**end of header*/
 
-
-
-
-.chapters{
-  grid-area: chapters;
+/** default book */
+.book {
+  background-color: red;
+  margin: 0px 10px;
 }
+
+/** Notification*/
 .notification-container{
   position: fixed;
   bottom: 0px;
+  width: 400px;  
+}
 
-  width: 400px;
-  /* border:1px solid red; */
-  
+/**Error container*/
+.error-container{
+  margin: auto;
+  text-align: center;
 }
 .error-container > .http-code{
   font-size: 175px;

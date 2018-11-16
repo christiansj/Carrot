@@ -6,6 +6,7 @@
                         "bookContainer bookDetail";
 }
 
+
 .book-detail.lab > .bookInfo{
   grid-area: bookInfo;
   background-color: blue;

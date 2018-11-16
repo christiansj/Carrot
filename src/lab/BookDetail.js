@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./book-detail.css";
 import WeebHouse from "./../images/book-banners/WeebHouse1.png";
 import Weebs from "./../images/book-covers/Weebs.jpg";
+
 import ChapterList from "./../client/components/lists/chapter-list";
 import GenreTag from "./../client/services/GenreTag";
 import BookContainer from "./BookContainer";
@@ -25,7 +26,7 @@ export default class BookDetail extends Component {
             backgroundSize: "cover", backgroundPosition: "50%"
           }}>
 
-          {BookContainer("This")}
+          {BookContainer("./../images/book-covers/Weebs.jpg")}
 
         </div>
 

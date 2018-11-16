@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 
 /**Components*/
 import FormContainer from "./form-container";
-import containerNav from "./containerNav";
+import containerNav from "./components/nav/index";
 import DatabaseScene from "./../DatabaseScene";
 import {linkJSONs} from "./navLinkJSONs";
 //use TABLE_NAMES from data to construct these Strings in a function

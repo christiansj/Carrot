@@ -1,7 +1,9 @@
 import React from "react";
-import store from "./../../redux/stores/index";
-import "./book-creator.css";
-import { setActiveCreateForm } from "./../../redux/actions/index";
+/**redux imports */
+import { setActiveCreateForm } from "./../../../../redux/actions/index";
+import store from "./../../../../redux/stores/index";
+
+import "./../../book-creator.css";
 
 /**link colors */
 const activeLinkColor = "black";
@@ -14,7 +16,7 @@ const unactiveLinkColor = "grey";
  * to switch between creating a book, genre, or author.
  * 
  * Notes: Only admins are able to create & remove authors
- * @param {String array} links 
+ * @param {JSON array} links 
  * 
  */
 const containerNav = (links, activeIndex, hrIndex) => (

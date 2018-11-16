@@ -1,5 +1,5 @@
 export default function(dataName = ""){
-  return function(state = null, action){
+  return function(state = {dataName: "default"}, action){
     var {name} = action;
     if(name != dataName) return state;
 

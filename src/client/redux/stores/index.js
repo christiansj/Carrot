@@ -13,12 +13,17 @@ const saveState = state => {
   }
 };
 
+const defaultState = {
+  onlineUser: {isLoggedIn: false},
+  activeRecord: {dataName: "default record"}
+}
+
 const loadState = () => {
   try {
     // Load the data saved in localStorage
     const serialisedState = window.localStorage.getItem("app_state");
 
-    if (!serialisedState) return undefined;
+    if (!serialisedState) return defaultState; //todo
 
     // De-serialise the saved state, and return it.
     return JSON.parse(serialisedState);
@@ -27,6 +32,8 @@ const loadState = () => {
     return undefined;
   }
 }
+
+
 
 const oldState = loadState();
 const store = createStore(allReducers, oldState);

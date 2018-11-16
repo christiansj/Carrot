@@ -4,9 +4,8 @@ import WeebHouse from "./../images/book-banners/WeebHouse1.png";
 import Weebs from "./../images/book-covers/Weebs.jpg";
 
 import ChapterList from "./../client/components/lists/chapter-list";
-import GenreTag from "./../client/services/GenreTag";
+import GenreTag from "./../client/services/book-properties/GenreTag";
 import BookContainer from "./BookContainer";
-const dummyBook = { title: "The Weeb" };
 try {
   require("./../images/book-covers/dummy.jpg")
 } catch (err) {

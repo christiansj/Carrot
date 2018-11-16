@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import FiveStarRating from "./../../services/RatingBox";
-import GenreTag from "./../../services/GenreTag";
+import FiveStarRating from "./../../services/book-properties/RatingBox";
+import GenreTag from "./../../services/book-properties/GenreTag";
 import Weeb from "./../../../images/book-covers/Weeb.jpg";
 import MediaShare from "./../../services/MediaShare";
-import StarButton from "./../../services/StarButton";
+import StarButton from "./../../services/book-properties/StarButton";
 import ChapterList from "./../../components/lists/chapter-list";
 import "./book-detail.css";
 class BookDetail extends Component {

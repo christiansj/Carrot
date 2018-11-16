@@ -1,5 +1,5 @@
 import React from "react";
-import StarButton from "./../client/services/StarButton";
+import StarButton from "./../client/services/book-properties/StarButton";
 import Weebs from "./../images/book-covers/Weebs.jpg";
 
 /**

@@ -1,4 +1,4 @@
-import { TextArea, TextInput } from "./../../services/forms/exports";
+import { TextArea, TextInput } from "../../services/forms/exports";
 import createFormRow from "./createFormRow";
 var bookFormJSON = {
   header: "Create Book",

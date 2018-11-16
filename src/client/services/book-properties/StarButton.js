@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import "./service.css";
+import "./../service.css";
 
 /**
  * 

@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 
-import CheckboxRow from "./../../services/forms/checkbox-row";
 import {createForms} from "./create-form-objects";
 import {tableNames} from "./navLinkJSONs";
-import checkBoxScroll from "client/services/forms/checkboxScroll";
+import checkBoxScroll from "client/services/forms/checkbox/checkboxScroll";
 
 /**
  * A form element containing

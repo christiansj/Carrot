@@ -5,6 +5,8 @@ const express = require("express"),
       bookMod = require("./../book/bookModule"),
       tableIdField = qMod.tableIdField,
       insertMod = require("./../../modules/sql/insertModule"),
+      authMod = require("./../../modules/authorization/authorizationModule"),
+
       createInsertQuery = insertMod.createInsertQuery;
  
 
@@ -14,11 +16,13 @@ router.post("/:tableName/", function(req, res){
 
   var query = createInsertQuery(tableName, req.body) + " ";
 
-  if(req.params.tableIndex == 1){
+  if(req.params.tableName == "Book"){
     query += bookMod.insertBookGenre(req.body);
-
+  }else if(req.params.tableName = "FacebookUser"){
+    query = authMod.insertFacebook(req.body);
   }
- 
+
+  console.log(query);
    dbSession.connection.query(query, function(err, result){
       if(err) console.log("MYSQL ERROR: " + err);
       

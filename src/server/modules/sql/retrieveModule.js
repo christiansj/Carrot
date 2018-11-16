@@ -29,3 +29,6 @@ function whereOr(jsonArray){
 	return query.replace(/AND/g, "OR");
 }
 
+module.exports.lastInsertId = function(tableName){
+	return selectById(tableName) + " WHERE " + qMod.tableIdField(tableName) + " = LAST_INSERT_ID()";
+}

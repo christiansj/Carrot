@@ -161,3 +161,4 @@ module.exports.tableIdField = function(tableName){
   return tableName[0].toLowerCase() 
             + tableName.slice(1) + "Id";
 }
+

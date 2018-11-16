@@ -3,13 +3,14 @@ import FacebookLogin from 'react-facebook-login';
 import store from "./../../redux/stores/index";
 import { setOnlineUser } from "./../../redux/actions/index";
 import { connect } from "react-redux";
-import { appId } from "./../../config/facebook-sigin";
+const {parseName} = require("./parseName");
 class Facebook extends Component {
-  state = { result: null }
   isUserRegistered(userJSON) {
-    if(!userJSON.isLoggedIn){
+    if(!this.props.onlineUser.isLoggedIn == false){
       return;
     }
+    //response returns true if the facebook user exists,
+    //otherwise, it returns false if the account id isn't found
     fetch("facebookUser/doesExist/" + userJSON.fbID)
       .then(data => data.json())
       .then((result) => {
@@ -17,7 +18,7 @@ class Facebook extends Component {
         if (result.doesExist) {
           return;
         }
-      
+        //create an account linked to Facebook
         fetch("/createData/FacebookUser", {
           method: "POST",
           headers: {
@@ -25,7 +26,8 @@ class Facebook extends Component {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            "facebookUserId": userJSON.fbID,
+            "mediaName": "Facebook",
+            "fbID": userJSON.fbID,
             "name": userJSON.name,
             "email": userJSON.email
           })
@@ -36,15 +38,18 @@ class Facebook extends Component {
 
   }
   responseFacebook = response => {
+
     //if statement for undefined status?
     console.log(response);
-    console.log(this.props.onlineUser);
-
+    console.log(!this.props.onlineUser.isLoggedIn)
+    const nameM = parseName(response.name);
     const user = {
       isFB: true,
       isLoggedIn: !this.props.onlineUser.isLoggedIn,
       fbID: response.userID,
       name: response.name,
+      firstName: nameM[0],
+      lastName: nameM[1],
       email: response.email,
       picture: response.picture.data.url
     }
@@ -53,8 +58,9 @@ class Facebook extends Component {
       name: response.name,
       email: response.email
     }
-    this.isUserRegistered(dataUser);
+   
     store.dispatch(setOnlineUser("onlineUser", user));
+    this.isUserRegistered(dataUser);
   }
   componentClicked = () => console.log("clicked");
   render() {
@@ -65,7 +71,8 @@ class Facebook extends Component {
 
     var textButton = "Login with Facebook"
     if (onlineUser.isLoggedIn) {
-      textButton = "Logout with Facebook"
+      textButton = "Logout with Facebook";
+      
     }
     fbContent = <FacebookLogin
       appId={app.toString()}
@@ -82,6 +89,7 @@ class Facebook extends Component {
     )
   }
 }
+
 
 function mapStateToProps(state) {
   return { onlineUser: state.onlineUser }

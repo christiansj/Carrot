@@ -8,7 +8,7 @@ const qMod = require("./../../modules/queryBuildModule"),
  *  
  */
 const SQL_SELECT_BOOK =
-  "SELECT b.bookId as id, b.title, b.title as dataName, b.description, a.firstName, a.lastName, g.name as genre "
+  "SELECT b.bookId as id, b.title, b.title as dataName,  a.firstName, a.lastName, g.name as genre "
   + "from Book b, Author a, BookAuthor ba, Genre g, BookGenre bg "
   + "WHERE b.bookId = ba.bookId and a.authorId = ba.authorId and bg.bookId = b.bookId and g.genreId = bg.genreId";
 module.exports.SQL_SELECT_BOOK = SQL_SELECT_BOOK;

@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import store from "./../../redux/stores/";
+import store from "client/redux/stores/";
 
-import { setActiveRecord } from "./../../redux/actions/"
-import { setActiveBook } from "./../../redux/actions/";
+import { setActiveRecord } from "client/redux/actions/"
+import { setActiveBook } from "client/redux/actions/";
 /**
  * 
  * @param {JSON} data 

@@ -1,27 +1,51 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
-
+/**component imports */
 import DataTable from "./../components/tables/DataTable";
 import Modal from "./../services/modal";
-import RecordDelete from "./../services/RecordDelete";
+import RecordDelete from "client/services/RecordDelete";
+
 const TABLE_NAMES = require("./../../server/data/TableNames");
+
+const dummyData = [
+  { title: "Jack and the Beanstalk", firstName: "Christopher", lastName: "Bee" },
+  { title: "Spyro the Dragon", firstName: "Leo", lastName: "Lion" },
+  { title: "Clark the Shark", firstName: "Raj", lastName: "Patel" }
+]
+
+//TODO: increase padding for right-hand side
+/**
+ * @prop {Integer} index  user changes this with container nav
+ */
 class DatabaseScene extends Component {
   state = { rows: dummyData, previousIndex: this.props.index }
-  
+  /**
+   * Reset proviousIndex upon intial render
+   */
   componentDidMount(){
     this.setState({previousIndex: -1});
   }
+  /**
+   * Only fetch data when data table is rendered
+   */
   componentDidUpdate() {
     if(this.props.index >= TABLE_NAMES.length) 
       return;
     this.fetchData();
   }
+  /**
+   * Retrieve all records from specified table.
+   * 
+   * User clicks on "All Books", "All Authors", etc.
+   * to determine what data to fetch
+   */
   fetchData(){
     if (this.props.isConnected && this.state.previousIndex != this.props.index) {
-      var tableName = "Book";
+      var tableName = "Book"; //default val
+      
       if(this.props.index < TABLE_NAMES.length) 
         tableName = TABLE_NAMES[this.props.index];
+      
       fetch("getAll/" + tableName + "/")
         .then(data => data.json())
         .then((rows) => { this.setState({ rows, previousIndex: this.props.index }) })
@@ -44,19 +68,11 @@ class DatabaseScene extends Component {
   }
 }
 
-
-
-
 function mapStateToProps(state) {
   return {
-    allBooks: state.allBooks,
     isConnected: state.isConnected,
     activeRecord: state.activeRecord
   }
 }
-const dummyData = [
-  { title: "Jack and the Beanstalk", firstName: "Christopher", lastName: "Bee" },
-  { title: "Spyro the Dragon", firstName: "Leo", lastName: "Lion" },
-  { title: "Clark the Shark", firstName: "Raj", lastName: "Patel" }
-]
+
 export default connect(mapStateToProps)(DatabaseScene);

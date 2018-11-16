@@ -50,7 +50,7 @@ module.exports.deleteBook = function (bookId) {
 module.exports.insertBookGenre = function (bookJSON) {
   query = "";
   const genres = qMod.getDottedValues(bookJSON, Object.keys(bookJSON));
-
+  console.log(genres)
   //INSERT INTO BookGenre
   genres.forEach(function (genre) {
     query += "INSERT INTO BookGenre(bookId, genreId) VALUES(";

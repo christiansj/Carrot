@@ -84,3 +84,12 @@
   50% {opacity: 1;}
   100%{opacity: 0;}
 } 
+
+.check-box.scroll{
+  height: 200px;
+  max-width: 200px;
+  background-color: green;
+  padding: 5px 30px;
+  overflow: auto;
+  margin: auto;
+}

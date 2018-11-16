@@ -6,7 +6,6 @@ import Moogle from "./../../../images/profile-pics/Moogle.png";
 const ProfileView = (userJSON) => (
   <div className="dashboard-profile container">
 
-
     <h2 style={{ fontWeight: "bold", color: "rgb(112, 146, 190)", fontFamily: "'Secular One', sans-serif" }}>
       My Profile &nbsp;&nbsp;
       <button className="edit-mode"><FontAwesomeIcon icon={faEdit} /></button>

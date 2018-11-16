@@ -1,9 +1,19 @@
-const dbSession = require("./dbSession");
+const insertMod = require('./sql/insertModule'),
+qMod = require('./queryBuildModule'),
+bookMod = require("./../routes/book/bookModule"),
+authMod = require("./authorization/authorizationModule");
 
-dbSession.connection.query("SELECT bookId from Book WHERE title = 'Young Son'", function(result, error){
-	if(error && result != null){
-		console.log("ERROR: " + error);
-	} 
+const dummyJSON = {
+	title: "The Last Mouse",
+	"genre.Children":  1,
+	ISBN: 12345
+}
 
-	console.log("result is " + result);
-})
+const authJSON = {
+	fbID: "5748935024",
+	networkName: "Facebook",
+	email: "christiansj8@gmail",
+	name: "Christian San Juan"
+}
+
+console.log(authMod.insertFacebook(authJSON));

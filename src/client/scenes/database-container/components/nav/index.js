@@ -3,7 +3,7 @@ import React from "react";
 import { setActiveCreateForm } from "./../../../../redux/actions/index";
 import store from "./../../../../redux/stores/index";
 
-import "./../../book-creator.css";
+import "./../../database-container.css";
 
 /**link colors */
 const activeLinkColor = "black";

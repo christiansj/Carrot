@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import store from "client/redux/stores/";
 
+import store from "client/redux/stores/";
 import { setActiveRecord } from "client/redux/actions/"
 import { setActiveBook } from "client/redux/actions/";
 /**
@@ -12,11 +12,11 @@ const DataTable = (data) => (
   <table className="table table-striped table-light" id="DataTable" style={{ marginTop: '15px', border: '1px solid black' }}>
     <thead>
       <tr>
-        <th />
         {Object.keys(data[0]).map((keyName, index) => {
           if (keyName !== "dataName")
             return (<th key={keyName+index}>{keyName}</th>)
         })}
+        <th />
       </tr>
     </thead>
     <tbody>
@@ -62,8 +62,8 @@ const createRows = (dataJSONs) => (
   dataJSONs.map((item, index) => {
     return (
       <tr key={"link" + index}>
-        {createBookLinks(item)}
         {createRow(item)}
+        {createBookLinks(item)}
       </tr>
     )
   })

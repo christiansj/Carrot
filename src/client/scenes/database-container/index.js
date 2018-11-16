@@ -1,20 +1,20 @@
 import React, { Component } from "react";
-import "./book-creator.css";
+import "./database-container.css";
 /**Redux*/
 import {connect} from "react-redux";
 
 /**Components*/
-import FormContainer from "./form-container";
+import FormContainer from "./components/forms/form-container";
 import containerNav from "./components/nav/index";
-import DatabaseScene from "./../DatabaseScene";
-import {linkJSONs} from "./navLinkJSONs";
+import DatabaseScene from "./scenes/DatabaseScene";
+import {linkJSONs} from "./data/navLinkJSONs";
 //use TABLE_NAMES from data to construct these Strings in a function
 
 /**
  * 
  * @prop {Number} activeContainerIndex
  */
-class BookCreator extends Component {
+class DatabaseContainer extends Component {
   render() {
     const lineBreakIndex = linkJSONs.length / 2;
     const {activeContainerIndex} = this.props
@@ -45,4 +45,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(BookCreator);
+export default connect(mapStateToProps)(DatabaseContainer);

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
-import {createForms} from "./create-form-objects";
-import {tableNames} from "./navLinkJSONs";
+import {createForms} from "./../../data/create-form-objects";
+import {tableNames} from "./../../data/navLinkJSONs";
 import checkBoxScroll from "client/services/forms/checkbox/checkboxScroll";
 
 /**

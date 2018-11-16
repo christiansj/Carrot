@@ -4,7 +4,7 @@ import React from "react";
  * placing them in the same row.
  * @param {Array} inputs 
  */
-const createFormRow = (inputs) => (
+const formRow = (inputs) => (
   <div className="form-row">
     {inputs.map((inputElement, index) => {
       return (
@@ -15,4 +15,4 @@ const createFormRow = (inputs) => (
     })}
   </div>
 );
-export default createFormRow;
+export default formRow;

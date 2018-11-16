@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 /**component imports */
-import DataTable from "./../components/tables/DataTable";
-import Modal from "./../services/modal";
+import DataTable from "client/components/tables/DataTable";
+import Modal from "client/services/modal";
 import RecordDelete from "client/services/RecordDelete";
 
-const TABLE_NAMES = require("./../../server/data/TableNames");
+const TABLE_NAMES = require("server/data/TableNames");
 
 const dummyData = [
   { title: "Jack and the Beanstalk", firstName: "Christopher", lastName: "Bee" },

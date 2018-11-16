@@ -9,6 +9,7 @@
   padding: 0px;
   margin: 0px;
 }
+
 /**create-nav*/
 .book-creator.container > #create-nav {
   grid-area: createNav;
@@ -39,8 +40,13 @@ a:hover{
   text-align: left;
   font-weight: bold;
   padding-top: 30px;
+  margin: 0px;
+  
 }
 
+#DataTable{
+  width: 100%;
+}
 .form-row > .col{
   margin-bottom: 20px;
 }

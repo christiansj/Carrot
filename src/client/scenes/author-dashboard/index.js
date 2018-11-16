@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./author-dashboard.css";
-import { BrowserRouter, Route, NavLink, Switch } from "react-router-dom";
-import dashboard from "./dashboard";
+import { BrowserRouter, Route,  Switch } from "react-router-dom";
+import dashboard from "./components/nav/index";
 import ProfileView from "./profile";
 import BooksView from "./books";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,11 +11,14 @@ import { faBook, faChartLine, faCog } from "@fortawesome/free-solid-svg-icons";
 const navLinks = [
   { url: "/dashboard/profile/", text: "Profile", icon: <FontAwesomeIcon icon={faUser} /> },
   { url: "/dashboard/books/", text: "Books", icon: <FontAwesomeIcon icon={faBook} /> },
-{ url: "/dashboard/analytics/", text: "Analytics", icon: <FontAwesomeIcon icon={faChartLine} />} ,
+  { url: "/dashboard/analytics/", text: "Analytics", icon: <FontAwesomeIcon icon={faChartLine} />} ,
   { url: "/dashboard/settings/", text: "Settings", icon: <FontAwesomeIcon icon={faCog} />}
 ]
+
+/**
+ * @prop userJSON
+ */
 class AuthorDashboard extends Component {
-  state = {}
   render() {
     return (
       <BrowserRouter>

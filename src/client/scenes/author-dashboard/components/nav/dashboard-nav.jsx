@@ -24,7 +24,6 @@ const renderNavLink = (linkJSON, index) => (
 
 const dashboardNav = (navLinkJSONs) => (
   <nav className="author-dashboard dashNav">
-    
     {renderNavLinks(navLinkJSONs)}
   </nav>
 );

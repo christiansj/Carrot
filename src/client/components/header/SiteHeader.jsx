@@ -6,12 +6,12 @@ import SignUpForm from "./../../services/forms/sign-up-form.js";
 import DropDown from "./../../services/drop-down";
 /**FontAwesome imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDatabase} from '@fortawesome/free-solid-svg-icons'
+import { faDatabase, faMoon} from '@fortawesome/free-solid-svg-icons'
 
 import ProfileWidget from "./ProfileWidget";
 import notificationBell from "./notificationBell";
 import websiteName from "./websiteName";
-
+import lightSwitch from "./lightSwitch";
 /**
  * TODO make a footer to move contact us
  * TODO make a separate file for the unordered list
@@ -70,6 +70,7 @@ const rightSide = (onlineUserJSON) => (
   <div>
     {ProfileWidget(onlineUserJSON)}
     {notificationBell(-12)}
+    {lightSwitch}
     {Modal("signInModal", SignUpForm())}
   </div>
 );

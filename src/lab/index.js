@@ -4,7 +4,7 @@ import SignInScene from "./sign-in";
 import { connect } from "react-redux";
 import authorView from "./../client/scenes/author-view/index";
 import SignInView from "client/scenes/login/index";
-
+import fileUpload from "./file-upload";
 const dummyCheckboxes = [
   {text: "A", isTrue: false},
   {text: "B", isTrue: false},
@@ -21,7 +21,8 @@ class Lab extends Component {
       <div>
         {/* {authorView} */}
         {/* <SignInView/> */}
-        <BookDetail/>
+        {/* <BookDetail/> */}
+        {fileUpload("sampleImage", "This is a lab")}
         {/* <SignInScene isLoggedIn={this.props.onlineUser.isLoggedIn} /> */}
       </div>
     )

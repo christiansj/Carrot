@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import authorView from "./../client/scenes/author-view/index";
 import SignInView from "client/scenes/login/index";
 import fileUpload from "./file-upload";
+import AdminControlPanel from "client/scenes/admin-control-panel/index";
 const dummyCheckboxes = [
   {text: "A", isTrue: false},
   {text: "B", isTrue: false},
@@ -22,7 +23,8 @@ class Lab extends Component {
         {/* {authorView} */}
         {/* <SignInView/> */}
         {/* <BookDetail/> */}
-        {fileUpload("sampleImage", "This is a lab")}
+        <AdminControlPanel/>
+        {/* {fileUpload("sampleImage", "This is a lab")} */}
         {/* <SignInScene isLoggedIn={this.props.onlineUser.isLoggedIn} /> */}
       </div>
     )

@@ -7,12 +7,16 @@ const renderCheckBox = (name, checkboxJSON) => (
 )
 function checkBoxScroll(name, checkBoxJSONs) {
   return (
-    <article className="check-box scroll">
+    <article >
+      <h2>{name}</h2>
+      <div className="check-box scroll">
       {
         checkBoxJSONs.map((checkboxJSON, index) => {
           return renderCheckBox(name, checkboxJSON);
         })
       }
+      </div>
+    
     </article>
   )
 

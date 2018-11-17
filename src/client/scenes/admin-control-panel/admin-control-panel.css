@@ -1,0 +1,23 @@
+.admin-control-panel.container{
+  background-color: #CCCCCC;
+  padding: 5px;
+}
+
+.admin-control-panel.panel-button{
+  background-color: snow;
+  color: darkblue;
+ 
+}
+
+.admin-control-panel.panel-button, .admin-control-panel.panel-widget{
+  width: 200px;
+
+  height: 140px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.admin-control-panel.panel-button:hover{
+  cursor: pointer;
+  color: orange;
+}

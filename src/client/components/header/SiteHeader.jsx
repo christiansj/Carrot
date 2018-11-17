@@ -6,7 +6,7 @@ import SignUpForm from "./../../services/forms/sign-up-form.js";
 import DropDown from "./../../services/drop-down";
 /**FontAwesome imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDatabase, faMoon} from '@fortawesome/free-solid-svg-icons'
+import { faDatabase, faMoon, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 import ProfileWidget from "./ProfileWidget";
 import notificationBell from "./notificationBell";
@@ -31,10 +31,7 @@ class SiteHeader extends Component {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {renderNavLinks([databaseLink, DropDown("Genres",dummyGenres)])}
-          <input type="text" placeholder="Search book, author, ..." />
-        </div>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent"/>
         {rightSide(this.props.onlineUserJSON)}
       </header>
     );
@@ -56,11 +53,18 @@ const databaseLink = (
 const renderNavLinks = (linkElements) => (
   <ul className="navbar-nav mr-auto">
     {linkElements.map((linkElement, index) => {
-        return <span>
-          {linkElement}
-        </span>
+      return <span>
+        {linkElement}
+      </span>
     })}
   </ul>
+);
+const messagesButton = () => (
+  <a href="#">
+    <button className="btn btn-primary">
+      <FontAwesomeIcon icon={faEnvelope} className="fa-lg" />
+    </button>
+  </a>
 );
 /**
  * 
@@ -70,6 +74,7 @@ const rightSide = (onlineUserJSON) => (
   <div>
     {ProfileWidget(onlineUserJSON)}
     {notificationBell(-12)}
+    {messagesButton()}
     {lightSwitch}
     {Modal("signInModal", SignUpForm())}
   </div>

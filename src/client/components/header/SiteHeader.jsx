@@ -37,30 +37,9 @@ class SiteHeader extends Component {
     );
   }
 }
-/**
- * 
- */
-const databaseLink = (
-  <a href="/e/" className="nav-link btn btn-primary" >
-    <FontAwesomeIcon icon={faDatabase} size="2x" />
-    &nbsp; Database
-  </a>
-)
-/**
- * 
- * @param {JSON} linkElements 
- */
-const renderNavLinks = (linkElements) => (
-  <ul className="navbar-nav mr-auto">
-    {linkElements.map((linkElement, index) => {
-      return <span>
-        {linkElement}
-      </span>
-    })}
-  </ul>
-);
+
 const messagesButton = () => (
-  <a href="#">
+  <a href="/messages/">
     <button className="btn btn-primary">
       <FontAwesomeIcon icon={faEnvelope} className="fa-lg" />
     </button>

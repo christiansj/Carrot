@@ -12,7 +12,7 @@ var buttonJSONs = [
   {
     buttonText: "Users",
     icon: <FontAwesomeIcon icon={faUser} className="fa-3x"/>,
-    url: "#"
+    url: "/userlist/"
   },
   {
     buttonText: "Statistics",

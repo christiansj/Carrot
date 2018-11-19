@@ -9,6 +9,8 @@ class AdminControlPanel extends Component {
       <div className="admin-control-panel container">
         <div className="row">
           {panelWidget("btn btn-warning", "Online Users", "#")}
+          {panelWidget("btn btn-success", "Weekly Earnings", "#")}
+
         </div>
         {buttonJSONs.map((item, index) =>
           <a href={item.url} key={"panelButton"+index}>

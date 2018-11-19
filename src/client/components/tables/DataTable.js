@@ -8,8 +8,8 @@ import { setActiveBook } from "client/redux/actions/";
  * 
  * @param {JSON} data 
  */
-const DataTable = (data) => (
-  <table className="table table-striped table-light" id="DataTable" style={{ marginTop: '15px', border: '1px solid black' }}>
+const DataTable = (data, classStyle, renderLinks) => (
+  <table className={"table " + classStyle} id="DataTable" style={{ marginTop: '15px', border: '1px solid black' }}>
     <thead>
       <tr>
         {Object.keys(data[0]).map((keyName, index) => {
@@ -20,7 +20,7 @@ const DataTable = (data) => (
       </tr>
     </thead>
     <tbody>
-      {createRows(data)}
+      {createRows(data, renderLinks)}
     </tbody>
   </table>
 )
@@ -31,8 +31,12 @@ const DataTable = (data) => (
  * 
  * @param {JSON} data 
  */
-const createBookLinks = (data) => (
-  <td>
+const createBookLinks = (data, renderLinks) => {
+  if(!renderLinks){
+    return;
+  }
+  return (
+    <td>
     <Link to={"/u/" + data.title}
       className="btn btn-success btn-sm"
       onClick={() => store.dispatch(setActiveBook("activeBook", data))}>
@@ -41,7 +45,10 @@ const createBookLinks = (data) => (
     {DeleteButton(data)}
 
   </td>
-);
+  )
+}
+ 
+
 
 const createRow = (data) => (
   Object.keys(data).map((item, index) => {
@@ -58,12 +65,12 @@ const createRow = (data) => (
  * 
  * @param {JSON} data 
  */
-const createRows = (dataJSONs) => (
+const createRows = (dataJSONs, renderLinks) => (
   dataJSONs.map((item, index) => {
     return (
       <tr key={"link" + index}>
         {createRow(item)}
-        {createBookLinks(item)}
+        {createBookLinks(item, renderLinks)}
       </tr>
     )
   })

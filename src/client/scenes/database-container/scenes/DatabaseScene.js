@@ -61,7 +61,7 @@ class DatabaseScene extends Component {
     return (
       <div style={{ padding: "30px 0px", backgroundColor: "snow", margin: "0px" }}>
         <h1>{heading + " Table"}</h1>
-        {DataTable(this.state.rows)}
+        {DataTable(this.state.rows, "table-striped table-light", true)}
         {Modal("deleteModal", RecordDelete(this.props.activeRecord, this.props.index))}
       </div>
     );

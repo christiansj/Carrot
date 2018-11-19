@@ -4,7 +4,9 @@ dbSession = require("./../../modules/dbSession"),
 bookMod = require("./../book/bookModule"),
 authorMod = require("./../author/authorModule"),
 genreMod = require("./../genre/genreModule"),
-fbUserMod = require("./../facebook-user/facebookUserModule");
+fbUserMod = require("./../facebook-user/facebookUserModule"),
+fakeUserMod = require("./../../modules/fake-user/fakeUserModule");
+
 
 /**
  * 
@@ -31,6 +33,8 @@ function getAllQuery(tableName){
       return fbUserMod.SQL_SELECT_FB_USER + " ORDER BY(name)";
     case "Genre":
       return genreMod.SQL_SELECT_GENRE + " ORDER BY(name);";
+    case "FakeUser":
+      return fakeUserMod.SQL_FAKE_USER_DATA_TABLE + " ORDER BY(lastName);";
     default:
       throw Error("ERROR: Invalid tableName in getAll: " + tableName);
   }

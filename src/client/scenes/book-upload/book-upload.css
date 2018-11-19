@@ -1,0 +1,25 @@
+.book-upload.container{
+  display: grid;
+  grid-template-areas: "uploadHeading uploadHeading" 
+        "uploadCover uploadForms";
+  grid-template-columns: 400px 400px;
+  grid-template-rows: auto 500px;
+  grid-column-gap: 25px;
+}
+.book-upload.container > h1{
+  grid-area: uploadHeading;
+  
+}
+.book-upload.container > .book-upload.upload-cover{
+  grid-area: uploadCover;
+  background-color: lightgrey;
+}
+.book-upload.upload-cover > .cover-image{
+  height: 400px;
+
+  background-color: green;
+}
+.book-upload.container > .book-upload.upload-forms{
+  grid-area: uploadForms;
+  background-color: grey;
+}

@@ -1,6 +1,6 @@
-const booksFromAuthor = require('./booksFromAuthor');
-
+const booksFromAuthor = require('./scripts/booksFromAuthor'),
+databaseTable = require('./scripts/databaseTable');
 module.exports = {
-    byId,
+    databaseTable,
     booksFromAuthor
 }

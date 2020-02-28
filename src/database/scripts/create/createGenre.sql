@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS Genre;
+CREATE TABLE Genre(
+	genreId INT(11) AUTO_INCREMENT,
+	name VARCHAR(255),
+	PRIMARY KEY(genreId)
+);

@@ -1,6 +1,6 @@
 const express = require('express'),
 router = express.Router(),
-{executeQuery, sendResults, updateRow} = require("./../../util/"),
+{executeQuery, sendResults, updateRow, deleteRow} = require("./../../util/"),
 bookScripts = require('./../../sql-scripts/book');
 
 function getDirectoryHash(bookId){
@@ -39,7 +39,7 @@ router.get("/:bookId", (req, response) => {
 
 // POST book/
 router.post("/", (req, response)=>{
-	const query = bookScripts.createBook;
+	const query = bookScripts.create;
 	const {title, description, ISBN} = req.body;
 	executeQuery(query, [title, description, ISBN], (err, results)=>{
 		sendResults(err, results, response, true);
@@ -56,17 +56,9 @@ router.put("/:bookId", (req, response)=>{
 
 // DELETE book/:bookId
 router.delete("/:bookId", (req, response)=>{
-	const {retrieve, deleteBook} = bookScripts.deleteBook;
 	const {bookId} = req.params;
-	executeQuery(retrieve, [bookId], (err, results)=>{
-		if(!results.length){
-			response.status(400).send("Book wasn't found");
-			return;
-		}
-		executeQuery(deleteBook, [bookId], (err, resDelete)=>{
-			sendResults(err, resDelete, response);
-		});
-	});
+	
+	deleteRow(bookScripts, bookId, response);
 });
 
 module.exports = router;

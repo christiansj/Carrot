@@ -30,6 +30,7 @@ app.use("/book/", require("./routes/book/bookRouter"));
 app.use("/author/", require("./routes/author/authorRouter"));
 app.use("/genre/", require("./routes/genre/genreRouter"));
 
+app.use("/admin/", require("./routes/admin/adminRouter"));
 
 /**file router */
 app.use("/fileUpload/", require("./routes/file-upload/fileUploadRouter"));

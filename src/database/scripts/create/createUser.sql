@@ -4,7 +4,9 @@ DROP TABLE IF EXISTS User;
 		1 Normal
 		2 Author
 		3 Admin
-		4 Banned
+		4 Webmaster
+		5 Deactivated
+		6 Banned
 */
 CREATE TABLE User(
 	userId INT(11) AUTO_INCREMENT,
@@ -17,7 +19,9 @@ CREATE TABLE User(
 	creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	lastLoginDate TIMESTAMP,
 	balance DECIMAL(10,0) DEFAULT 0,
+	PRIMARY KEY(userId),
+	UNIQUE(username),
+	UNIQUE(email), 
 	CONSTRAINT con_balance
-		CHECK(balance >= 0),
-	PRIMARY KEY(userId)
+		CHECK(balance >= 0)
 );

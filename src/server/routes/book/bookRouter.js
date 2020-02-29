@@ -13,7 +13,7 @@ function getDirectoryHash(bookId){
 
 // GET book/table
 router.get("/table", (req, response)=>{
-	const query = bookScripts.dataTable;
+	const query = bookScripts.databaseTable;
 	executeQuery(query, [], (err, results)=>{
 		sendResults(err, results, response);
 	});

@@ -1,9 +1,9 @@
 const getABooksAuthors = require('./scripts/getABooksAuthors/');
-const dataTable = require('./scripts/datatable');
+const databaseTable = require('./scripts/databaseTable');
 const byId = require('./scripts/byId');
 
  module.exports = {
     byId,
-    dataTable, 
+    databaseTable, 
     getABooksAuthors,
  };

@@ -3,6 +3,14 @@ genreScripts = require('./../../sql-scripts/genre'),
 {executeQuery, sendResults, updateRow, deleteRow} = require('../../util'),
 router = express.Router();
 
+// GET genre/table
+router.get("/table", (req,response,next)=>{
+    const query = genreScripts.databaseTable;
+    executeQuery(query, [], (err, results)=>{
+        sendResults(err, results, response);
+    });
+});
+
 // GET genre/
 router.get("/", function(req,response,next){
     const query = genreScripts.databaseTable;
@@ -10,6 +18,8 @@ router.get("/", function(req,response,next){
         sendResults(err, results, response);
     });
 });
+
+
 
 // GET genre/:id
 router.get("/:id", (req, response)=>{

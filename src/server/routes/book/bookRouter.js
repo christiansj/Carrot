@@ -19,14 +19,7 @@ router.get("/table", (req, response)=>{
 	});
 });
 
-// GET book/:bookId
-router.get("/:bookId", (req, response)=>{
-	const query = bookScripts.bookById;
-	const {bookId} = req.body;
-	executeQuery(query, [bookId], (err, results)=>{
-		sendResults(err, results, response, true);
-	});
-});
+
 
 // GET book/authors/:bookId
 router.get("/authors/:bookId", (req,response)=>{
@@ -37,11 +30,20 @@ router.get("/authors/:bookId", (req,response)=>{
 	});
 });
 
-// GET bookDetail/:bookId
-router.get("/bookDetail/:bookId", (req, response) => {
-	const query = "SELECT description, title, imagePath FROM Book WHERE bookId = ?;";
+// GET book/:bookId
+router.get("/:bookId", (req, response) => {
+	const query = bookScripts.byId;
 	const {bookId} = req.params;
 	executeQuery(query, [bookId], (err, results)=>{
+		sendResults(err, results, response, true);
+	});
+});
+
+// POST book/
+router.post("/", (req, response)=>{
+	const query = bookScripts.create;
+	const {title, description, ISBN} = req.body;
+	executeQuery(query, [title, description, ISBN], (err, results)=>{
 		sendResults(err, results, response, true);
 	});
 });

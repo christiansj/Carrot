@@ -32,7 +32,7 @@ router.get("/authors/:bookId", (req,response)=>{
 
 // GET book/:bookId
 router.get("/:bookId", (req, response) => {
-	const query = bookScripts.byId;
+	const query = bookScripts.retrieveBook;
 	const {bookId} = req.params;
 	executeQuery(query, [bookId], (err, results)=>{
 		sendResults(err, results, response, true);
@@ -50,11 +50,17 @@ router.post("/", (req, response)=>{
 
 // DELETE book/:bookId
 router.delete("/:bookId", (req, response)=>{
-	const query = bookScripts.deleteBook;
+	const {retrieveBook, deleteBook} = bookScripts.deleteBook;
 	const {bookId} = req.params;
-	executeQuery(query, [bookId], (err, results)=>{
-		sendResults(err, results, response);
-	})
+	executeQuery(retrieveBook, [bookId], (err, results)=>{
+		if(!results.length){
+			response.status(400).send("Book wasn't found");
+			return;
+		}
+		executeQuery(deleteBook, [bookId], (err, resDelete)=>{
+			sendResults(err, resDelete, response);
+		});
+	});
 });
 
 module.exports = router;

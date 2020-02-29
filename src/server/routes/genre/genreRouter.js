@@ -13,7 +13,7 @@ router.get("/", function(req,res,next){
 
 // GET genre/:id
 router.get("/:id", (req, res)=>{
-    const query = genreScripts.byId;
+    const query = genreScripts.retrieveGenre;
     const {id} = req.params;
     executeQuery(query, [id], (err, results)=>{
        sendResults(err, results, res, true);
@@ -29,5 +29,21 @@ router.post("/", (req, res)=>{
     });
 });
 
+// DELETE genre/:genreId
+router.delete("/:genreId", (req, res)=>{
+    const {retrieveGenre, deleteGenre} = genreScripts;
+    const {genreId} = req.params;
+    executeQuery(retrieveGenre, [genreId], (err, results)=>{
+        if(!results.length){
+            res.status(400).send("Genre not found");
+            return;
+        }else{
+            executeQuery(deleteGenre, [genreId], (err, deleteRes)=>{
+                sendResults(err, results, deleteRes);
+            });
+        }
+     
+    });
+});
 
 module.exports = router;

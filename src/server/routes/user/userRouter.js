@@ -3,9 +3,9 @@ router = express.Router(),
 userScripts = require('./../../sql-scripts/user'),
 {executeQuery, sendResults} = require('./../../modules/dbSession');
 
-// GET user/:username
+// GET user/:userId
 router.get("/:userId", (req, response)=> {
-    const query = userScripts.byUsername;
+    const query = userScripts.retrieveUser;
     const {userId} = req.params;
    
 	executeQuery(query, [userId], (err, results)=>{
@@ -23,7 +23,7 @@ router.get("/table", (req, response)=>{
 
 // PUT user/deactivate/:userId
 router.put("/deactivate/:userId", (req, response)=>{
-    const {byId} = userScripts;
+    const {retrieveUser} = userScripts;
     const query = userScripts.deactivate;
     const {userId} = req.params;
     executeQuery(query, [userId], (err, results)=>{
@@ -32,7 +32,7 @@ router.put("/deactivate/:userId", (req, response)=>{
             res.send(400);
             return;
         }
-        executeQuery(byId, [userId], (err, byIdResults)=>{
+        executeQuery(retrieveUser, [userId], (err, byIdResults)=>{
             sendResults(err, byIdResults, response);
         })
         

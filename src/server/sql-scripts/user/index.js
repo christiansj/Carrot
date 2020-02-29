@@ -1,4 +1,4 @@
-const byId = require('./scripts/byId');
+const retrieveUser = require('./scripts/retrieveUser');
 const byUsername = require('./scripts/byUsername');
 const databaseTable = require('./scripts/databaseTable');
 const deactivate = require('./scripts/deactivate');
@@ -6,5 +6,5 @@ module.exports = {
     byUsername,
     databaseTable,
     deactivate,
-    byId
+    retrieveUser
 }

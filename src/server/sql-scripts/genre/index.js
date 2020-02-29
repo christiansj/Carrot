@@ -1,8 +1,11 @@
-const byId = require('./scripts/byId');
+const retrieveGenre = require('./scripts/retrieveGenre');
 const databaseTable = require('./scripts/databaseTable');
 const createGenre = require('./scripts/create');
+const deleteGenre = require('./scripts/delete');
 module.exports = {
-    byId,
+   
     databaseTable, 
-    createGenre
+    createGenre,
+    retrieveGenre,
+    deleteGenre
 };

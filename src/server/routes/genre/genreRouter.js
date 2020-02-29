@@ -22,7 +22,7 @@ router.get("/:id", (req, res)=>{
 
 // POST genre/
 router.post("/", (req, res)=>{
-    const query = genreScripts.post;
+    const query = genreScripts.create;
     const {name} = req.body;
     executeQuery(query, [name], (err, results)=>{
         sendResults(err, results, res, true);

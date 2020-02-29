@@ -1,6 +1,5 @@
 const { connection } = require('./../modules/dbSession');
 
-
 function executeQuery(query, parameters = [], callback) {
   connection.query(query, parameters, function (err, result) {
     if (err) {
@@ -31,9 +30,9 @@ module.exports.sendResults = sendResults;
 
 module.exports.updateRow = function (scripts, parameters, id, response) {
   const { update, retrieve } = scripts;
-  executeQuery(retrieve, [id], (err, foundResults)=>{
-    if(!foundResults.length){
-      response.status(400).send(`Update error: Initial item not found`);
+  executeQuery(retrieve, [id], (err, foundResults) => {
+    if (!foundResults.length) {
+      response.status(400).send(`Update error: Initial data row was not found`);
       return;
     }
 
@@ -43,11 +42,25 @@ module.exports.updateRow = function (scripts, parameters, id, response) {
         response.status(500).send(err);
         return;
       }
-  
+
       executeQuery(retrieve, [id], (err, retrieveResults) => {
         sendResults(err, retrieveResults, response);
       });
     });
   })
-  
+}
+
+module.exports.deleteRow = function(scripts, id, response){
+  const {retrieve, deleteRecord} = scripts;
+  executeQuery(retrieve, [id], (err, results)=>{
+    if(!results.length){
+        response.status(400).send(`Delete Error: Intitial data row was not found`);
+        return;
+    }else{
+        executeQuery(deleteRecord, [id], (err, deleteResults)=>{
+            sendResults(err, deleteResults, response);
+        });
+    }
+ 
+});
 }

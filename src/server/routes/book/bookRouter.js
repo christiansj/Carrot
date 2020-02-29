@@ -48,6 +48,7 @@ router.post("/", (req, response)=>{
 	});
 });
 
+// DELETE book/:bookId
 router.delete("/:bookId", (req, response)=>{
 	const query = bookScripts.deleteBook;
 	const {bookId} = req.params;

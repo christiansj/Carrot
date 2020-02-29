@@ -1,5 +1,5 @@
 module.exports = `
-SELECT genreId, name
-FROM genre 
-WHERE genreId = ?
+SELECT *
+    FROM genre 
+    WHERE genreId = ?
 `

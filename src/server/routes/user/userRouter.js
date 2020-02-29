@@ -3,15 +3,6 @@ router = express.Router(),
 userScripts = require('./../../sql-scripts/user'),
 {executeQuery, sendResults} = require('./../../util');
 
-// GET user/:userId
-router.get("/:userId", (req, response)=> {
-    const query = userScripts.retrieveUser;
-    const {userId} = req.params;
-   
-	executeQuery(query, [userId], (err, results)=>{
-        sendResults(err, results, response, true);
-    });
-});
 
 // GET user/table
 router.get("/table", (req, response)=>{
@@ -20,6 +11,27 @@ router.get("/table", (req, response)=>{
         sendResults(err, results, response);
     });
 });
+
+// GET user/:userId
+router.get("/:userId", (req, response)=> {
+    const query = userScripts.retrieve;
+    const {userId} = req.params;
+   
+	executeQuery(query, [userId], (err, results)=>{
+        sendResults(err, results, response, true);
+    });
+});
+
+router.get("/role/:role", (req, response)=>{
+    const query = userScripts.retrieveByRole;
+    const {role} = req.params;
+
+    executeQuery(query, [role], (err, results)=>{
+        sendResults(err, results, response);
+    })
+})
+
+
 
 // PUT user/deactivate/:userId
 router.put("/deactivate/:userId", (req, response)=>{

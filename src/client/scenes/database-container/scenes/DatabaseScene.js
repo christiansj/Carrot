@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import DataTable from "client/components/tables/DataTable";
 import Modal from "client/services/modal";
 import RecordDelete from "client/services/RecordDelete";
-
-const TABLE_NAMES = require("server/data/TableNames");
+import ApiService from 'client/services/Api';
+import {withRouter} from 'react-router-dom';
 
 const dummyData = [
   { title: "Jack and the Beanstalk", firstName: "Christopher", lastName: "Bee" },
@@ -18,19 +18,22 @@ const dummyData = [
  * @prop {Integer} index  user changes this with container nav
  */
 class DatabaseScene extends Component {
-  state = { rows: dummyData, previousIndex: this.props.index }
-  /**
-   * Reset proviousIndex upon intial render
-   */
+  state = { rows: dummyData, oldTableName: '' }
   componentDidMount(){
-    this.setState({previousIndex: -1});
+    
+    this.fetchData();
   }
   /**
    * Only fetch data when data table is rendered
    */
   componentDidUpdate() {
-    if(this.props.index >= TABLE_NAMES.length) 
+    const {index, isConnected} = this.props;
+    
+    if (!this.props.match || this.state.oldTableName === index
+      && isConnected) {
       return;
+    }
+    
     this.fetchData();
   }
   /**
@@ -39,30 +42,37 @@ class DatabaseScene extends Component {
    * User clicks on "All Books", "All Authors", etc.
    * to determine what data to fetch
    */
-  fetchData(){
-    if (this.props.isConnected && this.state.previousIndex != this.props.index) {
-      var tableName = "Book"; //default val
-      
-      if(this.props.index < TABLE_NAMES.length) 
-        tableName = TABLE_NAMES[this.props.index];
-      
-      fetch("getAll/" + tableName + "/")
-        .then(data => data.json())
-        .then((rows) => { this.setState({ rows, previousIndex: this.props.index }) })
+  fetchData() {
+      const {index} = this.props;
+      const {oldTableName} = this.state;
+      if(!this.props.match || oldTableName === this.props.match.params.tableName){
+        return;
+      }
+      const {tableName} = this.props.match.params;
+      new ApiService().execute("GET", `${this.props.match.params.tableName}/table`)
+        .then(data => data.data)
+        .then((rows) => { this.setState({ rows, oldTableName:  tableName}) })
         .catch((err) => {
-          console.log(err);
+          alert(err);
         });
-    }
+    
   }
 
   render() {
-    var heading = TABLE_NAMES[this.props.index];
-    heading = heading[0].toUpperCase() + heading.slice(1);
+    const { index, activeRecord } = this.props;
+    var heading = "";
+    if(this.props.match !== undefined){
+      heading = this.props.match.params.tableName;
+    }
+    
     return (
       <div style={{ padding: "30px 0px", backgroundColor: "snow", margin: "0px" }}>
         <h1>{heading + " Table"}</h1>
+        <br />
+        <hr />
+        <br />
         {DataTable(this.state.rows, "table-striped table-light", true)}
-        {Modal("deleteModal", RecordDelete(this.props.activeRecord, this.props.index))}
+        {Modal("deleteModal", "Delete", RecordDelete(activeRecord, index))}
       </div>
     );
   }
@@ -71,8 +81,9 @@ class DatabaseScene extends Component {
 function mapStateToProps(state) {
   return {
     isConnected: state.isConnected,
-    activeRecord: state.activeRecord
+    activeRecord: state.activeRecord,
+    onlineUser: state.onlineUser
   }
 }
 
-export default connect(mapStateToProps)(DatabaseScene);
+export default connect(mapStateToProps)(withRouter(DatabaseScene));

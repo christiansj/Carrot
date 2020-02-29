@@ -5,10 +5,8 @@ import {connect} from "react-redux";
 
 /**Components*/
 import FormContainer from "./components/forms/form-container";
-import containerNav from "./components/nav/index";
+import DatabaseNav from "./components/nav";
 import DatabaseScene from "./scenes/DatabaseScene";
-import {linkJSONs} from "./data/navLinkJSONs";
-//use TABLE_NAMES from data to construct these Strings in a function
 
 /**
  * 
@@ -16,12 +14,12 @@ import {linkJSONs} from "./data/navLinkJSONs";
  */
 class DatabaseContainer extends Component {
   render() {
-    const lineBreakIndex = linkJSONs.length / 2;
-    const {activeContainerIndex} = this.props
+    const {activeContainerIndex, onlineUser} = this.props;
+
     return (
       <div className="book-creator container">
-        {containerNav(linkJSONs, activeContainerIndex, lineBreakIndex)}
-        {rightContainer(this.props.activeContainerIndex)}
+        <DatabaseNav/>
+        {rightContainer(activeContainerIndex, onlineUser)}
       </div>
     )
   }
@@ -30,18 +28,18 @@ class DatabaseContainer extends Component {
  * 
  * @param {Number} index 
  */
-function rightContainer(index){
-  
+function rightContainer(index, onlineUserJSON){
   if(index < 3){
     return (<DatabaseScene index={index}/>)
   }
 
-  return <FormContainer index = {index-3}/>
+  return <FormContainer index = {index-3} onlineUser = {onlineUserJSON}/>
 }
 
 function mapStateToProps(state){
   return {
-    activeContainerIndex: state.activeDataContainer
+    activeContainerIndex: state.activeDataContainer,
+    onlineUser: state.onlineUser
   }
 }
 

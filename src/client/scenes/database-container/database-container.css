@@ -21,6 +21,15 @@
   background-color: #D3D3D3;
   font-weight: bold;
 }
+#form-container{
+  padding: 15px;
+}
+#create-nav > li > a{
+  color: red;
+}
+#form-container > .form-header{
+  margin-bottom: 35px;
+}
 #create-nav > li{
   margin: 35px;
   font-size: 18px;

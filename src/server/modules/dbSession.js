@@ -3,7 +3,7 @@ dotenv.config({ path: __dirname + './../../../.env' });
 
 var connection = require('mysql').createConnection({
   host: 'localhost', user: process.env.SQL_USERNAME,
-  password: process.env.SQL_PASSWORD, database: 'carrot',
+  password: process.env.SQL_PASSWORD, database: 'mock_carrot',
   multipleStatements: true
 });
 
@@ -22,9 +22,12 @@ module.exports.executeQuery =  function(query, parameters = [], callback){
 
 module.exports.sendResults = function(err, results, response, isSendOne = false){
   if(err){
-      response.send(400);
+      response.status(500);
   }else{
-    if(isSendOne){
+    if(!results.length){
+      response.sendStatus(204);
+    }
+    else if(isSendOne){
       response.json(results[0]);
     }else{
       response.json(results);

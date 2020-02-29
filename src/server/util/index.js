@@ -31,15 +31,23 @@ module.exports.sendResults = sendResults;
 
 module.exports.updateRow = function (scripts, parameters, id, response) {
   const { update, retrieve } = scripts;
-  executeQuery(update, [...parameters, id], (err, results) => {
-    if (err) {
-      console.log(err);
-      response.status(500).send(err);
+  executeQuery(retrieve, [id], (err, foundResults)=>{
+    if(!foundResults.length){
+      response.status(400).send(`Update error: Initial item not found`);
       return;
     }
 
-    executeQuery(retrieve, [id], (err, retrieveResults) => {
-      sendResults(err, retrieveResults, response);
+    executeQuery(update, [...parameters, id], (err, results) => {
+      if (err) {
+        console.log(err);
+        response.status(500).send(err);
+        return;
+      }
+  
+      executeQuery(retrieve, [id], (err, retrieveResults) => {
+        sendResults(err, retrieveResults, response);
+      });
     });
-  });
+  })
+  
 }

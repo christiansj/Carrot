@@ -1,7 +1,7 @@
 const express = require('express'),
 router = express.Router(),
 userScripts = require('./../../sql-scripts/user'),
-{executeQuery, sendResults} = require('./../../modules/dbSession');
+{executeQuery, sendResults} = require('./../../util');
 
 // GET user/:userId
 router.get("/:userId", (req, response)=> {

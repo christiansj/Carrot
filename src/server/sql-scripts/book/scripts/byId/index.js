@@ -1,5 +1,5 @@
 module.exports = `
-SELECT bookId, title, description, dateCreated, dateUpdated, downloadCnt, ISBN, imagePath
+SELECT bookId, title, description, dateCreated, dateUpdated, ISBN, imagePath
     FROM Book
     WHERE bookId = ?;
 `;

@@ -1,6 +1,6 @@
 const express = require('express'),
 router = express.Router(),
-{executeQuery, sendResults} = require("./../../modules/dbSession"),
+{executeQuery, sendResults, updateRow} = require("./../../util/"),
 bookScripts = require('./../../sql-scripts/book');
 
 function getDirectoryHash(bookId){
@@ -30,7 +30,7 @@ router.get("/authors/:bookId", (req,response)=>{
 
 // GET book/:bookId
 router.get("/:bookId", (req, response) => {
-	const query = bookScripts.retrieveBook;
+	const query = bookScripts.retrieve;
 	const {bookId} = req.params;
 	executeQuery(query, [bookId], (err, results)=>{
 		sendResults(err, results, response, true);
@@ -50,24 +50,15 @@ router.post("/", (req, response)=>{
 router.put("/:bookId", (req, response)=>{
 	const {bookId} = req.params;
 	const {title, description, ISBN} = req.body;
-	const {updateBook, retrieveBook} = bookScripts;
-	executeQuery(updateBook, [title, description, ISBN, bookId], (err, results)=>{
-		if(err){
-			response.status(500).send(err);
-			return;
-		}
 
-		executeQuery(retrieveBook, [bookId], (err, retrieveResults)=>{
-			sendResults(err, retrieveResults, response, true);
-		});
-	});
+	updateRow(bookScripts, [title, description, ISBN], bookId, response);
 });
 
 // DELETE book/:bookId
 router.delete("/:bookId", (req, response)=>{
-	const {retrieveBook, deleteBook} = bookScripts.deleteBook;
+	const {retrieve, deleteBook} = bookScripts.deleteBook;
 	const {bookId} = req.params;
-	executeQuery(retrieveBook, [bookId], (err, results)=>{
+	executeQuery(retrieve, [bookId], (err, results)=>{
 		if(!results.length){
 			response.status(400).send("Book wasn't found");
 			return;

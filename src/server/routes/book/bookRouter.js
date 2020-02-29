@@ -41,11 +41,19 @@ router.get("/:bookId", (req, response) => {
 
 // POST book/
 router.post("/", (req, response)=>{
-	const query = bookScripts.create;
+	const query = bookScripts.createBook;
 	const {title, description, ISBN} = req.body;
 	executeQuery(query, [title, description, ISBN], (err, results)=>{
 		sendResults(err, results, response, true);
 	});
+});
+
+router.delete("/:bookId", (req, response)=>{
+	const query = bookScripts.deleteBook;
+	const {bookId} = req.params;
+	executeQuery(query, [bookId], (err, results)=>{
+		sendResults(err, results, response);
+	})
 });
 
 module.exports = router;

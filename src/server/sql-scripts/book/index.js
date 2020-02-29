@@ -1,11 +1,12 @@
 const getABooksAuthors = require('./scripts/getABooksAuthors/');
 const databaseTable = require('./scripts/databaseTable');
 const byId = require('./scripts/byId');
-const create = require('./scripts/create');
-
+const createBook = require('./scripts/create');
+const deleteBook = require('./scripts/delete');
  module.exports = {
     byId,
     databaseTable, 
     getABooksAuthors,
-    create
+    createBook,
+    deleteBook
  };

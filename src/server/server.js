@@ -3,12 +3,15 @@ logger = require('morgan'),
 bodyParser = require('body-parser'),
 cookieParser = require('cookie-parser'),
 path = require('path'),
-multer = require("multer");
+cors = require('cors');
+
 
 const app = express();
-
-
-
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -21,17 +24,15 @@ app.use(express.static(path.join(__dirname, './public')));
 // Returns a response to the client
 app.use(("/sql/checkConnection"), function(req,res){res.send(true)});
 
-/**CRUD routers*/
-app.use("/e/getAll/", require("./routes/sql/retrieveRouter"));
-app.use("/createData/", require("./routes/sql/insertRouter"));
-app.use("/deleteData/", require("./routes/sql/deleteRouter"));
-app.use("/getAll/", require("./routes/sql/retrieveRouter"));
+
+app.use("/user/", require("./routes/user/userRouter"));
+app.use("/book/", require("./routes/book/bookRouter"));
+app.use("/author/", require("./routes/author/authorRouter"));
+app.use("/genre/", require("./routes/genre/genreRouter"));
+
+
 /**file router */
 app.use("/fileUpload/", require("./routes/file-upload/fileUploadRouter"));
-
-/**user routers */
-app.use("/facebookUser/", require("./routes/facebook-user/facebookUserRouter"));
-app.use("/fakeUser/", require("./routes/fake-user/fakeUserRouter"));
 
 // catch 404 and forward to error handler
 app.use(function (err, req, res, next) {
@@ -51,7 +52,9 @@ app.use(function (err, req, res, next) {
 });
 
 //listen on same port listed in package.JSON
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 8080, ()=>{
+  console.log(`listening on ${process.env.PORT}`);
+});
 
 //export this server
 module.exports = app;

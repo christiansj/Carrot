@@ -19,10 +19,11 @@ const dummyData = [
  */
 class DatabaseScene extends Component {
   state = { rows: dummyData, oldTableName: '' }
+
   componentDidMount(){
-    
     this.fetchData();
   }
+  
   /**
    * Only fetch data when data table is rendered
    */
@@ -43,7 +44,6 @@ class DatabaseScene extends Component {
    * to determine what data to fetch
    */
   fetchData() {
-      const {index} = this.props;
       const {oldTableName} = this.state;
       if(!this.props.match || oldTableName === this.props.match.params.tableName){
         return;
@@ -53,7 +53,7 @@ class DatabaseScene extends Component {
         .then(data => data.data)
         .then((rows) => { this.setState({ rows, oldTableName:  tableName}) })
         .catch((err) => {
-          alert(err);
+          console.log(err);
         });
     
   }

@@ -12,6 +12,7 @@ module.exports.connection = connection;
 module.exports.executeQuery =  function(query, parameters = [], callback){
   connection.query(query, parameters, function(err, result){
     if(err){
+      console.log(err);
       callback(err,null);
     }else{
       callback(null, result);

@@ -18,6 +18,6 @@ CREATE TABLE User(
 	lastLoginDate TIMESTAMP,
 	balance DECIMAL(10,0) DEFAULT 0,
 	CONSTRAINT con_balance
-		CHECK(balance > 0),
+		CHECK(balance >= 0),
 	PRIMARY KEY(userId)
 );

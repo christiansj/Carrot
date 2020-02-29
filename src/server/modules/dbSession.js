@@ -22,7 +22,7 @@ module.exports.executeQuery =  function(query, parameters = [], callback){
 
 module.exports.sendResults = function(err, results, response, isSendOne = false){
   if(err){
-      response.status(500);
+      response.sendStatus(500);
   }else{
     if(!results.length){
       response.sendStatus(204);

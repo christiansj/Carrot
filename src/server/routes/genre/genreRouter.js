@@ -29,6 +29,22 @@ router.post("/", (req, res)=>{
     });
 });
 
+// PUT genre/:genreId
+router.put('/:genreId', (req, response)=>{
+    const {genreId} = req.params;
+    const {name} = req.body;
+    const {updateGenre, retrieveGenre} = genreScripts;
+    executeQuery(updateGenre, [name, genreId], (err, results)=>{
+        if(err){
+            response.status(500).send(err);
+            return;
+        }
+        executeQuery(retrieveGenre, [genreId], (err, retrieveResults)=>{
+            sendResults(err, retrieveResults, response, true);
+        });
+    });
+});
+
 // DELETE genre/:genreId
 router.delete("/:genreId", (req, res)=>{
     const {retrieveGenre, deleteGenre} = genreScripts;

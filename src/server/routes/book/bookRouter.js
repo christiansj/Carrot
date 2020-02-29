@@ -19,8 +19,6 @@ router.get("/table", (req, response)=>{
 	});
 });
 
-
-
 // GET book/authors/:bookId
 router.get("/authors/:bookId", (req,response)=>{
 	const query = bookScripts.getABooksAuthors;
@@ -45,6 +43,23 @@ router.post("/", (req, response)=>{
 	const {title, description, ISBN} = req.body;
 	executeQuery(query, [title, description, ISBN], (err, results)=>{
 		sendResults(err, results, response, true);
+	});
+});
+
+// PUT book/:bookId
+router.put("/:bookId", (req, response)=>{
+	const {bookId} = req.params;
+	const {title, description, ISBN} = req.body;
+	const {updateBook, retrieveBook} = bookScripts;
+	executeQuery(updateBook, [title, description, ISBN, bookId], (err, results)=>{
+		if(err){
+			response.status(500).send(err);
+			return;
+		}
+
+		executeQuery(retrieveBook, [bookId], (err, retrieveResults)=>{
+			sendResults(err, retrieveResults, response, true);
+		});
 	});
 });
 

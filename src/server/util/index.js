@@ -50,17 +50,28 @@ module.exports.updateRow = function (scripts, parameters, id, response) {
   })
 }
 
-module.exports.deleteRow = function(scripts, id, response){
-  const {retrieve, deleteRecord} = scripts;
-  executeQuery(retrieve, [id], (err, results)=>{
-    if(!results.length){
-        response.status(400).send(`Delete Error: Intitial data row was not found`);
-        return;
-    }else{
-        executeQuery(deleteRecord, [id], (err, deleteResults)=>{
-            sendResults(err, deleteResults, response);
-        });
+module.exports.deleteRow = function (scripts, id, response) {
+  const { retrieve, deleteRecord } = scripts;
+  
+  executeQuery(retrieve, [id], (err, results) => {
+    if (!results.length) {
+      response.status(400).send(`Delete Error: Intitial data row was not found`);
+      return;
     }
+
+    executeQuery(deleteRecord, [id], (err, deleteResults) => {
+      sendResults(err, deleteResults, response);
+    });
+  });
+}
+
+module.exports.retrieveRow = function (retrieveScript, id, response) {
  
-});
+  executeQuery(retrieveScript, [id], (err, results) => {
+    if (!results.length) {
+      response.status(400).send('Retrieve Error: Data row was not found');
+      return;
+    }
+    sendResults(err, results, response);
+  })
 }

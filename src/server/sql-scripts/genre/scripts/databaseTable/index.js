@@ -1,4 +1,4 @@
 module.exports = `
-    SELECT genreId, name
+    SELECT genreId as id, name
     FROM Genre;
 `;

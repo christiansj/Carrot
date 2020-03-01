@@ -12,21 +12,24 @@ function executeQuery(query, parameters = [], callback) {
 }
 module.exports.executeQuery = executeQuery;
 
+
 function sendResults(err, results, response, isSendOne = false) {
   if (err) {
     response.sendStatus(500);
+    return;
+  }
+
+  if (!results.length) {
+    response.sendStatus(204);
+  }
+  else if (isSendOne) {
+    response.json(results[0]);
   } else {
-    if (!results.length) {
-      response.sendStatus(204);
-    }
-    else if (isSendOne) {
-      response.json(results[0]);
-    } else {
-      response.json(results);
-    }
+    response.json(results);
   }
 }
 module.exports.sendResults = sendResults;
+
 
 module.exports.updateRow = function (scripts, parameters, id, response) {
   const { update, retrieve } = scripts;
@@ -50,9 +53,10 @@ module.exports.updateRow = function (scripts, parameters, id, response) {
   })
 }
 
+
 module.exports.deleteRow = function (scripts, id, response) {
   const { retrieve, deleteRecord } = scripts;
-  
+
   executeQuery(retrieve, [id], (err, results) => {
     if (!results.length) {
       response.status(400).send(`Delete Error: Intitial data row was not found`);
@@ -65,8 +69,8 @@ module.exports.deleteRow = function (scripts, id, response) {
   });
 }
 
+
 module.exports.retrieveRow = function (retrieveScript, id, response) {
- 
   executeQuery(retrieveScript, [id], (err, results) => {
     if (!results.length) {
       response.status(400).send('Retrieve Error: Data row was not found');

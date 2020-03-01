@@ -1,4 +1,4 @@
 module.exports = `
-    SELECT userId, firstName, lastName, username, role
+    SELECT userId as id, firstName, lastName, username, role
     FROM User;
 `;

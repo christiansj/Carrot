@@ -1,7 +1,7 @@
 const express = require('express'),
 router = express.Router(),
 userScripts = require('./../../sql-scripts/user'),
-{executeQuery, sendResults, retrieveRow} = require('./../../util');
+{executeQuery, sendResults, retrieveRow, updateRow} = require('./../../util');
 
 // GET user/edit-form/:userId
 router.get("/edit-form/:userId", (request, response)=>{
@@ -57,6 +57,13 @@ router.put("/deactivate/:userId", (request, response)=>{
             sendResults(err, byIdResults, response);
         })
     });
+});
+
+router.put('/:userId', (request, response)=>{
+    const {userId} = request.params;
+    const {username, firstName, lastName, role} = request.body;
+
+    updateRow(userScripts, [username, firstName, lastName, role], userId, response);
 });
 
 module.exports = router;

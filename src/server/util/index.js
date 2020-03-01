@@ -72,6 +72,6 @@ module.exports.retrieveRow = function (retrieveScript, id, response) {
       response.status(400).send('Retrieve Error: Data row was not found');
       return;
     }
-    sendResults(err, results, response);
-  })
+    sendResults(err, results, response, true);
+  });
 }

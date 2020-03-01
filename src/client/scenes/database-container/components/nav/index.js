@@ -11,11 +11,15 @@ class DatabaseNav extends Component {
         tableNames: []
     }
     componentDidMount() {
+
         new ApiService().execute('GET', '/admin/tableNames')
             .then(res => {
                 this.setState({ tableNames: res.data }, () => {
-                    var { history } = this.props;
-                    history.push(`/admin-dashboard/database/${this.state.tableNames[0]}`)
+                    const { history } = this.props;
+                    const {tableName} = this.props.match.params;
+                    if(!tableName){
+                        history.push(`/admin-dashboard/database/${this.state.tableNames[0]}`)
+                    }
                     this.render();
                 })
             })

@@ -9,7 +9,7 @@ import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
 const deleteHeading = (recordName) => (
   <h1>
     <span style={{ color: 'red' }}>Delete </span>
-    <span style={{ color: 'black' }}>{recordName}</span>
+    <span style={{ color: 'black' }}>{recordName}?</span>
   </h1>
 )
 /**

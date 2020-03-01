@@ -60,18 +60,18 @@ class DatabaseScene extends Component {
 
   render() {
     const { index, activeRecord } = this.props;
-    var heading = "";
+    var tableName = "";
     if(this.props.match !== undefined){
-      heading = this.props.match.params.tableName;
+      tableName = this.props.match.params.tableName;
     }
     
     return (
       <div style={{ padding: "30px 0px", backgroundColor: "snow", margin: "0px" }}>
-        <h1>{heading + " Table"}</h1>
+        <h1>{tableName + " Table"}</h1>
         <br />
         <hr />
         <br />
-        {DataTable(this.state.rows, "table-striped table-light", true)}
+        {DataTable(tableName, this.state.rows, "table-striped table-light", true)}
         {Modal("deleteModal", "Delete", RecordDelete(activeRecord, index))}
       </div>
     );

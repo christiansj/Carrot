@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 import store from "client/redux/stores/";
 import { setActiveRecord } from "client/redux/actions/"
-import { setActiveBook } from "client/redux/actions/";
+
 /**
  * 
  * @param {JSON} data 
  */
-const DataTable = (data, classStyle, renderLinks) => (
+const DataTable = (tableName, data, classStyle, renderLinks,) => (
   <table className={"table " + classStyle} id="DataTable" style={{ marginTop: '15px', border: '1px solid black' }}>
     <thead>
       <tr>
@@ -20,7 +20,7 @@ const DataTable = (data, classStyle, renderLinks) => (
       </tr>
     </thead>
     <tbody>
-      {createRows(data, renderLinks)}
+      {createRows(tableName, data, renderLinks)}
     </tbody>
   </table>
 )
@@ -31,15 +31,15 @@ const DataTable = (data, classStyle, renderLinks) => (
  * 
  * @param {JSON} data 
  */
-const createBookLinks = (data, renderLinks) => {
+const createBookLinks = (tableName, data, renderLinks) => {
   if(!renderLinks){
     return;
   }
   return (
     <td>
-    <Link to={"/u/" + data.title}
+    <Link to={`/admin-dashboard/edit/${tableName}/${data.id}`}
       className="btn btn-success btn-sm"
-      onClick={() => store.dispatch(setActiveBook("activeBook", data))}>
+      onClick={() => store.dispatch(setActiveRecord("activeRecord", data))}>
       Edit
     </Link>
     {DeleteButton(data)}
@@ -65,12 +65,12 @@ const createRow = (data) => (
  * 
  * @param {JSON} data 
  */
-const createRows = (dataJSONs, renderLinks) => (
+const createRows = (tableName, dataJSONs, renderLinks) => (
   dataJSONs.map((item, index) => {
     return (
       <tr key={"link" + index}>
         {createRow(item)}
-        {createBookLinks(item, renderLinks)}
+        {createBookLinks(tableName, item, renderLinks)}
       </tr>
     )
   })

@@ -4,12 +4,13 @@ const retrieve = require('./scripts/retrieveBook');
 const create = require('./scripts/create');
 const update = require('./scripts/update');
 const deleteRecord = require('./scripts/delete');
-
+const editForm = require('./scripts/edit-form');
 module.exports = {
    databaseTable,
    getABooksAuthors,
    create,
    retrieve,
    update,
-   deleteRecord
+   deleteRecord,
+   editForm
 };

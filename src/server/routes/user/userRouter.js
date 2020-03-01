@@ -1,30 +1,39 @@
 const express = require('express'),
 router = express.Router(),
 userScripts = require('./../../sql-scripts/user'),
-{executeQuery, sendResults} = require('./../../util');
+{executeQuery, sendResults, retrieveRow} = require('./../../util');
+
+// GET user/edit-form/:userId
+router.get("/edit-form/:userId", (request, response)=>{
+    const query = userScripts.editForm;
+    const {userId} = request.params;
+
+    retrieveRow(query, userId, response);
+});
 
 
 // GET user/table
-router.get("/table", (req, response)=>{
+router.get("/table", (request, response)=>{
     const query = userScripts.databaseTable;
     executeQuery(query, [], (err, results)=>{
         sendResults(err, results, response);
     });
 });
 
+
 // GET user/:userId
-router.get("/:userId", (req, response)=> {
+router.get("/:userId", (request, response)=> {
     const query = userScripts.retrieve;
-    const {userId} = req.params;
+    const {userId} = request.params;
    
-	executeQuery(query, [userId], (err, results)=>{
-        sendResults(err, results, response, true);
-    });
+	retrieveRow(query, userId, response);
 });
 
-router.get("/role/:role", (req, response)=>{
+
+// GET user/role/:role
+router.get("/role/:role", (request, response)=>{
     const query = userScripts.retrieveByRole;
-    const {role} = req.params;
+    const {role} = request.params;
 
     executeQuery(query, [role], (err, results)=>{
         sendResults(err, results, response);
@@ -32,12 +41,12 @@ router.get("/role/:role", (req, response)=>{
 })
 
 
-
 // PUT user/deactivate/:userId
-router.put("/deactivate/:userId", (req, response)=>{
+router.put("/deactivate/:userId", (request, response)=>{
     const {retrieveUser} = userScripts;
     const query = userScripts.deactivate;
-    const {userId} = req.params;
+    const {userId} = request.params;
+
     executeQuery(query, [userId], (err, results)=>{
         if(err){
             console.log(err);
@@ -47,7 +56,7 @@ router.put("/deactivate/:userId", (req, response)=>{
         executeQuery(retrieveUser, [userId], (err, byIdResults)=>{
             sendResults(err, byIdResults, response);
         })
-        
     });
 });
+
 module.exports = router;

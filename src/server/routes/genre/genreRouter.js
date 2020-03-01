@@ -1,55 +1,68 @@
 const express = require("express"),
 genreScripts = require('./../../sql-scripts/genre'),
-{executeQuery, sendResults, updateRow, deleteRow} = require('../../util'),
+{executeQuery, sendResults, updateRow, deleteRow, retrieveRow} = require('../../util'),
 router = express.Router();
 
+// GET genre/edit-form/:genreId
+router.get("/edit-form/:genreId", (request, response)=>{
+    const query = genreScripts.editForm;
+    const {genreId} = request.params;
+
+    retrieveRow(query, genreId, response);
+});
+
+
 // GET genre/table
-router.get("/table", (req,response,next)=>{
+router.get("/table", (request,response)=>{
     const query = genreScripts.databaseTable;
+
     executeQuery(query, [], (err, results)=>{
         sendResults(err, results, response);
     });
 });
+
 
 // GET genre/
-router.get("/", function(req,response,next){
+router.get("/", function(request,response){
     const query = genreScripts.databaseTable;
+
     executeQuery(query, [], (err, results)=>{
         sendResults(err, results, response);
     });
 });
-
 
 
 // GET genre/:id
-router.get("/:id", (req, response)=>{
+router.get("/:genreId", (request, response)=>{
     const query = genreScripts.retrieve;
-    const {id} = req.params;
-    executeQuery(query, [id], (err, results)=>{
-       sendResults(err, results, response, true);
-    });
+    const {genreId} = request.params;
+
+    retrieveRow(query, genreId, response);
 });
 
+
 // POST genre/
-router.post("/", (req, response)=>{
+router.post("/", (request, response)=>{
     const query = genreScripts.create;
-    const {name} = req.body;
+    const {name} = request.body;
     executeQuery(query, [name], (err, results)=>{
         sendResults(err, results, response, true);
     });
 });
 
+
 // PUT genre/:genreId
-router.put('/:genreId', (req, response)=>{
-    const {genreId} = req.params;
-    const {name} = req.body;
+router.put('/:genreId', (request, response)=>{
+    const {genreId} = request.params;
+    const {name} = request.body;
     
     updateRow(genreScripts, [name], genreId, response);
 });
 
+
 // DELETE genre/:genreId
-router.delete("/:genreId", (req, response)=>{
-    const {genreId} = req.params;
+router.delete("/:genreId", (request, response)=>{
+    const {genreId} = request.params;
 
     deleteRow(genreScripts, genreId, response)
 });

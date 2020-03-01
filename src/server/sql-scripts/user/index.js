@@ -3,11 +3,13 @@ const byUsername = require('./scripts/byUsername');
 const databaseTable = require('./scripts/databaseTable');
 const deactivate = require('./scripts/deactivate');
 const retrieveByRole = require('./scripts/retrieveByRole');
+const editForm = require('./scripts/edit-form');
 
 module.exports = {
     byUsername,
     databaseTable,
     deactivate,
     retrieve,
-    retrieveByRole
+    retrieveByRole,
+    editForm
 }

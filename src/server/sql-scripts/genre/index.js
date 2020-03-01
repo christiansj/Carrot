@@ -3,11 +3,13 @@ const create = require('./scripts/create');
 const retrieve = require('./scripts/retrieveGenre');
 const update = require('./scripts/update');
 const deleteRecord = require('./scripts/delete');
+const editForm = require('./scripts/edit-form');
 
 module.exports = {
     databaseTable, 
     create,
     retrieve,
     update,
-    deleteRecord
+    deleteRecord,
+    editForm
 };

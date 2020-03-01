@@ -17,7 +17,7 @@ router.get('/tableNames', (req,response)=>{
            }
        }
        if(!names.length){
-           response.statusCode(204).(names);
+           response.statusCode(204).send(names);
            return;
        }
        

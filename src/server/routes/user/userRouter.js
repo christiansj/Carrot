@@ -1,7 +1,6 @@
-const express = require('express'),
-router = express.Router(),
-userScripts = require('./../../sql-scripts/user'),
-{executeQuery, sendResults, retrieveRow, updateRow} = require('./../../util');
+const router = require('express').Router();
+const userScripts = require('./../../sql-scripts/user');
+const {executeQuery, sendResults, retrieveRow, updateRow} = require('./../../util');
 
 // GET user/edit-form/:userId
 router.get("/edit-form/:userId", (request, response)=>{
@@ -37,8 +36,8 @@ router.get("/role/:role", (request, response)=>{
 
     executeQuery(query, [role], (err, results)=>{
         sendResults(err, results, response);
-    })
-})
+    });
+});
 
 
 // PUT user/deactivate/:userId
@@ -55,7 +54,7 @@ router.put("/deactivate/:userId", (request, response)=>{
         }
         executeQuery(retrieveUser, [userId], (err, byIdResults)=>{
             sendResults(err, byIdResults, response);
-        })
+        });
     });
 });
 

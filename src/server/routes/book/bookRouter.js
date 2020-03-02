@@ -1,8 +1,8 @@
-const express = require('express'),
-router = express.Router(),
-{executeQuery, sendResults, retrieveRow, updateRow, deleteRow} = require("./../../util/"),
-bookScripts = require('./../../sql-scripts/book');
+const router = require('express').Router();
+const {executeQuery, sendResults, retrieveRow, updateRow, deleteRow} = require("./../../util/");
+const bookScripts = require('./../../sql-scripts/book');
 
+// ??
 function getDirectoryHash(bookId){
 	for(var directoryHash = 1; bookId < directoryHash *1000; directoryHash++){
 		if(bookId < directoryHash* 1000){
@@ -17,6 +17,23 @@ router.get("/edit-form/:bookId", (request, response)=>{
 	const {bookId} = request.params;
 
 	retrieveRow(query, bookId, response);
+});
+
+
+// GET book/genres/:bookId
+router.get("/genres/:bookId", (request, response)=>{
+	const {retrieve, genresInBook} = bookScripts;
+	const {bookId} = request.params;
+
+	executeQuery(retrieve, [bookId], (err, results)=>{
+		if(!results.length){
+			response.statusCode(400).send('Book was not found');
+			return;
+		}
+		executeQuery(genresInBook, [bookId], (err, genres)=>{
+			sendResults(err, genres, response);
+		});
+	});
 });
 
 

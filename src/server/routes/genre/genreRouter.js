@@ -1,7 +1,23 @@
-const express = require("express"),
-genreScripts = require('./../../sql-scripts/genre'),
-{executeQuery, sendResults, updateRow, deleteRow, retrieveRow} = require('../../util'),
-router = express.Router();
+const router = require("express").Router();
+const genreScripts = require('./../../sql-scripts/genre');
+const {executeQuery, sendResults, updateRow, deleteRow, retrieveRow} = require('../../util');
+
+
+// GET genre/books/:genreId
+router.get("/books/:genreId", (request, response)=>{
+    const {retrieve, booksInGenre} = genreScripts;
+    const {genreId} = request.params;
+
+    executeQuery(retrieve, [genreId], (err, results)=>{
+        if(!results.length){
+            response.status(400).send("Genre was not found");
+            return;
+        }
+        executeQuery(booksInGenre, [genreId], (err, books)=>{
+            sendResults(err, books, response);
+        });
+    });
+});
 
 // GET genre/edit-form/:genreId
 router.get("/edit-form/:genreId", (request, response)=>{

@@ -1,6 +1,7 @@
 // parameters: Id of book
 const getABooksAuthors =`
-SELECT u.firstName, u.lastName FROM Book b, User u, BookAuthor ba
+SELECT u.userId, u.firstName, u.lastName, u.email
+FROM Book b, User u, BookAuthor ba
  WHERE(
      b.bookId = ba.bookId
      and u.userId = ba.authorId

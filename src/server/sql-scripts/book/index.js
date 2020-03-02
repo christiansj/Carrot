@@ -5,6 +5,8 @@ const create = require('./scripts/create');
 const update = require('./scripts/update');
 const deleteRecord = require('./scripts/delete');
 const editForm = require('./scripts/edit-form');
+const genresInBook = require('./scripts/genresInBook');
+
 module.exports = {
    databaseTable,
    getABooksAuthors,
@@ -12,5 +14,6 @@ module.exports = {
    retrieve,
    update,
    deleteRecord,
-   editForm
+   editForm,
+   genresInBook
 };

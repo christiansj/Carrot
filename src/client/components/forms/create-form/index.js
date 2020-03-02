@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ApiService from 'client/services/Api';
 
-import {toggleExistsError, areRequirementsFilled, renderFields, areNoErrors, resetFormErrors} from './functions/exports';
+import {toggleExistsError, areRequirementsFilled, renderFields, areNoErrors, resetFormErrors} from './functions';
 import "./../forms.css";
 
 class CreateForm extends Component {

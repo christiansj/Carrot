@@ -1,72 +1,83 @@
 import React, { Component } from 'react';
 import ApiService from 'client/services/Api';
 import formRow from '../form-row';
-import {Link, withRouter} from 'react-router-dom';
-
+import { Link, withRouter } from 'react-router-dom';
+import {renderFields} from './functions';
 class EditForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            obj: {}
+            requestBody: {}
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         // this.objectToFields = this.objectToFields.bind(this);
     }
+
+
     componentDidMount() {
         if (this.props.match === undefined) {
             return;
         }
         const { tableName, id } = this.props.match.params;
-        
-        new ApiService().execute("GET", `${tableName}/edit-form/${id}`)
-        .then(res=>{
 
-            this.setState({obj: res.data})
-        })
-        .catch(err=>{alert(err)})
+        new ApiService().execute("GET", `${tableName}/edit-form/${id}`)
+            .then(res => {
+
+                this.setState({ requestBody: res.data })
+            })
+            .catch(err => { alert(err) })
     }
+
 
     handleInputChange(event) {
         const { target } = event;
-        
+
         const value = target.value;
         const name = target.name;
-       
+
         this.setState(prevState => ({
-            obj: {
-                ...prevState.obj,
+            requestBody: {
+                ...prevState.requestBody,
                 [name]: value
             }
         }));
     }
 
-    handleUpdate(){
+
+    handleUpdate() {
         const { tableName, id } = this.props.match.params;
-        
-        new ApiService().execute("PUT", `${tableName}/${id}`, this.state.obj)
-        .then(res=>{
-            console.log(res.data)
-            this.props.history.goBack()
-        })
+
+        new ApiService().execute("PUT", `${tableName}/${id}`, this.state.requestBody)
+            .then(res => {
+                console.log(res.data)
+                this.props.history.goBack()
+            })
     }
 
+
     render() {
-        if(this.state.obj ===null){
-            return(
+        if (this.state.requestBody === null) {
+            return (
                 <div className="row">
                     <h3>Unable to find object</h3>
                 </div>
             )
         }
-
+        const { tableName } = this.props.match.params;
+        const {requestBody} = this.state;
+        const renderFieldsProps = {
+            requestBody,
+            handleInputChange: this.handleInputChange
+        }
         return (
-            <div className="container">
-                <Link to="/" className='left' onClick={() => this.props.history.goBack()}>Back</Link>
+            <div className="jumbotron">
+                <Link to="/" style={{ float: 'left' }} onClick={() => this.props.history.goBack()}>Back</Link>
+                <h3>Edit {tableName}</h3>
                 <div id="form-container">
-                    {objectToFields(this.state.obj, this.handleInputChange)}
+                    {renderFields(renderFieldsProps)}
                 </div>
-                
-                <button className="btn btn-primary" onClick={()=>this.handleUpdate()}>
+
+                <button className="btn btn-primary" onClick={() => this.handleUpdate()}>
                     Update
                 </button>
             </div>
@@ -74,14 +85,5 @@ class EditForm extends Component {
     }
 }
 
-function objectToFields(obj, changeEvent){
-    return Object.keys(obj).map((key, index)=>{
-        const name = key;
-        const value = obj[key];
-        return(
-            <span key={`edit-form-field-${index}`}>
-                {formRow(name, value, changeEvent)}
-            </span> )
-    })
-}
+
 export default EditForm;

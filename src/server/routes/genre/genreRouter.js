@@ -1,6 +1,19 @@
 const router = require("express").Router();
 const genreScripts = require('./../../sql-scripts/genre');
-const {executeQuery, sendResults, updateRow, deleteRow, retrieveRow} = require('../../util');
+const {executeQuery, sendResults, updateRow, deleteRow, retrieveRow, uniqueCheck} = require('../../util');
+
+// GET genre/unique/:name/:value
+router.get("/unique/:fieldName/:value", (request, response)=>{
+    const {fieldName, value} = request.params;
+    const uniqueCheckProps = {
+        fieldName,
+        value,
+        scripts: genreScripts,
+        response
+    }
+    
+    uniqueCheck(uniqueCheckProps);
+});
 
 
 // GET genre/books/:genreId
@@ -37,7 +50,18 @@ router.get("/table", (request,response)=>{
     });
 });
 
+router.get("/create-form", (request, response)=>{
+    const resBody = {
+        obj: {
+            name: ''
+        },
+        uniqueFields: ["name"],
+        requiredFields: ["name"]
+    }
+    
 
+    response.send(resBody);
+});
 // GET genre/
 router.get("/", function(request,response){
     const query = genreScripts.databaseTable;

@@ -79,3 +79,22 @@ module.exports.retrieveRow = function (retrieveScript, id, response) {
     sendResults(err, results, response, true);
   });
 }
+
+module.exports.uniqueCheck = function(props = {}){
+  const {fieldName, value, scripts, response} = props;
+  const uniqueFields = Object.keys(scripts.unique);
+
+  if(!uniqueFields.find(item=>item===fieldName)){
+      response.status(400).send(`UNIQUE field "${fieldName}" does not exist in table`);
+      return;
+  }
+
+  const uniqueQuery = scripts.unique[fieldName];
+  executeQuery(uniqueQuery, [value], (err, results)=>{
+      if(!results.length){
+          response.status(204).send();
+      }else{
+          response.status(200).send();
+      }
+  });
+}

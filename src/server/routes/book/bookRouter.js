@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {executeQuery, sendResults, retrieveRow, updateRow, deleteRow} = require("./../../util/");
+const {executeQuery, sendResults, retrieveRow, updateRow, deleteRow, uniqueCheck} = require("./../../util/");
 const bookScripts = require('./../../sql-scripts/book');
 
 // ??
@@ -10,6 +10,34 @@ function getDirectoryHash(bookId){
 		}
 	}
 }
+
+// GET book/unique/:fieldName/:value
+router.get("/unique/:fieldName/:value", (request, response)=>{
+	const {fieldName, value} = request.params;
+	const uniqueCheckProps = {
+		fieldName,
+		value,
+		response,
+		scripts: bookScripts
+	};
+	uniqueCheck(uniqueCheckProps);
+});
+
+// GET book/create-form
+router.get("/create-form", (request, response)=>{
+	const resBody = {
+		obj: {
+			title: "",
+			description: "",
+			ISBN: 123456789
+		},
+		uniqueFields: ["ISBN"],
+		requiredFields: ["title", "ISBN"]
+	};
+
+	response.send(resBody);
+});
+
 
 // GET book/edit-form/:bookId
 router.get("/edit-form/:bookId", (request, response)=>{
@@ -60,9 +88,10 @@ router.get("/authors/:bookId", (request,response)=>{
 
 // GET book/:bookId
 router.get("/:bookId", (request, response) => {
+	const query = bookScripts.retrieve;
 	const {bookId} = request.params;
-
-	retrieveRow(bookScripts, bookId, response);
+	
+	retrieveRow(query, bookId, response);
 });
 
 

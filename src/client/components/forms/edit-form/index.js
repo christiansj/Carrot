@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ApiService from 'client/services/Api';
-import formRow from './form-row';
+import formRow from '../form-row';
 import {Link, withRouter} from 'react-router-dom';
 
 class EditForm extends Component {

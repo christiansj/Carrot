@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ApiService from 'client/services/Api';
 
 import {toggleExistsError, areRequirementsFilled, renderFields, areNoErrors, resetFormErrors} from './functions/exports';
-import { Link } from 'react-router-dom';
 import "./../forms.css";
 
 class CreateForm extends Component {
@@ -17,8 +16,9 @@ class CreateForm extends Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.uniqueCheck = this.uniqueCheck.bind(this);
+        this.uniqueFieldCheck = this.uniqueFieldCheck.bind(this);
     }
+
 
     componentDidUpdate(){
         const { tableName } = this.props.match.params;
@@ -28,6 +28,8 @@ class CreateForm extends Component {
         resetFormErrors();
         this.fetchData();
     }
+
+
     fetchData(){
         const { tableName } = this.props.match.params;
 
@@ -42,6 +44,8 @@ class CreateForm extends Component {
         })
         .catch(err => { console.log(err) })
     }
+
+
     componentDidMount() {
         if (this.props.match === undefined) {
             return;
@@ -52,9 +56,7 @@ class CreateForm extends Component {
     }
 
 
-
-
-    uniqueCheck(event) {
+    uniqueFieldCheck(event) {
         const { target } = event;
         const value = target.value;
         const name = target.name;
@@ -70,7 +72,6 @@ class CreateForm extends Component {
                         name,
                         statusCode: res.status
                     }
-
 
                     toggleExistsError(toggleExistsProps);
                     const isValidInput = areNoErrors() && areRequirementsFilled({requestBody, requiredFields});
@@ -104,6 +105,7 @@ class CreateForm extends Component {
         }));
     }
 
+
     handleSubmit() {
         const { tableName } = this.props.match.params;
 
@@ -113,6 +115,7 @@ class CreateForm extends Component {
             })
     }
 
+
     render() {
         const { tableName } = this.props.match.params;
         const { requestBody, uniqueFields } = this.state;
@@ -120,11 +123,10 @@ class CreateForm extends Component {
             requestBody,
             uniqueFields,
             changeEvent: this.handleInputChange,
-            blurEvent: this.uniqueCheck
+            blurEvent: this.uniqueFieldCheck
         }
         return (
             <div className="jumbotron">
-                 <Link to="/" style={{float: 'left'}} onClick={() => this.props.history.goBack()}>Back</Link>
                 <h2>Create {tableName}</h2>
                 <div id="form-container">
                     {renderFields(renderFieldsProps)}

@@ -2,39 +2,34 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 /**component imports */
 import DataTable from "client/components/tables/DataTable";
-import Modal from "client/services/modal";
-import RecordDelete from "client/services/RecordDelete";
-import ApiService from 'client/services/Api';
-import {withRouter} from 'react-router-dom';
+import deleteModal from "./../components/modals/delete";
 
-const dummyData = [
-  { title: "Jack and the Beanstalk", firstName: "Christopher", lastName: "Bee" },
-  { title: "Spyro the Dragon", firstName: "Leo", lastName: "Lion" },
-  { title: "Clark the Shark", firstName: "Raj", lastName: "Patel" }
-]
+import ApiService from 'client/services/Api';
+import { withRouter } from 'react-router-dom';
+
 
 //TODO: increase padding for right-hand side
 /**
  * @prop {Integer} index  user changes this with container nav
  */
 class DatabaseScene extends Component {
-  state = { rows: dummyData, oldTableName: '' }
+  state = { rows: [], oldTableName: '' }
 
-  componentDidMount(){
+  componentDidMount() {
     this.fetchData();
   }
-  
+
   /**
    * Only fetch data when data table is rendered
    */
   componentDidUpdate() {
-    const {index, isConnected} = this.props;
-    
+    const { index, isConnected } = this.props;
+
     if (!this.props.match || this.state.oldTableName === index
       && isConnected) {
       return;
     }
-    
+
     this.fetchData();
   }
   /**
@@ -44,27 +39,36 @@ class DatabaseScene extends Component {
    * to determine what data to fetch
    */
   fetchData() {
-      const {oldTableName} = this.state;
-      if(!this.props.match || oldTableName === this.props.match.params.tableName){
-        return;
-      }
-      const {tableName} = this.props.match.params;
-      new ApiService().execute("GET", `${this.props.match.params.tableName}/table`)
-        .then(data => data.data)
-        .then((rows) => { this.setState({ rows, oldTableName:  tableName}) })
-        .catch((err) => {
-          console.log(err);
-        });
-    
+    const { oldTableName } = this.state;
+
+    if (!this.props.match || oldTableName === this.props.match.params.tableName) {
+      return;
+    }
+    const { tableName } = this.props.match.params;
+    new ApiService().execute("GET", `${tableName}/table`)
+      .then(data => data.data)
+      .then((rows) => { this.setState({ rows, oldTableName: tableName }) })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
-    const { index, activeRecord } = this.props;
+    const { activeRecord } = this.props;
     var tableName = "";
-    if(this.props.match !== undefined){
+    if (this.props.match !== undefined) {
       tableName = this.props.match.params.tableName;
     }
-    
+
+    const deleteModalConfig = {
+      record: activeRecord,
+      tableName
+    };
+    if(!this.state.rows.length){
+      return(
+        <h3>Loading...</h3>
+      )
+    }
     return (
       <div style={{ padding: "30px 0px", backgroundColor: "snow", margin: "0px" }}>
         <h1>{tableName + " Table"}</h1>
@@ -72,7 +76,7 @@ class DatabaseScene extends Component {
         <hr />
         <br />
         {DataTable(tableName, this.state.rows, "table-striped table-light", true)}
-        {Modal("deleteModal", "Delete", RecordDelete(activeRecord, index))}
+        {deleteModal(deleteModalConfig)}
       </div>
     );
   }
@@ -81,8 +85,7 @@ class DatabaseScene extends Component {
 function mapStateToProps(state) {
   return {
     isConnected: state.isConnected,
-    activeRecord: state.activeRecord,
-    onlineUser: state.onlineUser
+    activeRecord: state.activeRecord
   }
 }
 

@@ -2,15 +2,6 @@ const router = require('express').Router();
 const {executeQuery, sendResults, retrieveRow, updateRow, deleteRow, uniqueCheck} = require("./../../util/");
 const bookScripts = require('./../../sql-scripts/book');
 
-// ??
-function getDirectoryHash(bookId){
-	for(var directoryHash = 1; bookId < directoryHash *1000; directoryHash++){
-		if(bookId < directoryHash* 1000){
-			return diectoryHash;
-		}
-	}
-}
-
 // GET book/unique/:fieldName/:value
 router.get("/unique/:fieldName/:value", (request, response)=>{
 	const {fieldName, value} = request.params;

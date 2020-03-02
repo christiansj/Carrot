@@ -1,3 +1,3 @@
 module.exports = [
-    "book", "user", "genre"
+    "book",  "genre"
 ]

@@ -36,18 +36,21 @@ class DatabaseNav extends Component {
                     Database
                 </h2>
                 {tableNames.map((name, index) => {
-                    return renderLink(name, index, "All");
+                    return renderLink(name, index, "All", `/admin-dashboard/database/${name}`);
                 })}
                 <hr />
+                {tableNames.map((name, index) => {
+                    return renderLink(name, index, "Create", `/admin-dashboard/database/create/${name}`);
+                })}
             </ul>
         )
     }
 }
 
-const renderLink = (name, index, linkType) => (
+const renderLink = (name, index, linkType, linkUrl) => (
     <li >
         <NavLink
-            to={`/admin-dashboard/database/${name}`}
+            to={linkUrl}
             activeStyle={{ color: "black" }}
             key={`nav-link-${name}-${linkType}-${index}`}
             onClick={() => store.dispatch(setActiveCreateForm(index))}

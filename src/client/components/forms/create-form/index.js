@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ApiService from 'client/services/Api';
 
-import {toggleExistsError, areRequirementsFilled, renderFields, areNoErrors} from './functions/exports';
+import {toggleExistsError, areRequirementsFilled, renderFields, areNoErrors, resetFormErrors} from './functions/exports';
 import { Link } from 'react-router-dom';
 import "./../forms.css";
 
@@ -9,6 +9,7 @@ class CreateForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            oldTableName: "",
             requestBody: {},
             uniqueFields: [],
             requiredFields: [],
@@ -19,21 +20,35 @@ class CreateForm extends Component {
         this.uniqueCheck = this.uniqueCheck.bind(this);
     }
 
+    componentDidUpdate(){
+        const { tableName } = this.props.match.params;
+        if(tableName === this.state.oldTableName){
+            return;
+        }
+        resetFormErrors();
+        this.fetchData();
+    }
+    fetchData(){
+        const { tableName } = this.props.match.params;
+
+        
+        new ApiService().execute("GET", `${tableName}/create-form`)
+        .then(res => {
+            const {  uniqueFields, requiredFields } = res.data;
+            const requestBody = res.data.obj;
+           
+            const isValidInput = areRequirementsFilled({requestBody, requiredFields});
+            this.setState({ requestBody, uniqueFields, requiredFields, isValidInput, oldTableName: tableName }, ()=>{})
+        })
+        .catch(err => { console.log(err) })
+    }
     componentDidMount() {
         if (this.props.match === undefined) {
             return;
         }
         const { tableName } = this.props.match.params;
-
-        new ApiService().execute("GET", `${tableName}/create-form`)
-            .then(res => {
-                const {  uniqueFields, requiredFields } = res.data;
-                const requestBody = res.data.obj;
-               
-                const isValidInput = areRequirementsFilled({requestBody, requiredFields});
-                this.setState({ requestBody, uniqueFields, requiredFields, isValidInput }, ()=>{})
-            })
-            .catch(err => { console.log(err) })
+        this.setState({oldTableName: tableName});
+        this.fetchData();
     }
 
 
@@ -99,6 +114,7 @@ class CreateForm extends Component {
     }
 
     render() {
+        const { tableName } = this.props.match.params;
         const { requestBody, uniqueFields } = this.state;
         const renderFieldsProps = {
             requestBody,
@@ -107,7 +123,9 @@ class CreateForm extends Component {
             blurEvent: this.uniqueCheck
         }
         return (
-            <div className="container">
+            <div className="jumbotron">
+                 <Link to="/" style={{float: 'left'}} onClick={() => this.props.history.goBack()}>Back</Link>
+                <h2>Create {tableName}</h2>
                 <div id="form-container">
                     {renderFields(renderFieldsProps)}
                 </div>

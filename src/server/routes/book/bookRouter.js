@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const {executeQuery, sendResults, retrieveRow, updateRow, deleteRow, uniqueCheck} = require("./../../util/");
 const bookScripts = require('./../../sql-scripts/book');
+const {insertBookGenres, insertBookAuthors} = require('./functions');
+
+
 
 // GET book/unique/:fieldName/:value
 router.get("/unique/:fieldName/:value", (request, response)=>{
@@ -76,6 +79,13 @@ router.get("/authors/:bookId", (request,response)=>{
 	});
 });
 
+router.get("/", (request, response)=>{
+	const query = bookScripts.retrieveAll;
+
+	executeQuery(query, [], (err, results)=>{
+		sendResults(err, results, response, false);
+	});
+});
 
 // GET book/:bookId
 router.get("/:bookId", (request, response) => {
@@ -85,6 +95,28 @@ router.get("/:bookId", (request, response) => {
 	retrieveRow(query, bookId, response);
 });
 
+// POST book/upload
+router.post("/upload", (request, response)=>{
+	const {uploadBook} = bookScripts;
+
+
+	const {title, description, ISBN, authorId, genreIds} = request.body;
+
+	executeQuery(uploadBook, [title, description, ISBN, authorId], (err, uploadResult)=>{
+		if(err){
+			response.status(400).send(err);
+			return;
+		}
+		
+		const bookId = uploadResult.insertId;
+
+		insertBookAuthors({bookId, authorId, response})
+		.then(()=>{
+			insertBookGenres({bookId, genreIds});
+			sendResults(err, uploadResult, response, true);
+		})
+	});
+});
 
 // POST book/
 router.post("/", (request, response)=>{

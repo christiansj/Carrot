@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ApiService from 'client/services/Api';
 
-import {toggleExistsError, areRequirementsFilled, renderFields, areNoErrors, resetFormErrors} from './functions';
+import { toggleExistsError, areRequirementsFilled, renderFields, areNoErrors, resetFormErrors } from './functions';
 import "./../forms.css";
 
 class CreateForm extends Component {
@@ -20,9 +20,9 @@ class CreateForm extends Component {
     }
 
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         const { tableName } = this.props.match.params;
-        if(tableName === this.state.oldTableName){
+        if (tableName === this.state.oldTableName) {
             return;
         }
         resetFormErrors();
@@ -30,19 +30,19 @@ class CreateForm extends Component {
     }
 
 
-    fetchData(){
+    fetchData() {
         const { tableName } = this.props.match.params;
 
-        
+
         new ApiService().execute("GET", `${tableName}/create-form`)
-        .then(res => {
-            const {  uniqueFields, requiredFields } = res.data;
-            const requestBody = res.data.obj;
-           
-            const isValidInput = areRequirementsFilled({requestBody, requiredFields});
-            this.setState({ requestBody, uniqueFields, requiredFields, isValidInput, oldTableName: tableName }, ()=>{})
-        })
-        .catch(err => { console.log(err) })
+            .then(res => {
+                const { uniqueFields, requiredFields } = res.data;
+                const requestBody = res.data.obj;
+
+                const isValidInput = areRequirementsFilled({ requestBody, requiredFields });
+                this.setState({ requestBody, uniqueFields, requiredFields, isValidInput, oldTableName: tableName }, () => { })
+            })
+            .catch(err => { console.log(err) })
     }
 
 
@@ -51,7 +51,7 @@ class CreateForm extends Component {
             return;
         }
         const { tableName } = this.props.match.params;
-        this.setState({oldTableName: tableName});
+        this.setState({ oldTableName: tableName });
         this.fetchData();
     }
 
@@ -74,7 +74,7 @@ class CreateForm extends Component {
                     }
 
                     toggleExistsError(toggleExistsProps);
-                    const isValidInput = areNoErrors() && areRequirementsFilled({requestBody, requiredFields});
+                    const isValidInput = areNoErrors() && areRequirementsFilled({ requestBody, requiredFields });
                     this.setState({ isValidInput })
                 })
                 .catch(err => {
@@ -95,13 +95,13 @@ class CreateForm extends Component {
         if (uniqueFields.find(item => item === name) !== undefined) {
             document.getElementById(`${name}-exists-error`).style.display = "none";
         }
-                
+
         this.setState(prevState => ({
             requestBody: {
                 ...prevState.requestBody,
                 [name]: value
             },
-            isValidInput: areNoErrors() && areRequirementsFilled({requestBody, requiredFields})
+            isValidInput: areNoErrors() && areRequirementsFilled({ requestBody, requiredFields })
         }));
     }
 
@@ -126,9 +126,11 @@ class CreateForm extends Component {
             blurEvent: this.uniqueFieldCheck
         }
         return (
-            <div className="jumbotron">
-                <h2>Create {tableName}</h2>
+            <div className="jumbotron" style={{ textAlign: 'left', paddingTop: '30px' }}>
+
                 <div id="form-container">
+                    <h1>Create {tableName}</h1>
+                    <hr />
                     {renderFields(renderFieldsProps)}
                 </div>
 

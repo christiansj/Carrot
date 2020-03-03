@@ -70,15 +70,19 @@ class EditForm extends Component {
             handleInputChange: this.handleInputChange
         }
         return (
-            <div className="jumbotron">
-                <Link to="/" style={{ float: 'left' }} onClick={() => this.props.history.goBack()}>Back</Link>
-                <h3>Edit {tableName}</h3>
+            <div className="jumbotron container" style={{textAlign: 'left'}}>
+
+                <h1>Update {tableName}</h1>
+                <hr/>
                 <div id="form-container">
                     {renderFields(renderFieldsProps)}
                 </div>
 
                 <button className="btn btn-primary" onClick={() => this.handleUpdate()}>
                     Update
+                </button>
+                <button className="btn btn-danger" onClick={() => this.props.history.goBack()}>
+                    Go Back
                 </button>
             </div>
         )

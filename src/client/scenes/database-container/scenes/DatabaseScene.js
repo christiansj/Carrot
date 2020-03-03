@@ -72,7 +72,7 @@ class DatabaseScene extends Component {
     return (
       <div style={{ padding: "30px 0px", backgroundColor: "snow", margin: "0px" }}>
         <h1>{tableName + " Table"}</h1>
-        <br />
+        
         <hr />
         <br />
         {DataTable(tableName, this.state.rows, "table-striped table-light", true)}

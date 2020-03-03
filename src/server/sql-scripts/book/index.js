@@ -8,7 +8,7 @@ const deleteRecord = require('./scripts/delete');
 const editForm = require('./scripts/edit-form');
 const genresInBook = require('./scripts/genresInBook');
 const uploadBook = require('./scripts/uploadBook');
-const isbnCheck = require('./scripts/unique/ISBN');
+const isbnCheck = require('./scripts/uniqueFieldScripts/ISBN');
 module.exports = {
    databaseTable,
    getABooksAuthors,

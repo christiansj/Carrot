@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const userScripts = require('./../../sql-scripts/user');
 const {executeQuery, sendResults, retrieveRow, updateRow} = require('./../../util');
-const {registerUser} = require('./functions');
+const {loginUser, registerUser} = require('./functions');
 
 // GET user/edit-form/:userId
 router.get("/edit-form/:userId", (request, response)=>{
@@ -39,6 +39,16 @@ router.get("/role/:role", (request, response)=>{
         sendResults(err, results, response);
     });
 });
+
+
+// POST user/login
+router.post("/login", (request, response)=>{
+    const {identity, password} = request.body;
+    
+    
+    loginUser(request.body, response);
+});
+
 
 // POST user/register
 router.post("/register", (request, response)=>{

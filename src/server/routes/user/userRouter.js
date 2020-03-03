@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const userScripts = require('./../../sql-scripts/user');
 const {executeQuery, sendResults, retrieveRow, updateRow} = require('./../../util');
+const {registerUser} = require('./functions');
 
 // GET user/edit-form/:userId
 router.get("/edit-form/:userId", (request, response)=>{
@@ -39,6 +40,17 @@ router.get("/role/:role", (request, response)=>{
     });
 });
 
+// POST user/register
+router.post("/register", (request, response)=>{
+    const {password, verifyPassword} = request.body;
+    if(password !== verifyPassword){
+        response.status(400).send("passwords don't match");
+        return;
+    }
+    
+    registerUser(request.body, response);
+});
+
 
 // PUT user/deactivate/:userId
 router.put("/deactivate/:userId", (request, response)=>{
@@ -58,6 +70,7 @@ router.put("/deactivate/:userId", (request, response)=>{
     });
 });
 
+// PUT user/:userId
 router.put('/:userId', (request, response)=>{
     const {userId} = request.params;
     const {username, firstName, lastName, role} = request.body;

@@ -8,13 +8,13 @@ import { setActiveRecord } from "client/redux/actions/"
  * 
  * @param {JSON} data 
  */
-const DataTable = (tableName, data, classStyle, renderLinks,) => (
+const DataTable = (tableName, data, classStyle, renderLinks, ) => (
   <table className={"table " + classStyle} id="DataTable" style={{ marginTop: '15px', border: '1px solid black' }}>
     <thead>
       <tr>
         {Object.keys(data[0]).map((keyName, index) => {
           if (keyName !== "dataName")
-            return (<th key={keyName+index}>{keyName}</th>)
+            return (<th key={keyName + index}>{keyName}</th>)
         })}
         <th />
       </tr>
@@ -32,22 +32,27 @@ const DataTable = (tableName, data, classStyle, renderLinks,) => (
  * @param {JSON} data 
  */
 const createBookLinks = (tableName, data, renderLinks) => {
-  if(!renderLinks){
+  if (!renderLinks) {
     return;
   }
   return (
     <td>
-    <Link to={`/admin-dashboard/edit/${tableName}/${data.id}`}
-      className="btn btn-success btn-sm"
-      onClick={() => store.dispatch(setActiveRecord("activeRecord", data))}>
-      Edit
+      <Link to={`/admin-dashboard/view/${tableName}/${data.id}`}
+        className="btn btn-warning btn-sm"
+      >
+        View
     </Link>
-    {DeleteButton(data)}
+      <Link to={`/admin-dashboard/edit/${tableName}/${data.id}`}
+        className="btn btn-success btn-sm"
+        onClick={() => store.dispatch(setActiveRecord("activeRecord", data))}>
+        Edit
+    </Link>
+      {DeleteButton(data)}
 
-  </td>
+    </td>
   )
 }
- 
+
 
 
 const createRow = (data) => (

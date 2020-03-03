@@ -1,6 +1,6 @@
 import {Input, TextArea} from "client/components/forms/exports";
 
-const formRow = (name, value, emitEvent, blurEvent) => {
+const formRow = (name, label, value, emitEvent, blurEvent) => {
     var inputType = "type";
     if(typeof(value) === "number"){
         inputType = "number";
@@ -11,7 +11,7 @@ const formRow = (name, value, emitEvent, blurEvent) => {
     }
     return(
         
-            Input(name, inputType, value, emitEvent, blurEvent)
+            Input(name, label, inputType, value, emitEvent, blurEvent)
         
     )
 

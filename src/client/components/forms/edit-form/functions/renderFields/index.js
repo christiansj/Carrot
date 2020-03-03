@@ -8,7 +8,7 @@ function renderFields(props={}) {
         const value = requestBody[key];
         return (
             <span key={`edit-form-field-${index}`}>
-                {formRow(name, value, handleInputChange)}
+                {formRow(name, name, value, handleInputChange)}
             </span>)
     })
 }

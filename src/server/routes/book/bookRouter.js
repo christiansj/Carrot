@@ -100,7 +100,7 @@ router.post("/upload", (request, response)=>{
 	const {uploadBook} = bookScripts;
 
 
-	const {title, description, ISBN, authorId, genreIds} = request.body;
+	const {title, description, ISBN, authorId, genreNames} = request.body;
 
 	executeQuery(uploadBook, [title, description, ISBN, authorId], (err, uploadResult)=>{
 		if(err){
@@ -112,7 +112,7 @@ router.post("/upload", (request, response)=>{
 
 		insertBookAuthors({bookId, authorId, response})
 		.then(()=>{
-			insertBookGenres({bookId, genreIds});
+			insertBookGenres({bookId, genreNames});
 			sendResults(err, uploadResult, response, true);
 		})
 	});

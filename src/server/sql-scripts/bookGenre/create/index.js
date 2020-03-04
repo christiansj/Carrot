@@ -1,3 +1,4 @@
+const genreIdFromName = "(SELECT genreId from Genre WHERE name = ?)";
 /**
  * 
  * @param {Number} bookId 
@@ -6,10 +7,10 @@
 function create(genreIds){
     var query = `
         INSERT INTO BookGenre(bookId, genreId)
-        VALUES(?, ?)
+        VALUES(?, ${genreIdFromName})
     `;
     for(var i = 1; i < genreIds.length; i++){
-        query += ", \n(?,?)"
+        query += `, \n(?,${genreIdFromName})`
     }
 
     return query + ";";

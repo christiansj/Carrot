@@ -17,6 +17,7 @@ CREATE TABLE User(
 	password VARCHAR(100) NOT NULL DEFAULT 'password',
 	description VARCHAR(255),
 	role TINYINT(1) DEFAULT 1,
+	isLoggedIn TINYINT(1) DEFAULT 0,
 	creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	lastLoginDate TIMESTAMP,
 	balance DECIMAL(10,0) DEFAULT 0,

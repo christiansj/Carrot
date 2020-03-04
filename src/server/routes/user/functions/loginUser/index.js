@@ -55,10 +55,15 @@ function comparePassword(password, hashedPassword, callback){
 
 function updateUser(userId, response){
     const query = userScripts.login;
+    const {retrieve} = userScripts;
     executeQuery(query, [userId], (err, results)=>{
-        console.e
-        response.status(200).send("ok");
+        executeQuery(retrieve, [userId], (err, user)=>{
+            sendResults(err, user,response, true);
+        });
+       
     });
 }
+
+
 
 module.exports = loginUser;

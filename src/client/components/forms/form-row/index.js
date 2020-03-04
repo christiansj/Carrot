@@ -7,14 +7,8 @@ const formRow = (name, label, value, emitEvent, blurEvent) => {
     }
 
     if(name === "description"){
-        return TextArea(name, 3, value, emitEvent);
+        return TextArea(name, label, 3, value, emitEvent);
     }
-    return(
-        
-            Input(name, label, inputType, value, emitEvent, blurEvent)
-        
-    )
-
-    //if name === description return textarea
+    return Input(name, label, inputType, value, emitEvent, blurEvent)
 }
 export default formRow;

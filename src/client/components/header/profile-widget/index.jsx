@@ -11,10 +11,15 @@ const adminPanel = { url: "/admin-dashboard/", content: "Admin Dashboard" }
 class ProfileWidget extends Component {
     render() {
         const {onlineUser} = this.props;
+        var linkJSONs = [uploadBook];
+        if(onlineUser.role === 3){
+            linkJSONs.unshift(adminPanel);
+        }
+
         if (isEmpty(onlineUser)) {
             return SignInButton;
         } else {
-            return SplitDropdown(onlineUser, [adminPanel, uploadBook], this.props.logoutUser);
+            return SplitDropdown(onlineUser, linkJSONs, this.props.logoutUser);
         }
     }
 }
@@ -25,11 +30,7 @@ const SignInButton = (
         Sign In
   </button>
 )
-function mapStateToProps(state){
-    return{
 
-    }
-}
 function mapDispatchToProps(dispatch){
     return {
         logoutUser: () =>{
@@ -37,4 +38,6 @@ function mapDispatchToProps(dispatch){
         } 
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileWidget);
+
+
+export default connect(()=>{}, mapDispatchToProps)(ProfileWidget);

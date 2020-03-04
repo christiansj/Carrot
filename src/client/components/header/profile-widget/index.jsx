@@ -1,0 +1,40 @@
+import React, { Component } from "react";
+import {connect} from "react-redux";
+import {clearOnlineUser} from "client/redux/actions/user";
+import { isEmpty } from "client/util";
+import SplitDropdown from "./dropdown/SplitDropdown";
+const uploadBook = { url: "/bookUpload/", content: "Upload Book" };
+const adminPanel = { url: "/admin-dashboard/", content: "Admin Dashboard" }
+/**
+ * 
+ */
+class ProfileWidget extends Component {
+    render() {
+        const {onlineUser} = this.props;
+        if (isEmpty(onlineUser)) {
+            return SignInButton;
+        } else {
+            return SplitDropdown(onlineUser, [adminPanel, uploadBook], this.props.logoutUser);
+        }
+    }
+}
+
+const SignInButton = (
+    <button type="button" className="btn btn-secondary"
+        data-toggle="modal" data-target="#signInModal">
+        Sign In
+  </button>
+)
+function mapStateToProps(state){
+    return{
+
+    }
+}
+function mapDispatchToProps(dispatch){
+    return {
+        logoutUser: () =>{
+            dispatch(clearOnlineUser())
+        } 
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileWidget);

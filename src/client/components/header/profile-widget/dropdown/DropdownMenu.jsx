@@ -1,6 +1,6 @@
 import React from "react";
 
-const DropdownMenu = (linkJSONs) => (
+const DropdownMenu = (linkJSONs, logoutUser) => (
   <div class="dropdown-menu">
   {
     linkJSONs.map((linkJSON, index)=>{
@@ -9,11 +9,10 @@ const DropdownMenu = (linkJSONs) => (
       </a>
     })
   }
+  <a className="dropdown-item" href="/" onClick={logoutUser}>
+    Logout
+  </a>
         
-        <a class="dropdown-item" href="#" 
-         data-toggle="modal"
-         data-target="#signInModal"
-        >Logout</a>
   </div>
 )
 export default DropdownMenu;

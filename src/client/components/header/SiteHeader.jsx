@@ -1,42 +1,53 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import Modal from "./../../services/modal.jsx";
-import SignUpForm from "./../../services/forms/sign-up-form.js";
 
-import DropDown from "./../../services/drop-down";
+import DropDown from "client/services/drop-down";
 /**FontAwesome imports */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDatabase, faMoon, faEnvelope } from '@fortawesome/free-solid-svg-icons'
-
-import ProfileWidget from "./ProfileWidget";
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { connect } from 'react-redux';
+import ProfileWidget from "./profile-widget";
+import SearchBar from "client/components/forms/search/search-bar";
 import notificationBell from "./notificationBell";
 import websiteName from "./websiteName";
-import lightSwitch from "./lightSwitch";
+
 /**
  * TODO make a footer to move contact us
  * TODO make a separate file for the unordered list
+ * 
  * Profile Icon drops down to have faChartLine and settings gear
  */
-const dummyGenres = ["Action", "Fantasy", "Romance"];
 class SiteHeader extends Component {
+
   render() {
     return (
       <header className="navbar navbar-expand-lg navbar-dark bg-primary text-white">
         {websiteName}
-        <button
-          className="navbar-toggler" type="button"
-          data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false" aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent"/>
+      
+        <div>
+          <SearchBar />
+        </div>
+
+        {renderMobileToggleButton}
+
+        <div className="collapse navbar-collapse" id="navbarSupportedContent" />
         {rightSide(this.props.onlineUserJSON)}
       </header>
     );
   }
 }
+/**
+ * Bootstrap toggle button
+ */
+const renderMobileToggleButton = (
+  <button
+    className="navbar-toggler" type="button"
+    data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation"
+  >
+    <span className="navbar-toggler-icon" />
+  </button>
+)
 
 const messagesButton = () => (
   <a href="/messages/">
@@ -51,11 +62,11 @@ const messagesButton = () => (
  */
 const rightSide = (onlineUserJSON) => (
   <div>
-    {ProfileWidget(onlineUserJSON)}
-    {notificationBell(-12)}
+    <ProfileWidget onlineUser={onlineUserJSON}/>
+    {notificationBell(12)}
     {messagesButton()}
-    {lightSwitch}
-    {Modal("signInModal", SignUpForm())}
+
+    
   </div>
 );
 

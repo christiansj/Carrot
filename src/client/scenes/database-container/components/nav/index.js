@@ -53,7 +53,7 @@ const renderLink = (name, index, linkType, linkUrl) => (
             to={linkUrl}
             activeStyle={{ color: "black" }}
             key={`nav-link-${name}-${linkType}-${index}`}
-            onClick={() => store.dispatch(setActiveCreateForm(index))}
+            
         >
             {iconMap[name]} {`${linkType} ${name}`}
         </NavLink>

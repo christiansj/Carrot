@@ -1,17 +1,16 @@
-const defaultUser = {
-  isLoggedIn: false,
-  userID: null
-}
+import {userConstants} from 'client/constants'; 
 
-export default function(userName = ""){
-  return function(state = defaultUser, action){
+export default function(reducerName = ""){
+  return function(state = {}, action){
     const {name} = action;
 
-    if(name !== userName) return state;
+    if(name !== reducerName) return state;
 
     switch(action.type){
-      case "SET_ONLINE_USER":
+      case userConstants.SET_ONLINE_USER:
         return action.payload;
+      case userConstants.CLEAR_ONLINE_USER:
+        return {};
       default:
         return state;
     }

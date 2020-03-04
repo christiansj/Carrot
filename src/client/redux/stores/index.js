@@ -1,5 +1,5 @@
 import {createStore} from 'redux';
-import allReducers from './../reducers/index';
+import allReducers from '../reducers';
 
 const saveState = state => {
   try {

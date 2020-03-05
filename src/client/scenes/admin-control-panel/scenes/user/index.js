@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserTable from "client/components/tables/UserTable";
 import SelectInput from "client/components/forms/select/select-input";
 import ApiService from 'client/services/Api';
+import { Link } from 'react-router-dom';
 
 class UserlistScene extends Component {
     state = { roleNames: [], prevIndex: 0, index: 0, users: [] }
@@ -61,8 +62,9 @@ class UserlistScene extends Component {
     render() {
         const {roleNames, users} = this.state;
         return (
-            <div>
+            <div className="jumbotron container">
                 <br />
+                <Link to="/" style={{float: "left"}} onClick={()=>this.props.history.goBack()}>Back</Link>
                 <h1>User List</h1>
                 {SelectInput("table", roleNames, this.handleSelectChange)}
                 <br /><hr /><br />

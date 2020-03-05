@@ -96,8 +96,16 @@ router.get("/:bookId", (request, response) => {
 });
 
 // POST book/upload
-router.post("/upload", (request, response)=>{
-	uploadBookFunc(request.body, response);
+router.post("/upload", (request, response)=>{	
+	if(Object.keys(request.body).length === 0){
+		response.status(400).send('empty formdata')
+		return;
+	}
+	var {body} = request;
+	body.ISBN = parseInt(body.ISBN);
+	body.genreNames = body.genreNames.split(",");
+	
+	uploadBookFunc(body, response);
 });
 
 // POST book/
@@ -114,6 +122,7 @@ router.post("/", (request, response)=>{
 // PUT book/:bookId
 router.put("/:bookId", (request, response)=>{
 	const {bookId} = request.params;
+
 	const {title, description, ISBN} = request.body;
 
 	updateRow(bookScripts, [title, description, ISBN], bookId, response);

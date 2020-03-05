@@ -58,7 +58,7 @@ function updateUser(userId, callback) {
             if (err) {
                 callback(err, null);
             } else {
-                callback(null, user);
+                callback(null, user[0]);
             }
 
 

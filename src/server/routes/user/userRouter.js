@@ -2,6 +2,8 @@ const router = require('express').Router();
 const userScripts = require('./../../sql-scripts/user');
 const {executeQuery, sendResults, retrieveRow, updateRow} = require('./../../util');
 const {loginUser, registerUser} = require('./functions');
+const userConstants = require('./../../constants/user');
+
 
 // GET user/edit-form/:userId
 router.get("/edit-form/:userId", (request, response)=>{
@@ -21,6 +23,12 @@ router.get("/table", (request, response)=>{
 });
 
 
+//GET user/rolenames
+router.get("/rolenames", (request, response)=>{
+    response.send(userConstants.roleNames);
+});
+
+
 // GET user/:userId
 router.get("/:userId", (request, response)=> {
     const query = userScripts.retrieve;
@@ -32,9 +40,12 @@ router.get("/:userId", (request, response)=> {
 
 // GET user/role/:role
 router.get("/role/:role", (request, response)=>{
-    const query = userScripts.retrieveByRole;
+    var query = userScripts.retrieveByRole;
     const {role} = request.params;
 
+    if(role == 0){
+        query = userScripts.databaseTable;
+    }
     executeQuery(query, [role], (err, results)=>{
         sendResults(err, results, response);
     });

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {clearOnlineUser} from "client/redux/actions/user";
 import { isEmpty } from "client/util";
 import SplitDropdown from "./dropdown/SplitDropdown";
+import {roles} from "../../../../constants/user";
 const uploadBook = { url: "/bookUpload/", content: "Upload Book" };
 const adminPanel = { url: "/admin-dashboard/", content: "Admin Dashboard" }
 /**
@@ -12,7 +13,8 @@ class ProfileWidget extends Component {
     render() {
         const {onlineUser} = this.props;
         var linkJSONs = [uploadBook];
-        if(onlineUser.role === 3){
+        console.log(roles.ADMIN)
+        if(onlineUser.role === roles.ADMIN){
             linkJSONs.unshift(adminPanel);
         }
 

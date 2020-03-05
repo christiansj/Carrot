@@ -1,9 +1,10 @@
 const {executeQuery} = require('./../../../../util');
 const bookGenreScripts = require('./../../../../sql-scripts/bookGenre');
 
-async function createParameters(props={}){
-    const {bookId, genreNames} = props;
+async function createParameters(bookId, genreNames){
+    
     var params = [];
+    console.log(`genres are ${genreNames}`)
     for(var i = 0; i < genreNames.length; i++){
         params.push(bookId);
         params.push(genreNames[i]);
@@ -11,26 +12,25 @@ async function createParameters(props={}){
     console.log(`params are ${params}`)
     return params;
 }
-async function insertBookGenres(props={}){
-    
-    const {bookId, genreNames} = props;
-   
+function insertBookGenres(requestBody, bookId, callback){
+    console.log(`i got ${JSON.stringify(requestBody)}`)
+    const {genreNames} = requestBody;
+    console.log()
     if(!genreNames.length){
         return;
     }
     const query = bookGenreScripts.create(genreNames);
 
-    createParameters({bookId, genreNames})
+    createParameters(bookId, genreNames)
     .then(params=>{
         executeQuery(query, params, (err,results)=>{
             if(err){
-                console.log(err)
+                callback(err, null);
             }else{
-                console.log(results);
+                callback(null, requestBody);
             }
         });
     });
-   
 
 }
 module.exports = insertBookGenres;

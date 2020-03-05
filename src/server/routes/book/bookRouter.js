@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const {executeQuery, sendResults, retrieveRow, updateRow, deleteRow, uniqueCheck} = require("./../../util/");
 const bookScripts = require('./../../sql-scripts/book');
-const {insertBookGenres, insertBookAuthors} = require('./functions');
 
+const {uploadBookFunc} = require('./functions/')
 
 
 // GET book/unique/:fieldName/:value
@@ -97,25 +97,7 @@ router.get("/:bookId", (request, response) => {
 
 // POST book/upload
 router.post("/upload", (request, response)=>{
-	const {uploadBook} = bookScripts;
-
-
-	const {title, description, ISBN, authorId, genreNames} = request.body;
-
-	executeQuery(uploadBook, [title, description, ISBN, authorId], (err, uploadResult)=>{
-		if(err){
-			response.status(400).send(err);
-			return;
-		}
-		
-		const bookId = uploadResult.insertId;
-
-		insertBookAuthors({bookId, authorId, response})
-		.then(()=>{
-			insertBookGenres({bookId, genreNames});
-			sendResults(err, uploadResult, response, true);
-		})
-	});
+	uploadBookFunc(request.body, response);
 });
 
 // POST book/

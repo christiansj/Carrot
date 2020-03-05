@@ -1,69 +1,70 @@
 const userScripts = require('./../../../../sql-scripts/user');
-const { executeQuery, sendResults } = require('./../../../../util');
+const async = require('async');
 const bcrypt = require('bcryptjs');
+const { executeQuery } = require('./../../../../util');
 
+function loginUser(requestBody, response) {
+    async.waterfall([
+        function confirmUserExists(callback) {
 
-function loginUser(requestBody = {}, response) {
-    confirmUserExists(requestBody, (isUserExists, user, errMsg) => {
-        if (!isUserExists) {
-            response.status(400).send(errMsg);
-            return;
-        } 
-        const loginPassword = requestBody.password;
-        
-        comparePassword(loginPassword, user.password, (isCorrect)=>{
-            if(isCorrect){
-                updateUser(user.userId, response);
-            }else{
-                response.status(400).send("bad password")
+            const { identity } = requestBody;
+            var identityType = "username";
+            var getUserQuery = userScripts.preLogin;
+
+            if (identity.search('@') >= 0) {
+                identityType = "email";
             }
-        });
-    })
-}
 
-
-function confirmUserExists(requestBody = {}, callback) {
-    const { identity } = requestBody;
-    var identityType = "username";
-    var getUserQuery = userScripts.preLogin;
-
-    if (identity.search('@') >= 0) {
-        identityType = "email";
-    }
-
-    executeQuery(getUserQuery, [identity, identity], (err, userResult) => {
-        if (!userResult.length) {
-            var errMsg = `Couldn't find account with ${identityType}: ${identity}`
-            callback(false, null, errMsg);
+            executeQuery(getUserQuery, [identity, identity], (err, userResult) => {
+                if (!userResult.length) {
+                    callback(`Couldn't find account with ${identityType}: ${identity}`, null, null);
+                    return;
+                }
+                const loginPassword = requestBody.password;
+                callback(null, loginPassword, userResult[0]);
+            });
+        },
+        comparePasswords,
+        updateUser
+    ], function (err, foundUserResult) {
+        if (err) {
+            console.log(err);
+            response.status(400).send(err);
         } else {
-            callback(true, userResult[0], null)
-        }
-    });
-}
-
-
-function comparePassword(password, hashedPassword, callback){
-    bcrypt.compare(password, hashedPassword, (err, result)=> {
-        if(result){
-            callback(true);
-        }else{
-            callback(false);
+            response.send(foundUserResult);
         }
     })
 }
 
 
-function updateUser(userId, response){
-    const query = userScripts.login;
-    const {retrieve} = userScripts;
-    executeQuery(query, [userId], (err, results)=>{
-        executeQuery(retrieve, [userId], (err, user)=>{
-            sendResults(err, user,response, true);
-        });
-       
-    });
+function comparePasswords(password, foundUser, callback) {
+    bcrypt.compare(password, foundUser.password, (err, result) => {
+        if (result) {
+            callback(null, foundUser.userId);
+        } else {
+            callback("invalid password", null);
+        }
+    })
 }
 
+function updateUser(userId, callback) {
+    const query = userScripts.login;
+    const { retrieve } = userScripts;
+    executeQuery(query, [userId], (err, results) => {
+        if (err) {
+            callback(err, null);
+        }
+        executeQuery(retrieve, [userId], (err, user) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, user);
+            }
 
+
+        });
+
+    });
+}
 
 module.exports = loginUser;

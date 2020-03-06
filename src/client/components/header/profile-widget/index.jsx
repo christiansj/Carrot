@@ -18,20 +18,11 @@ class ProfileWidget extends Component {
             linkJSONs.unshift(adminPanel);
         }
 
-        if (isEmpty(onlineUser)) {
-            return SignInButton;
-        } else {
-            return SplitDropdown(onlineUser, linkJSONs, this.props.logoutUser);
-        }
+      
+        return SplitDropdown(onlineUser, linkJSONs, this.props.logoutUser);
+    
     }
 }
-
-const SignInButton = (
-    <button type="button" className="btn btn-secondary"
-        data-toggle="modal" data-target="#signInModal">
-        Sign In
-  </button>
-)
 
 function mapDispatchToProps(dispatch){
     return {

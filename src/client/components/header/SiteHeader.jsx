@@ -9,7 +9,7 @@ import ProfileWidget from "./profile-widget";
 import SearchBar from "client/components/forms/search/search-bar";
 import notificationBell from "./notificationBell";
 import websiteName from "./websiteName";
-
+import { isEmpty } from "./../../util";
 /**
  * TODO make a footer to move contact us
  * TODO make a separate file for the unordered list
@@ -22,7 +22,7 @@ class SiteHeader extends Component {
     return (
       <header className="navbar navbar-expand-lg navbar-dark bg-primary text-white">
         {websiteName}
-      
+
         <div>
           <SearchBar />
         </div>
@@ -49,27 +49,33 @@ const renderMobileToggleButton = (
   </button>
 )
 
-const messagesButton = () => (
-  <a href="/messages/">
-    <button className="btn btn-primary">
-      <FontAwesomeIcon icon={faEnvelope} className="fa-lg" />
-    </button>
-  </a>
-);
+const SignInButton = (
+  <button type="button" className="btn btn-secondary"
+    data-toggle="modal" data-target="#signInModal">
+    Sign In
+  </button>
+)
 /**
  * 
  * @param {JSON} onlineUserJSON 
  */
-const rightSide = (onlineUserJSON) => (
-  <div>
-    <ProfileWidget onlineUser={onlineUserJSON}/>
-    {notificationBell(12)}
-    {messagesButton()}
+const rightSide = (onlineUserJSON) => {
+  if (isEmpty(onlineUserJSON)) {
+    return (
+      <div>
+        {SignInButton}
+        <a href="/register" style={{color: "white"}}>Register</a>
+      </div>
+    )
+  }
 
-    
-  </div>
-);
-
+  return (
+    <div>
+      <ProfileWidget onlineUser={onlineUserJSON} />
+      {notificationBell(12)}
+    </div>
+  );
+}
 function mapStateToProps(state) {
   return { onlineUserJSON: state.onlineUser }
 }

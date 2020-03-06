@@ -60,6 +60,7 @@ const SignInButton = (
  * @param {JSON} onlineUserJSON 
  */
 const rightSide = (onlineUserJSON) => {
+  console.log(onlineUserJSON)
   if (isEmpty(onlineUserJSON)) {
     return (
       <div>

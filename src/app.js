@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import SiteHeader from "./client/components/header/SiteHeader.jsx";
+
 import SiteRoutes from "./client/routes/routes";
 import store from "./client/redux/stores/index";
 import ErrorScene from "./client/scenes/errors/ErrorScene";
-
+import Modal from "client/components/modals";
 import "popper.js";
 import "jquery";
+import { connect } from 'react-redux';
 import "bootstrap/dist/css/bootstrap.css";
-import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { setServerStatus, setHttpCode } from "./client/redux/actions/index";
+import { setServerStatus, setHttpCode, setDataArray } from "./client/redux/actions/index";
 
+import SignInForm from "client/components/forms/sign-in";
 import notificationContainer from "./client/components/sections/notification-section";
 class App extends Component {
   //id for server status interval timer
@@ -21,6 +22,9 @@ class App extends Component {
    */
   componentDidMount() {
     this.setState({ checkerId: setInterval(() => this.checkServer(), 5000) });
+    fetch("/getAll/Genre")
+      .then(data => data.json())
+      .then(dataArray => this.props.setDataArray("allGenres", dataArray));
   }
 
 
@@ -28,9 +32,10 @@ class App extends Component {
    * Set the application's connection status.
    */
   checkServer() {
-    fetch("/sql/checkConnection")
+    fetch("http://localhost:8080/sql/checkConnection")
       .then((res) => {
         if (res.ok) {
+          console.log("connected!");
           this.props.setServerStatus(true);
         } else {
           throw new Error("Couldn't connect to MYSQL");
@@ -38,34 +43,39 @@ class App extends Component {
       })
       .catch((err) => {
         console.log(err);
-        // clearInterval(this.state.checkerId);
+        clearInterval(this.state.checkerId);
         this.props.setServerStatus(false);
       });
     this.forceUpdate();
   }
+
+
   /**
    * 
    */
-
-
   render() {
-    const {onlineUser} = this.props;
-    
+    const { onlineUser } = this.props;
+
     /**render ErrorScene if not connected */
     if (!this.props.isConnected) {
-      store.dispatch(setHttpCode("504"));
-      return (ErrorScene(this.props.currentHttpCode))
+      return renderNotFoundScene();
     }
     return (
-      <div className="App">
-        <SiteHeader />
-        {SiteRoutes(onlineUser)}
-        {notificationContainer}
+      <div className="App" id="AppBody">
+     
+        <div id="AppContent">
+          {Modal("signInModal", "j", <SignInForm/>)}
+          {SiteRoutes(onlineUser)}
+          {notificationContainer}
+        </div>
       </div>
     );
   }
 }
-
+function renderNotFoundScene(){
+  store.dispatch(setHttpCode("504"));
+  return (ErrorScene("504"))
+}
 /**
  * 
  * @param {*} dispatch 
@@ -73,7 +83,8 @@ class App extends Component {
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
     setServerStatus: setServerStatus,
-    setHttpCode: setHttpCode
+    setHttpCode: setHttpCode,
+    setDataArray: setDataArray
   }, dispatch);
 }
 /**

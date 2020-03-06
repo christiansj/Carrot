@@ -4,6 +4,10 @@ const formRow = (name, label, value, emitEvent, blurEvent) => {
     var inputType = "type";
     if(typeof(value) === "number"){
         inputType = "number";
+    }else if(name === "email"){
+        inputType = "email";
+    }else if(name.match("password") || name.match("Password")){
+        inputType = "password";
     }
 
     if(name === "description"){

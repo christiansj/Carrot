@@ -8,11 +8,11 @@ function renderFields(props) {
         const name = key;
         const value = requestBody[key];
 
-        const renderExistsErr = uniqueFields.find(item => item === name) !== undefined;
+        const isRenderExistsErr = uniqueFields.find(item => item === name) !== undefined;
         return (
             <span key={`edit-form-field-${index}`}>
                 {formRow(name, name, value, changeEvent, blurEvent)}
-                {alreadyExistsErr(name, value, renderExistsErr)}
+                {alreadyExistsErr(name, value, isRenderExistsErr)}
             </span>)
     })
 }

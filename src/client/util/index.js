@@ -9,3 +9,7 @@ export const checkProps = (component, expectedProps) => {
     const propsErr = checkPropTypes(component.propTypes, expectedProps, 'props', component.name);
     return propsErr;
 }
+
+export const isEmpty = (obj) =>{
+    return !obj || Object.keys(obj).length === 0;
+}

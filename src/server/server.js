@@ -3,7 +3,8 @@ logger = require('morgan'),
 bodyParser = require('body-parser'),
 cookieParser = require('cookie-parser'),
 path = require('path'),
-cors = require('cors');
+cors = require('cors')
+formData = require('express-form-data');
 
 
 const app = express();
@@ -12,9 +13,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(logger('dev'));
+
+// app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
+app.use(formData.parse());
 app.use(cookieParser());
 //Public Folder
 app.use(express.static(path.join(__dirname, './public')));
@@ -31,9 +34,10 @@ app.use("/author/", require("./routes/author/authorRouter"));
 app.use("/genre/", require("./routes/genre/genreRouter"));
 
 app.use("/admin/", require("./routes/admin/adminRouter"));
-
+app.use("/search/", require("./routes/search/searchRouter"));
 /**file router */
-app.use("/fileUpload/", require("./routes/file-upload/fileUploadRouter"));
+// app.use("/upload/", require("./routes/upload"));
+// app.use("/fileUpload/", require("./routes/file-upload/fileUploadRouter"));
 
 // catch 404 and forward to error handler
 app.use(function (err, req, res, next) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faServer, faFlask, faTh } from '@fortawesome/free-solid-svg-icons'
+import { faServer } from '@fortawesome/free-solid-svg-icons'
 var errorDescriptions = {
   504: "A gateway timeout occurred. The server is unreachable. Try the request again later."
 };

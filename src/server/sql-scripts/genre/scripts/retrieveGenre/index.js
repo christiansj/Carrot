@@ -1,5 +1,14 @@
-module.exports = `
-SELECT *
+function retrieve(field){
+    if (!parseInt(field)) {
+        return query("name")
+    }
+    return query("genreId")
+}
+
+const query  = (field) => `
+    SELECT *
     FROM genre 
-    WHERE genreId = ?
-`
+    WHERE ${field} = ?;
+`;
+
+module.exports = retrieve;

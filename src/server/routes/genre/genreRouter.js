@@ -19,19 +19,22 @@ router.get("/unique/:fieldName/:value", (request, response) => {
 
 // GET genre/books/:genreId
 router.get("/books/:genreId", (request, response) => {
-    const { retrieve } = genreScripts;
-    const { booksInGenre } = bookGenreScripts;
-    const { genreId } = request.params;
+    
 
-    executeQuery(retrieve, [genreId], (err, results) => {
-        if (!results.length) {
-            response.status(400).send("Genre was not found");
+    const { genreId } = request.params;
+    const retrieve  = genreScripts.retrieve(genreId);
+    const booksInGenre = bookGenreScripts.booksInGenre(genreId);
+
+    executeQuery(retrieve, [genreId], (err, genre)=>{
+        if(!genre.length){
+            response.status(400).send("invalid genre");
             return;
         }
         executeQuery(booksInGenre, [genreId], (err, books) => {
             sendResults(err, books, response);
         });
-    });
+    })
+ 
 });
 
 // GET genre/edit-form/:genreId
@@ -76,9 +79,9 @@ router.get("/", function (request, response) {
 
 // GET genre/:id
 router.get("/:genreId", (request, response) => {
-    const query = genreScripts.retrieve;
-    const { genreId } = request.params;
 
+    const { genreId } = request.params;
+    const query = genreScripts.retrieve(genreId);
     retrieveRow(query, genreId, response);
 });
 

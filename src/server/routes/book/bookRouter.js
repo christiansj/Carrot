@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { executeQuery, sendResults, retrieveRow, updateRow, deleteRow, uniqueCheck } = require("./../../util/");
 const bookScripts = require('./../../sql-scripts/book');
-
+const bookGenreScripts = require('./../../sql-scripts/bookGenre');
+const bookAuthorScripts = require('./../../sql-scripts/bookAuthor');
 const { uploadBookFunc } = require('./functions/')
 const upload = require('./../../multer');
 
@@ -44,7 +45,8 @@ router.get("/edit-form/:bookId", (request, response) => {
 
 // GET book/genres/:bookId
 router.get("/genres/:bookId", (request, response) => {
-	const { retrieve, genresInBook } = bookScripts;
+	const { retrieve } = bookScripts;
+	const { genresInBook } = bookGenreScripts;
 	const { bookId } = request.params;
 
 	executeQuery(retrieve, [bookId], (err, results) => {
@@ -71,7 +73,7 @@ router.get("/table", (request, response) => {
 
 // GET book/authors/:bookId
 router.get("/authors/:bookId", (request, response) => {
-	const query = bookScripts.getABooksAuthors;
+	const query = bookAuthorScripts.booksInAuthor;
 	const { bookId } = request.params;
 
 	executeQuery(query, [bookId], (err, results) => {
@@ -97,7 +99,7 @@ router.get("/:bookId", (request, response) => {
 
 // POST book/upload
 router.post("/upload", (request, response) => {
-	
+
 	if (Object.keys(request.body).length === 0) {
 		response.status(400).send('empty formdata')
 		return;

@@ -1,5 +1,5 @@
 // parameters: Id of book
-const getABooksAuthors =`
+const booksInAuthor =`
 SELECT u.userId, u.firstName, u.lastName, u.email
 FROM Book b, User u, BookAuthor ba
  WHERE(
@@ -8,4 +8,4 @@ FROM Book b, User u, BookAuthor ba
      and b.bookId = ?
  );
  `;
-module.exports = getABooksAuthors;
+module.exports = booksInAuthor;

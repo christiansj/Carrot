@@ -74,16 +74,16 @@ router.post("/register", (request, response)=>{
 
 
 // PUT user/ban/:userId
-router.put("/ban/:userId", (request, response)=>{
-    const {retrieve, banUser} = userScripts;
-    const {userId} = request.params;
+router.put("/setRole/:userId/:role", (request, response)=>{
+    const {retrieve, setRole} = userScripts;
+    const {userId, role} = request.params;
 
     executeQuery(retrieve, [userId], (err, user)=>{
         if(!user.length){
             response.status(400).send("User was not found!");
             return;
         }
-        executeQuery(banUser, [userId], (err, result)=>{
+        executeQuery(setRole, [role, userId], (err, result)=>{
             sendResults(err, result, response);
         });
     });

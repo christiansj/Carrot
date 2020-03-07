@@ -8,11 +8,11 @@ const update = require('./scripts/update');
 const login = require('./scripts/login');
 const register = require('./scripts/register');
 const preLogin = require('./scripts/preLogin');
-const banUser = require('./scripts/banUser');
+const setRole = require('./scripts/setRole');
 
 // const {emailCheck, usernameCheck} = require('./scripts/uniqueFieldScripts');
 module.exports = {
-    banUser,
+    setRole,
     byUsername,
     databaseTable,
     deactivate,

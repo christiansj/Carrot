@@ -15,7 +15,7 @@ module.exports.executeQuery = executeQuery;
 
 function sendResults(err, results, response, isSendOne = false) {
   if (err) {
-    response.sendStatus(500);
+    response.sendStatus(500).send(err);
     return;
   }
 

@@ -3,10 +3,11 @@ DROP TABLE IF EXISTS User;
 /* role: 
 		1 Normal
 		2 Author
-		3 Admin
-		4 Webmaster
-		5 Deactivated
-		6 Banned
+		3 Moderator
+		4 Admin
+		5 Webmaster
+		6 Deactivated
+		7 Banned
 */
 CREATE TABLE User(
 	userId INT(11) AUTO_INCREMENT,

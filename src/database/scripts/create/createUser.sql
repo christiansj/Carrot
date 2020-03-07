@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS BanUser;
 DROP TABLE IF EXISTS BookAuthor;
 DROP TABLE IF EXISTS User;
 /* role: 

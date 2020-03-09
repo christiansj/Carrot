@@ -15,6 +15,7 @@ export class ProfileWidget extends Component {
     render() {
         const { onlineUser } = this.props;
         var links = [uploadBook];
+        
         if (isEmpty(onlineUser)) {
             return null;
         } else if (onlineUser.role === roles.ADMIN) {

@@ -1,25 +1,21 @@
-import React from 'react'
 import {shallow} from 'enzyme';
 import {findByTestAttr, checkProps} from 'client/util';
 import notificationBell from './notificationBell';
 
 const notificationProps = {
     notificationCnt: 3
-}
+};
 
 const noNotificationProps = {
     notificationCnt: 0
-}
+};
 
 
 describe('NotificationBell Component', ()=>{
-    
-    
-
     describe('Rendering with Notifications', ()=>{
         let wrapper;
         beforeEach(()=>{
-            wrapper = shallow(notificationBell(notificationProps))
+            wrapper = shallow(notificationBell(notificationProps));
         });
 
         test('Should render a notificaion bell', ()=>{
@@ -63,5 +59,12 @@ describe('NotificationBell Component', ()=>{
             const badge = findByTestAttr(wrapper, 'notificationBadge');
             expect(badge.length).toBe(0);
         });
-    })
+    });
+
+    describe('Checking PropTypes', ()=>{
+        test('Should not throw an error', ()=>{
+            const propErr = checkProps(notificationBell, notificationProps);
+            expect(propErr).toBeUndefined();
+        });
+    });
 });

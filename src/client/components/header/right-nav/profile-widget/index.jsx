@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import {connect} from "react-redux";
 import {clearOnlineUser} from "client/redux/actions/user";
-import { isEmpty } from "client/util";
 import SplitDropdown from "./dropdown/SplitDropdown";
-import {roles} from "../../../../constants/user";
+import {roles} from "../../../../../constants/user";
+
 const uploadBook = { url: "/bookUpload/", content: "Upload Book" };
 const adminPanel = { url: "/admin-dashboard/", content: "Admin Dashboard" }
 /**

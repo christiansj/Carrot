@@ -1,36 +1,48 @@
-import { Component } from "react";
-import {connect} from "react-redux";
-import {clearOnlineUser} from "client/redux/actions/user";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { clearOnlineUser } from "client/redux/actions/user";
 import SplitDropdown from "./dropdown/SplitDropdown";
-import {roles} from "../../../../../constants/user";
+import { roles } from "../../../../../constants/user";
+import { isEmpty } from "client/util";
+
 
 const uploadBook = { url: "/bookUpload/", content: "Upload Book" };
 const adminPanel = { url: "/admin-dashboard/", content: "Admin Dashboard" }
-/**
- * 
- */
-class ProfileWidget extends Component {
+
+
+
+export class ProfileWidget extends Component {
     render() {
-        const {onlineUser} = this.props;
-        var linkJSONs = [uploadBook];
-        console.log(roles.ADMIN)
-        if(onlineUser.role === roles.ADMIN){
-            linkJSONs.unshift(adminPanel);
+        const { onlineUser } = this.props;
+        var links = [uploadBook];
+        if (isEmpty(onlineUser)) {
+            return null;
+        } else if (onlineUser.role === roles.ADMIN) {
+            links.unshift(adminPanel);
         }
-
-      
-        return SplitDropdown(onlineUser, linkJSONs, this.props.logoutUser);
-    
+        
+        const splitDropdownConfig = {
+            onlineUser,
+            links,
+            logoutUser: this.props.logoutUser
+        }
+        return (
+            <div data-test="profileWidgetComponent">
+                {SplitDropdown(splitDropdownConfig)}
+            </div>
+        )
     }
 }
 
-function mapDispatchToProps(dispatch){
+
+
+function mapDispatchToProps(dispatch) {
     return {
-        logoutUser: () =>{
+        logoutUser: () => {
             dispatch(clearOnlineUser())
-        } 
+        }
     }
 }
 
 
-export default connect(()=>{}, mapDispatchToProps)(ProfileWidget);
+export default connect(() => { }, mapDispatchToProps)(ProfileWidget);

@@ -5,32 +5,39 @@ import notificationBell from "./notificationBell";
 import { isEmpty } from "client/util";
 
 const SignInButton = (
-    <button type="button" className="btn btn-secondary"
-      data-toggle="modal" data-target="#signInModal">
-      Sign In
+  <button type="button" className="btn btn-secondary"
+    data-toggle="modal" data-target="#signInModal" data-test="signInButton">
+    Sign In
     </button>
-  )
-  
-  
-  const rightNav = (onlineUserJSON) => {
-    console.log(onlineUserJSON)
-    if (isEmpty(onlineUserJSON)) {
-      return (
-        <ul className="navbar-nav mr-auto" style={{ float: 'right' }}>
-          <li className="nav-item"> {SignInButton}</li>
-         <li className="nav-item">
-          <a href="/register" style={{ color: "white" }}>Register</a>
-         </li>
-        </ul>
-      )
-    }
-  
+)
+
+
+const rightNav = (props = {}) => {
+  const { onlineUser, notificationCnt } = props;
+
+  if (isEmpty(onlineUser)) {
     return (
-      <ul className="nav navbar-nav ml-auto" style={{ float: 'right !important' }}>
-        <li className="nav-item"><ProfileWidget onlineUser={onlineUserJSON} /></li>
-        <li className="nav-item">{notificationBell(12)}</li>
+      <ul className="navbar-nav ml-auto" data-test="navWithoutUser">
+        <li className="nav-item"> {SignInButton}</li>
+        <li className="nav-item">
+          <a href="/register" style={{ color: "white" }} data-test="registerLink">
+            Register
+          </a>
+        </li>
       </ul>
-    );
+    )
   }
 
-  export default rightNav;
+  return (
+    <ul className="nav navbar-nav ml-auto" data-test="navWithUser">
+      <li className="nav-item" >
+        <ProfileWidget onlineUser={onlineUser} data-test="profileWidget" />
+      </li>
+      <li className="nav-item" data-test="notificationBell">
+        {notificationBell({notificationCnt})}
+      </li>
+    </ul>
+  );
+}
+
+export default rightNav;

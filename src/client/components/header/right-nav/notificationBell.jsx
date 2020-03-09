@@ -1,31 +1,41 @@
-import React from "react";
+import React from 'react';
 
 import { faBell as sBell } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-const notificationBell = (notificationCnt) => (
-  <button className="btn btn-primary">
-    {renderBellIcon(notificationCnt)}
-    {renderBadge(notificationCnt)}
+const notificationBell = (props = {}) => (
+  <button className="btn btn-primary" data-test="notificationBellComponent">
+    {renderBellIcon(props)}
+    {renderBadge(props)}
   </button>
 )
 
 
-function renderBellIcon(notificationCnt) {
-  var bell = faBell;
+function renderBellIcon(props = {}) {
+  const { notificationCnt } = props;
+
   if (notificationCnt > 0) {
-    bell = sBell;
+    return(
+      <FontAwesomeIcon icon={sBell} size="2x" data-test={"filledBellIcon"} style={{ color: "white" }} />
+    )
   }
-  return ( <FontAwesomeIcon icon={bell} 
-  size="2x" style={{ color: "white" }} />)
+  return (
+    <FontAwesomeIcon icon={faBell} size="2x" data-test={"outlinedBellIcon"} style={{ color: "white" }} />
+  )
 }
 
 
-function renderBadge(notificationCnt) {
+function renderBadge(props = {}) {
+  const { notificationCnt } = props;
   if (notificationCnt > 0) {
-    return <span class="badge badge-danger">{notificationCnt}</span>
+    return (
+      <span className="badge badge-danger" id="notification-count" data-test="notificationBadge">
+        {notificationCnt}
+      </span>
+    )
+
   }
 }
 export default notificationBell;

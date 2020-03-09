@@ -8,17 +8,21 @@ import SearchBar from "client/components/forms/search/search-bar";
 
 import websiteName from "./websiteName";
 
-
-class SiteHeader extends Component {
+export class SiteHeader extends Component {
   render() {
+    const rightNavConfig = {
+      onlineUser: this.props.onlineUser,
+      notificationCnt: 0   
+    }
+
     return (
-      <header className="navbar navbar-expand-lg navbar-dark bg-primary text-white">
+      <header className="navbar navbar-expand-lg navbar-dark bg-primary text-white" data-test="siteHeaderComponent">
         {websiteName}
         {renderMobileToggleButton}
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <SearchBar />
-          {rightNav(this.props.onlineUserJSON)}
+          {rightNav(rightNavConfig)}
         </div>
       </header>
     );
@@ -36,7 +40,7 @@ const renderMobileToggleButton = (
 )
 
 function mapStateToProps(state) {
-  return { onlineUserJSON: state.onlineUser }
+  return { onlineUser: state.onlineUser }
 }
 
 export default connect(mapStateToProps)(SiteHeader);

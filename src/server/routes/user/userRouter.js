@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const userScripts = require('./../../sql-scripts/user');
 const banUserScripts = require('./../../sql-scripts/banUser');
-
+const bookAuthorScripts = require('./../../sql-scripts/bookAuthor');
 const { executeQuery, sendResults, retrieveRow, updateRow } = require('./../../util');
 const { loginUser, registerUser } = require('./functions');
 const userConstants = require('./../../constants/user');
@@ -40,12 +40,33 @@ router.get("/:userId", (request, response) => {
 });
 
 
+// GET user/useranme/:username
 router.get("/username/:username", (request, response) => {
     const query = userScripts.byUsername;
     const { username } = request.params;
 
     retrieveRow(query, username, response);
 })
+
+
+// GET user/books/:username
+router.get("/books/:username", (request, response) => {
+    const getUser = userScripts.byUsername;
+    const {booksInAuthor} = bookAuthorScripts;
+    const {username} = request.params;
+
+    executeQuery(getUser, [username], (err, user)=>{
+        if(!user.length){
+            response.status(400).send('user not found');
+            return;
+        }
+        executeQuery(booksInAuthor, [username], (err, books)=>{
+            sendResults(err, books, response, false);
+        });
+    });
+
+});
+
 
 // GET user/role/:role
 router.get("/role/:role", (request, response) => {
@@ -82,6 +103,7 @@ router.post("/register", (request, response) => {
 });
 
 
+// POST user/ban
 router.post("/ban", (request, response) => {
     const { userId, reason, dateUnbanned } = request.body;
     const banUser = banUserScripts.create;
@@ -133,6 +155,7 @@ router.put("/deactivate/:userId", (request, response) => {
         });
     });
 });
+
 
 // PUT user/:userId
 router.put('/:userId', (request, response) => {

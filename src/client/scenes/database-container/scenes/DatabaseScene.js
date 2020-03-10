@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-/**component imports */
-import DataTable from "client/components/tables/DataTable";
+
+import DataTable from "client/components/tables/data-table";
 import deleteModal from "./../components/modals/delete";
 
 import ApiService from 'client/services/Api';
 import { withRouter } from 'react-router-dom';
 
-
-//TODO: increase padding for right-hand side
 /**
  * @prop {Integer} index  user changes this with container nav
  */
@@ -19,9 +17,7 @@ class DatabaseScene extends Component {
     this.fetchData();
   }
 
-  /**
-   * Only fetch data when data table is rendered
-   */
+
   componentDidUpdate() {
     const { index, isConnected } = this.props;
 
@@ -32,12 +28,8 @@ class DatabaseScene extends Component {
 
     this.fetchData();
   }
-  /**
-   * Retrieve all records from specified table.
-   * 
-   * User clicks on "All Books", "All Authors", etc.
-   * to determine what data to fetch
-   */
+ 
+
   fetchData() {
     const { oldTableName } = this.state;
 
@@ -56,6 +48,7 @@ class DatabaseScene extends Component {
   render() {
     const { activeRecord } = this.props;
     var tableName = "";
+
     if (this.props.match !== undefined) {
       tableName = this.props.match.params.tableName;
     }
@@ -64,18 +57,28 @@ class DatabaseScene extends Component {
       record: activeRecord,
       tableName
     };
+
+    const dataTableConfig = {
+      tableName,
+      data: this.state.rows,
+      classStyle: "table-striped table-light",
+      isRenderLinks: true
+    }
+
     if(!this.state.rows.length){
       return(
         <h3>Loading...</h3>
       )
     }
+
+
     return (
       <div style={{ padding: "30px 0px", backgroundColor: "snow", margin: "0px" }}>
         <h1>{tableName + " Table"}</h1>
         
         <hr />
         <br />
-        {DataTable(tableName, this.state.rows, "table-striped table-light", true)}
+        <DataTable {...dataTableConfig}/>
         {deleteModal(deleteModalConfig)}
       </div>
     );

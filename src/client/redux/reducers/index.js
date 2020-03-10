@@ -6,7 +6,7 @@ import HttpCodeReducer from "./http-code-reducer";
 
 import DataReducer from "./data-reducer";
 import DataArrayReducer from "./data/data-array-reducer";
-import UserReducer from "./user-reducer";
+import UserReducer from "./user";
 
 
 const allReducers =  combineReducers({

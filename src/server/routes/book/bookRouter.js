@@ -128,16 +128,16 @@ router.put("/:bookId", (request, response) => {
 	const { bookId } = request.params;
 
 	const { title, description, ISBN } = request.body;
-
-	updateRow(bookScripts, [title, description, ISBN], bookId, response);
+	const {retrieve, update} = bookScripts;
+	updateRow(retrieve, update, [title, description, ISBN], bookId, response);
 });
 
 
 // DELETE book/:bookId
 router.delete("/:bookId", (request, response) => {
 	const { bookId } = request.params;
-
-	deleteRow(bookScripts, bookId, response);
+	const {retrieve, deleteRecord} = bookScripts;
+	deleteRow(retrieve, deleteRecord, bookId, response);
 });
 
 module.exports = router;

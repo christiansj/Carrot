@@ -52,6 +52,9 @@ class EditForm extends Component {
                 console.log(res.data)
                 this.props.history.goBack()
             })
+            .catch(err=>{
+                console.log(err.response.data)
+            })
     }
 
 

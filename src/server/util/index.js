@@ -31,22 +31,25 @@ function sendResults(err, results, response, isSendOne = false) {
 module.exports.sendResults = sendResults;
 
 
-module.exports.updateRow = function (scripts, parameters, id, response) {
-  const { update, retrieve } = scripts;
-  executeQuery(retrieve, [id], (err, foundResults) => {
+module.exports.updateRow = function (retrieveScript, updateScript, parameters, id, response) {
+
+  executeQuery(retrieveScript, [id], (err, foundResults) => {
     if (!foundResults.length) {
       response.status(400).send(`Update error: Initial data row was not found`);
       return;
     }
 
-    executeQuery(update, [...parameters, id], (err, results) => {
+    executeQuery(updateScript, [...parameters, id], (err, results) => {
       if (err) {
         console.log(err);
         response.status(500).send(err);
         return;
       }
 
-      executeQuery(retrieve, [id], (err, retrieveResults) => {
+      executeQuery(retrieveScript, [id], (err, retrieveResults) => {
+        if(err){
+          console.log(err)
+        }
         sendResults(err, retrieveResults, response);
       });
     });
@@ -54,16 +57,16 @@ module.exports.updateRow = function (scripts, parameters, id, response) {
 }
 
 
-module.exports.deleteRow = function (scripts, id, response) {
-  const { retrieve, deleteRecord } = scripts;
+module.exports.deleteRow = function (retrieveScript, deleteScript, id, response) {
+ 
 
-  executeQuery(retrieve, [id], (err, results) => {
+  executeQuery(retrieveScript, [id], (err, results) => {
     if (!results.length) {
       response.status(400).send(`Delete Error: Intitial data row was not found`);
       return;
     }
 
-    executeQuery(deleteRecord, [id], (err, deleteResults) => {
+    executeQuery(deleteScript, [id], (err, deleteResults) => {
       sendResults(err, deleteResults, response);
     });
   });

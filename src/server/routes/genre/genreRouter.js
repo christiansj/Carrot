@@ -100,16 +100,18 @@ router.post("/", (request, response) => {
 router.put('/:genreId', (request, response) => {
     const { genreId } = request.params;
     const { name } = request.body;
-
-    updateRow(genreScripts, [name], genreId, response);
+    const retrieve = genreScripts.retrieve(genreId);
+    const {update} = genreScripts;
+    updateRow(retrieve, update, [name], genreId, response);
 });
 
 
 // DELETE genre/:genreId
 router.delete("/:genreId", (request, response) => {
     const { genreId } = request.params;
-
-    deleteRow(genreScripts, genreId, response)
+    const retrieve = genreScripts.retrieve(genreId);
+    const deleteScript = genreScripts.deleteRecord;
+    deleteRow(retrieve, deleteScript, genreId, response);
 });
 
 module.exports = router;

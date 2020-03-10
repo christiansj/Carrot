@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ApiService from 'client/services/Api';
 
 
 class BanUserForm extends Component {
   constructor(props) {
     super(props);
-  
+
     this.state = {
       isValidInput: false,
       requestBody: {
@@ -13,13 +13,17 @@ class BanUserForm extends Component {
         reason: '',
         dateUnbanned: ''
       }
-      
+
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.verifyInput = this.verifyInput.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
+    if (this.props.match !== undefined) {
+
+      alert('squack')
+    }
 
   }
 
@@ -29,42 +33,41 @@ class BanUserForm extends Component {
     const value = target.value;
     const name = target.name;
 
-    
-    this.setState(prevState =>({
-        requestBody: {
-          ...prevState.requestBody,
-          [name]: value
-        }
-    }), ()=>this.verifyInput());
 
+    this.setState(prevState => ({
+      requestBody: {
+        ...prevState.requestBody,
+        [name]: value
+      }
+    }), () => this.verifyInput());
   }
 
-  verifyInput(){
-    const {reason, dateUnbanned} = this.state.requestBody;
+  verifyInput() {
+    const { reason, dateUnbanned } = this.state.requestBody;
     var isValidInput = isNotEmpty(reason) && isNotEmpty(dateUnbanned)
-    console.log(isValidInput)
     this.setState({
       isValidInput
     })
   }
-  handleSubmit(){
-    this.setState(prevState=>({
+  handleSubmit() {
+
+    this.setState(prevState => ({
       requestBody: {
         ...prevState.requestBody,
-        userId: this.props.userJSON.userId
+        userId: parseInt(this.props.user.userId)
       }
-    }), ()=>{
-
+    }), () => {
       new ApiService().execute("POST", "user/ban", this.state.requestBody)
-      .catch(err=>console.error(err.response.data))
+        .catch(err => console.error(err.response.data))
 
     })
-  
   }
+
   render() {
-    var {reason, dateUnbanned} = this.state.requestBody;
+    var { reason, dateUnbanned } = this.state.requestBody;
     return (
       <div>
+        {JSON.stringify(this.state.requestBody)}
         <div className="form-group">
           <label for="reason">Reason</label>
           <br />
@@ -72,11 +75,11 @@ class BanUserForm extends Component {
         </div>
         <div className="form-group">
           <label for="bannedUntil">Banned until: </label>
-          <input type="datetime-local" id="bannedUntil" name="dateUnbanned" value={dateUnbanned} onChange={this.handleInputChange}/>
+          <input type="datetime-local" id="bannedUntil" name="dateUnbanned" value={dateUnbanned} onChange={this.handleInputChange} />
         </div>
 
         <br />
-        <button type="submit" className="btn btn-danger" onClick={()=>this.handleSubmit()} disabled={!this.state.isValidInput}>
+        <button type="submit" className="btn btn-danger" onClick={() => this.handleSubmit()} disabled={!this.state.isValidInput}>
           Ban User
         </button>
       </div>
@@ -84,7 +87,7 @@ class BanUserForm extends Component {
   }
 }
 
-function isNotEmpty(str){
+function isNotEmpty(str) {
   return str.trim() !== "";
 }
 export default BanUserForm;

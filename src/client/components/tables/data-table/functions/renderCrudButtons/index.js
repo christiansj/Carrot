@@ -2,9 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import editButton from './editButton';
-import deleteButton from './deleteButton';
-import viewButton from './viewButton';
+import editButton from '../../components/editButton';
+import deleteButton from '../../components/deleteButton';
+import viewButton from '../../components/viewButton';
 
 
 const renderCrudButtons = (props = {}) => {

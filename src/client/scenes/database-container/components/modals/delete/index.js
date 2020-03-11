@@ -3,6 +3,11 @@ import RecordDelete from './RecordDelete';
 
 const deleteModal = (props = {}) =>{
     const {record, tableName} = props;
-    return Modal("deleteModal", "Delete", RecordDelete(record, tableName));
+    const modalConfig = {
+        modalId:  "deleteModal",
+        modalTitle: "Delete",
+        modalContent: RecordDelete(record, tableName)
+    }
+    return Modal(modalConfig);
 }
 export default deleteModal;

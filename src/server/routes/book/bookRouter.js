@@ -75,7 +75,7 @@ router.get("/table", (request, response) => {
 router.get("/authors/:bookId", (request, response) => {
 	const query = bookAuthorScripts.booksInAuthor;
 	const { bookId } = request.params;
-
+	
 	executeQuery(query, [bookId], (err, results) => {
 		sendResults(err, results, response)
 	});

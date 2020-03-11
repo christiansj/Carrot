@@ -1,4 +1,4 @@
-import Input from "./text/text-input";
+import Input from "./input";
 import TextArea from "./text/textarea";
 
 export {

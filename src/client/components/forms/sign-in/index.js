@@ -44,11 +44,30 @@ class SignInForm extends Component {
     }
 
     render() {
+        const identityProps = {
+            name: "identity",
+            label: "Email or Username",
+            type: "text",
+            value: this.state.identity,
+            emitEvent: this.handleInputChange,
+            blurEvent: null
+        };
+
+        const passwordProps = {
+            name: "password",
+            label: "Password",
+            type: "password",
+            value: this.state.password,
+            emitEvent: this.handleInputChange,
+            blurEvent: null
+        }
+
+
         return (
             <div>
                 <h4>Sign In</h4>
-                {Input("identity", "Email or Username", "text", this.state.identity, this.handleInputChange, null)}
-                {Input("password", "password", "password", this.state.password, this.handleInputChange, null)}
+                {Input(identityProps)}
+                {Input(passwordProps)}
                 <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
                 <button type="button" onClick={() => this.handleSubmit()} id="register-button">
                     Login

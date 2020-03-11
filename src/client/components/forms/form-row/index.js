@@ -11,7 +11,7 @@ const formRow = (props = {}) => {
     var type = inputType(name, value);
     return (
     <div data-test="formRowComponent">
-        {Input(name, label, type, value, emitEvent, blurEvent)}
+        {Input({...props, type})}
     </div>
     )
 

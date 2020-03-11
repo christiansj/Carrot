@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GenreCheckboxScroll from './genre-scroll';
 import axios from 'axios';
-import {getCheckedNames} from './functions';
+import { getCheckedNames } from './functions';
+import bookCoverForm from './imageUploadForm';
 import renderFields from 'client/components/forms/functions/renderFields';
+
 class BookUpload extends Component {
     constructor(props) {
         super(props);
@@ -14,40 +16,48 @@ class BookUpload extends Component {
                 description: '',
                 ISBN: 123467
             },
-            cover: null,
+            bookCover: null,
             genres: [],
             authorId: this.props.onlineUser.userId
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleCheckBox = this.handleCheckBox.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleImageChange = this.handleImageChange.bind(this);
     }
-    handleSubmit(){
-        console.log('formulating')
+
+    handleSubmit() {
         var data = new FormData();
-        const {title, description, ISBN} = this.state.requestBody;
-        console.log(title)
+        const { title, description, ISBN } = this.state.requestBody;
+
         data.set("title", title);
         data.set("description", description);
         data.set("ISBN", parseInt(ISBN));
         data.set("authorId", this.props.onlineUser.userId);
         data.set("genreNames", this.state.genres);
-        for(var key of data.entries()){
-            console.log(key[1])
-        }
+
         axios({
             method: "post",
             url: 'http://localhost:8080/book/upload',
             data: data,
-            config: {headers: {'Content-Type': 'multipart/form-data'}}
+            config: { headers: { 'Content-Type': 'multipart/form-data' } }
         })
-        
-        .then(res=>console.log(res))
-        .catch(err=>console.error(err.response.data))
+            .then(() => {
+                var formData = new FormData();
+                formData.append("bookCover", this.state.bookCover);
+                const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                };
+                axios.post('http://localhost:8080/upload/book-cover', formData, config)
+
+            })
+            .catch(err => console.error(err.response.data))
     }
+
     handleInputChange(event) {
         const { target } = event;
-
         const value = target.value;
         const name = target.name;
 
@@ -59,10 +69,15 @@ class BookUpload extends Component {
         }));
     }
 
-    handleCheckBox(){
+    handleCheckBox() {
         const genres = getCheckedNames();
-        this.setState({genres})
+        this.setState({ genres })
     }
+
+    handleImageChange(event) {
+        this.setState({ bookCover: event.target.files[0] })
+    }
+
 
     render() {
         const renderFieldsProps = {
@@ -72,13 +87,15 @@ class BookUpload extends Component {
         const genreCheckProps = {
             handleCheckbox: this.handleCheckBox
         }
+        
         return (
             <div className="jumbotron">
                 <div>
                     {JSON.stringify(this.state)}
+                    {bookCoverForm(this.handleImageChange)}
                     {renderFields(renderFieldsProps)}
-                    <GenreCheckboxScroll {...genreCheckProps}/>
-                    <button className="btn btn-primary" onClick={()=>this.handleSubmit()}>
+                    <GenreCheckboxScroll {...genreCheckProps} />
+                    <button type="button" className="btn btn-primary" onClick={() => this.handleSubmit()}>
                         Upload
                     </button>
                 </div>

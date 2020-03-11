@@ -60,11 +60,16 @@ class App extends Component {
     if (!this.props.isConnected) {
       return renderNotFoundScene();
     }
+    const signInModalConfig = {
+      modalId: "signInModal",
+      modalTitle: "Sign In",
+      modalContent: <SignInForm/>
+    }
     return (
       <div className="App" id="AppBody">
      
         <div id="AppContent">
-          {Modal("signInModal", "j", <SignInForm/>)}
+          {Modal(signInModalConfig)}
           {SiteRoutes(onlineUser)}
           {notificationContainer}
         </div>

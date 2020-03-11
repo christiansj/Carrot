@@ -46,7 +46,7 @@ class SignInForm extends Component {
     render() {
         const identityProps = {
             name: "identity",
-            label: "Email or Username",
+            label: "email or Username",
             type: "text",
             value: this.state.identity,
             emitEvent: this.handleInputChange,
@@ -55,7 +55,7 @@ class SignInForm extends Component {
 
         const passwordProps = {
             name: "password",
-            label: "Password",
+            label: "password",
             type: "password",
             value: this.state.password,
             emitEvent: this.handleInputChange,

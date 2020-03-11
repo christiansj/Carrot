@@ -1,40 +1,68 @@
-
-.book-detail.container{
+.book-detail{
   display: grid;
-  grid-template-rows: 500px 300px;
-  grid-template-columns: auto 190px 400px 190px;
-  grid-template-areas: 
-    "bookCover bookInfo bookInfo bookInfo"
-    ". chapters chapters chapters";
-  padding: 55px 5px;
+  grid-template-rows: 360px auto;
+  grid-template-columns: auto 100px auto;
+  grid-template-areas: "bookContainer . bookDetail";
+  padding: 50px 100px;
   text-align: left;
-  font-size: 18px;
+  
 }
 
 
 
-
-
-.book-detail.container > .bookCover{
-  grid-area: bookCover;
-  background-color: grey;   
-  padding-top: 20px;
-  padding-bottom: 0px;
+ .bookContainer{
+  margin:  10px 70px;
+  float: left;
+  height: 500px;
+  width: 200px;
 }
-.book-detail.container >  .bookCover > #BookCoverMed{
-  height: 400px;
-  background-color: snow;
-  border: 1px solid brown;
-  padding: 15px;
-  margin: auto;
+.bookContainer > .bookCover{
+  
+  height: 450px;
   width: 300px;
+  background-color: orange;
+  float: left;
+  margin-bottom: 15px;
   box-shadow: 3px 3px;
 }
-.book-detail.container >  .bookInfo{
-  grid-area: bookInfo;
-   background-color: lightgrey;  
-  padding: 20px;
-  padding-top: 90px;
-  padding-bottom: 0px;
-  /* border: .5px solid black; */
+
+.bookContainer .performanceButton {
+  color: white !important;
+}
+.bookDetail .book-title{
+  margin: 0px;
+  font-size: 36px;
+  font-weight: bolder;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.bookDetail .book-author{
+  margin: 15px 0px;;
+}
+
+
+.book-detail > .bookInfo > .bookContainer{
+  grid-area: bookContainer;
+  
+}
+.book-detail > .bookDetail{
+  background-color: snow;
+  grid-area: bookDetail;
+  padding: 30px;
+  width: 95%;
+  font-size: 18px;
+  margin-right: 100px;
+}
+.bookDetail > .table.chapters{
+  grid-area: bookChapter;
+  width: 85%;
+  border: 1px solid black;
+  margin: auto;
+}
+
+.sign-in.container{
+  text-align: left;
+  margin: auto;
+  padding: 50px 100px;
+  height: 400px;
+  width: 500px;
 }

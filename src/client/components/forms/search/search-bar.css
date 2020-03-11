@@ -1,0 +1,38 @@
+.search-container{
+    position: relative;
+    display: inline-block;
+    background-color: transparent;
+  }
+  #HeaderSearchBar{
+    background-color: transparent;
+    border: 1px solid rgb(190, 182, 182);
+    padding: 5px;
+    padding-left: 15px;
+    color: white;
+    width: 350px;
+  
+    border-radius: 20px;
+  }
+  #HeaderSearchBar::-webkit-input-placeholder{
+    color: snow;
+  }
+  .search-drop-down{
+    display: none;
+    position: absolute;
+    min-width: 320px;
+    text-align: left;
+    padding-left: 20px;
+    background-color: white;
+    color: black;
+  }
+  .search-drop-down > div{
+    width: inherit;
+  }
+  .search-drop-down > div > a{
+    color: black;
+    width: inherit;
+  }
+  
+  .search-drop-down > div > a:hover{
+    background-color: lightgrey;
+  }

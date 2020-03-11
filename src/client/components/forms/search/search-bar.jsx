@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import ApiService from 'client/services/Api';
-
+import './search-bar.css';
 const bookMatchesContent = (bookMatches) => (
   <div>
     <b>Books</b>

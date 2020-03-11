@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import ApiService from 'client/services/Api';
-import Input from 'client/components/forms/text/text-input';
+import Input from 'client/components/forms/input';
 import { setOnlineUser } from 'client/redux/actions/user';
 
 class SignInForm extends Component {

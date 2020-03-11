@@ -7,11 +7,19 @@ function renderFields(props) {
     return Object.keys(requestBody).map((key, index) => {
         const name = key;
         const value = requestBody[key];
-
         const isRenderExistsErr = uniqueFields.find(item => item === name) !== undefined;
+
+        const formRowConfig = {
+            name,
+            label: name,
+            value,
+            emitEvent: changeEvent,
+            blurEvent
+        }
+
         return (
             <span key={`edit-form-field-${index}`}>
-                {formRow(name, name, value, changeEvent, blurEvent)}
+                {formRow(formRowConfig)}
                 {alreadyExistsErr(name, value, isRenderExistsErr)}
             </span>)
     })

@@ -1,9 +1,9 @@
 import React from "react";
 
-const TextArea = (name, label, rowCnt, value, emitEvent) => (
-  <div className="form-group">
+const TextArea = (name, label, rowCnt, value, emitEvent, blurEvent) => (
+  <div className="form-group" data-test="textAreaComponent">
     <label for="exampleFormControlTextarea1">{label}</label>
-    <textarea id={`${name}-input-field`} className="form-control create-field" name={name} value={value} id={name+"-text-area"} rows={rowCnt} onChange={emitEvent}/>
+    <textarea id={`${name}-input-field`} className="form-control create-field" name={name} value={value} id={name+"-text-area"} rows={rowCnt} onChange={emitEvent} onBlur={blurEvent}/>
   </div>
 );
 export default TextArea;

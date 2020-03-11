@@ -6,9 +6,15 @@ function renderFields(props={}) {
     return Object.keys(requestBody).map((key, index) => {
         const name = key;
         const value = requestBody[key];
+        const formRowConfig = {
+            name,
+            label: name,
+            value,
+            emitEvent: handleInputChange
+        }
         return (
             <span key={`edit-form-field-${index}`}>
-                {formRow(name, name, value, handleInputChange)}
+                {formRow(formRowConfig)}
             </span>)
     })
 }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import ApiService from 'client/services/Api';
-import formRow from '../form-row';
-import { Link, withRouter } from 'react-router-dom';
 import {renderFields} from './functions';
+
 class EditForm extends Component {
     constructor(props) {
         super(props);

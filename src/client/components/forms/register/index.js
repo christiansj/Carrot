@@ -52,7 +52,13 @@ export default class RegisterForm extends Component {
                 {
                     registerFields.map((item, index)=>{
                         const {name, label} = item;
-                        return formRow(name, label, this.state.requestBody[name], this.handleInputChange);
+                        const formRowConfig = {
+                            name,
+                            label,
+                            value: this.state.requestBody[name],
+                            emitEvent: this.handleInputChange
+                        }
+                        return formRow(formRowConfig);
                     })
                 }
                 <p style={{color: "red"}}>{this.state.errMessage}</p>

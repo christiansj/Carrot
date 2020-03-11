@@ -107,9 +107,8 @@ router.post("/upload", (request, response) => {
 	var { body } = request;
 	body.ISBN = parseInt(body.ISBN);
 	body.genreNames = body.genreNames.split(",");
-
-	response.send('ok')
-	// uploadBookFunc(body, response);
+	
+	uploadBookFunc(body, response);
 });
 
 // POST book/

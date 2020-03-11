@@ -1,0 +1,29 @@
+.genre-books-wrapper{
+  padding-top: 60px;
+}
+
+.genre-book-cover.container{
+  display: grid;
+  padding: 50px 150px;
+  grid-template-areas: "genreBookCover genreBookDetails";
+  grid-template-columns: 200px auto;
+  
+}
+
+.genre-book-cover.container > .genre-book-cover.image{
+  grid-area: genreBookCover;
+  margin-right: 25px;
+  float: left;
+  background-color: grey;
+}
+.genre-book-cover.container > .genre-book-cover.details{
+  grid-area: genreBookDetails;
+  height: inherit;
+  text-align: left !important;
+  overflow: hidden;
+
+}
+.genre-book-cover.details > p > a{
+  font-size: 20px;
+  text-align: left;
+}

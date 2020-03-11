@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 const Modal = (props = {}) => {
   const {modalId, modalTitle, modalContent} = props;
@@ -10,11 +11,12 @@ const Modal = (props = {}) => {
       role="dialog"
       aria-labelledby={modalId}
       aria-hidden="true"
+      data-test="modalComponent"
     >
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id={modalId}>
+            <h5 className="modal-title" data-test="modalTitle">
               {modalTitle}
             </h5>
             <button
@@ -26,14 +28,17 @@ const Modal = (props = {}) => {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body">{modalContent}</div>
-          
-          
+          <div className="modal-body" data-test="modalContent">{modalContent}</div>
         </div>
       </div>
     </div>
   );
-  
 }
+
+Modal.propTypes = {
+  modalId: PropTypes.string.isRequired,
+  modalTitle: PropTypes.string.isRequired,
+  modalContent: PropTypes.element.isRequired
+};
 
 export default Modal;

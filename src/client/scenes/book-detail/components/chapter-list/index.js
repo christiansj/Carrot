@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import chapterTable from './chapterTable';
-
+import APIService from 'client/services/Api';
 /**
  * TODO
  * Certain chapters will be free to guests.
@@ -10,9 +10,8 @@ import chapterTable from './chapterTable';
 export default class ChapterList extends Component {
   state = { chapters: [] }
   componentDidMount() {
-    fetch(`/chapter/getChapterTitles/${this.props.bookId}`)
-      .then(data => data.json())
-      .then(chapters => { this.setState({ chapters }) });
+    new APIService().execute("GET", `/chapter/titles/${this.props.bookId}`)
+      .then(res => { this.setState({ chapters: res.data }) });
     this.forceUpdate();
   }
 

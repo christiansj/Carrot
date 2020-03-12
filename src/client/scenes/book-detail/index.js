@@ -6,7 +6,7 @@ import { parseBookUrl } from './functions';
 import axios from 'axios';
 import "./book-detail.css";
 
-class BookDetail extends Component {
+export class BookDetail extends Component {
   state = {
     bookJSON: {}, authorJSONs: [],
     genreJSONs: [], chapterTitles: []

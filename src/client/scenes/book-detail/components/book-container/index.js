@@ -1,16 +1,17 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import StarButton from "client/services/book-properties/StarButton";
 
 /**
  * 
  * @param {String} imgPath 
  */
-export default function (props = {}) {
+function bookContainer(props = {}) {
   const  {bookId, bookJSON} = props;
   const performanceURL = `/book/${bookId}-${bookJSON.title}/performance`
   return (
-    <div className="bookContainer">
-      <img className="bookCover" src={"http://localhost:8080/"+bookJSON.imagePath+"0.jpg"} alt={`${bookJSON.title} cover`} />
+    <div className="bookContainer" data-test="bookContainerComponent">
+      {/* <img className="bookCover" src={"http://localhost:8080/"+bookJSON.imagePath+"0.jpg"} alt={`${bookJSON.title} cover`} /> */}
       <br />
       <a className="btn btn-secondary btn-fill performanceButton" onClick={()=> {alert(performanceURL)}}>
         View Performance
@@ -23,3 +24,11 @@ export default function (props = {}) {
   )
 }
 
+bookContainer.propTypes = {
+  bookId: PropTypes.number.isRequired,
+  bookJSON: PropTypes.shape({
+    title: PropTypes.string.isRequired
+  }).isRequired
+}
+
+export default bookContainer;

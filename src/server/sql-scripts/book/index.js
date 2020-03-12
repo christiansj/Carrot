@@ -8,6 +8,7 @@ const deleteRecord = require('./scripts/delete');
 const editForm = require('./scripts/edit-form');
 const uploadBook = require('./scripts/uploadBook');
 const isbnCheck = require('./scripts/uniqueFieldScripts/ISBN');
+const setFolderHash = require('./scripts/setFolderHash');
 module.exports = {
    databaseTable,
    create,
@@ -19,5 +20,6 @@ module.exports = {
    uploadBook,
    unique: {
       ISBN: isbnCheck
-   }
+   },
+   setFolderHash
 };

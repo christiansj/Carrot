@@ -2,6 +2,7 @@ const { executeQuery } = require('./../../../../util');
 const bookScripts = require('./../../../../sql-scripts/book');
 const bookAuthorScripts = require('./../../../../sql-scripts/bookAuthor');
 const async = require('async');
+const {getDirectoryHash} = require('./../../../../util/file-util');
 const insertBookGenres = require('./../insertBookGenres/');
 
 function uploadBookFunc(requestBody, response) {
@@ -18,6 +19,7 @@ function uploadBookFunc(requestBody, response) {
                 callback(null, requestBody, bookId)
             });
         },
+        setFolderHash,
         insertAuthors,
         async.apply(insertBookGenres)
     ], function(err, finalResult){
@@ -28,7 +30,18 @@ function uploadBookFunc(requestBody, response) {
         }
     })
 }
-
+function setFolderHash(requestBody, bookId, callback){
+    const folderHash = getDirectoryHash(bookId);
+    const query = bookScripts.setFolderHash;
+    executeQuery(query, [folderHash, bookId], (err, result)=>{
+        if(err){
+            callback(err, requestBody, bookId);
+            return;
+        }
+        callback(null, requestBody, bookId);
+    });
+    
+}
 function insertAuthors(requestBody, bookId, callback){
     const {authorId} = requestBody;
     const query = bookAuthorScripts.create;

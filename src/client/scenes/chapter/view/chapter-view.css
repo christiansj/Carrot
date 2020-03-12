@@ -1,0 +1,71 @@
+.chapter-view.container{
+  padding: 50px;
+
+}
+.chapter-view.container > .chapter-nav{
+  display: grid;
+  grid-template-areas: "backButton bookTitle forwardButton";
+  grid-template-columns: "1fr 1fr 1fr";
+}
+
+.chapter-nav > .backButton{
+  grid-area: backButton;
+  text-align: left;
+}
+.chapter-nav > .bookTitle{
+  grid-area: bookTitle;
+  text-align: center;
+}
+.chapter-nav > .forwardButton{
+  grid-area: forwardButton;
+  text-align: right;
+}
+.chapter-content{
+  text-align: left;
+}
+.light-theme{
+  color: black;
+  background-color: white;
+}
+.dark-theme{
+  color: white ;
+  background-color: black;
+}
+.dark-theme > hr{
+  background-color: white;
+  outline-color: white;
+  color: white;
+}
+.sepia-theme{
+  color: black;
+  background-color: #f8e9d9;
+}
+.dark-theme > h1{
+  color: white;
+}
+.theme-button{
+  width: auto;
+
+  padding: 5px 10px;
+  border: 1px solid black
+}
+#FontSizeRange{
+  width: 225px;
+}
+input[type=range]{
+  -webkit-appearance: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  
+  margin-top: -10px;
+  border-radius: 10px;
+  background-color: rgb(211, 44, 211);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+        
+  height: 5px;
+  background: rgb(44, 165, 235);
+  border: none;
+  border-radius: 0px;
+}

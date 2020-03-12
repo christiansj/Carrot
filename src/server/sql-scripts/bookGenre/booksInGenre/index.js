@@ -7,7 +7,7 @@ function booksInGenre(field) {
 
 const query = (whereQuery) =>
 `
-    SELECT b.bookId, b.title, b.description, b.imagePath, b.ISBN 
+    SELECT b.bookId, b.title, b.description, b.folderHash, b.ISBN 
     FROM Book b, Genre g, BookGenre bg
     ${whereQuery}
     and bg.bookId = b.bookId

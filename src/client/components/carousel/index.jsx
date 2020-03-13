@@ -1,13 +1,13 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 const carousel = (props = {}) => {
-    const { items, handleButtonClick } = props;
+    const { items, id } = props;
     if (!items.length) {
         return null;
     }
 
     return (
-        <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+        <div id={id} className="carousel slide" data-ride="carousel" data-test="carouselComponent">
             <ol className="carousel-indicators">
                 {
                     items.map((item, index)=>{
@@ -16,7 +16,10 @@ const carousel = (props = {}) => {
                             className="active"
                         }
                         return(
-                            <li data-target="#carouselExampleIndicators" data-slide-to={index.toString()} className={className}></li>
+                            <li data-target="#carouselExampleIndicators" 
+                            key={`${id}-button-${index}`}
+                            data-slide-to={index.toString()} className={className}
+                            data-test="carouselItemButton"/>
                         )
                     })
                 }
@@ -29,23 +32,28 @@ const carousel = (props = {}) => {
                             className += "active";
                         }
                         return (
-                            <div className={className}>
+                            <div className={className} data-test="carouselItem" key={`${id}-item-${index}`}>
                                 {item}
                             </div>
                         )
                     })
                 }
             </div>
-            <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" onClick={handleButtonClick}>
+            
+            <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" >
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span className="sr-only">Previous</span>
             </a>
-            <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" onClick={handleButtonClick}>
+            <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" >
                 <span className="carousel-control-next-icon" aria-hidden="true"></span>
                 <span className="sr-only">Next</span>
             </a>
         </div>
     )
+}
+
+carousel.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.element),
 }
 
 export default carousel;

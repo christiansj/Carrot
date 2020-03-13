@@ -37,7 +37,7 @@ class SpotlightSection extends Component {
         }
         const carouselProps = {
             items: this.state.slides,
-            handleButtonClick: this.handleCarouselButton
+            id: 'spotlight-carousel'
         }
 
         return carousel(carouselProps)

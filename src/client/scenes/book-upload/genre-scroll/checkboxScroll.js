@@ -12,7 +12,11 @@ function checkBoxScroll(name, checkBoxJSONs, handleCheckbox) {
             <div className="check-box scroll">
                 {
                     checkBoxJSONs.map((checkboxJSON, index) => {
+                        
                         const {name, value} = checkboxJSON; 
+                        if(name === "Spotlight"){
+                            return;
+                        }
                         return renderCheckBox(name, value, handleCheckbox);
                     })
                 }

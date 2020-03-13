@@ -9,7 +9,7 @@ function renderChapterRow  (bookId, bookTitle, chapJSON, index)  {
           {`Chapter ${chapJSON.number}: ${chapJSON.name}`}
         </a>
       </td>
-      <td>2 Hours Later...</td>
+      <td>{chapJSON.lastUpdated}</td>
     </tr >
   );
 }

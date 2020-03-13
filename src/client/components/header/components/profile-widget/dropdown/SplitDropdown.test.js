@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme';
 import {findByTestAttr, checkProps} from 'client/util';
-import SplitDropdown from './SplitDropdown';
+import ProfileDropdown from './SplitDropdown';
 
 const expectedProps = {
     onlineUser: {

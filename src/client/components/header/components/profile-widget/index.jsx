@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { clearOnlineUser } from "client/redux/actions/user";
-import SplitDropdown from "./dropdown/SplitDropdown";
+import ProfileDropdown from "./dropdown/ProfileDropdown";
 import { roles } from "../../../../../constants/user";
 import { isEmpty } from "client/util";
 
@@ -29,7 +29,7 @@ export class ProfileWidget extends Component {
         }
         return (
             <div data-test="profileWidgetComponent">
-                {SplitDropdown(splitDropdownConfig)}
+                {ProfileDropdown(splitDropdownConfig)}
             </div>
         )
     }

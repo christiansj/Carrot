@@ -1,6 +1,6 @@
 import React from 'react';
-import ProfileWidget from "./profile-widget";
-import notificationBell from "./notificationBell";
+import ProfileWidget from "./../components/profile-widget";
+import notificationBell from "../components/notification-bell/notificationBell";
 
 import { isEmpty } from "client/util";
 

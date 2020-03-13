@@ -1,8 +1,8 @@
 import React from "react";
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "../../dropdown"
 import PropTypes from 'prop-types';
 
-export default function SplitDropdown(props={}) {
+export default function ProfileDropdown(props={}) {
   const {onlineUser, links, logoutUser} = props;
 
   const dropdownProps = {
@@ -25,7 +25,7 @@ export default function SplitDropdown(props={}) {
   )
 }
 
-SplitDropdown.propTypes = {
+ProfileDropdown.propTypes = {
   onlineUser: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,

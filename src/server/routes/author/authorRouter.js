@@ -1,7 +1,7 @@
 const express = require("express"),
 router = express.Router(),
 authorScripts = require('./../../sql-scripts/author'),
-{executeQuery, sendResults} = require("./../../modules/dbSession");
+{executeQuery, sendResults} = require("./../../util");
 
 // GET author/books/:userId
 router.get("/books/:userId", (req, response)=> {

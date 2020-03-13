@@ -45,7 +45,7 @@ function setFolderHash(requestBody, bookId, callback){
 function insertAuthors(requestBody, bookId, callback){
     const {authorId} = requestBody;
     const query = bookAuthorScripts.create;
-    executeQuery(query, [bookId, authorId], (err, results)=>{
+    executeQuery(query, [bookId, parseInt(authorId)], (err, results)=>{
         if(err){
             callback(err, null, null)
         }

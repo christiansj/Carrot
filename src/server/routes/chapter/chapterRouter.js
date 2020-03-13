@@ -1,7 +1,10 @@
-const express = require("express"),
-router = express.Router(),
-fs = require("fs"),
-{bookFilePath} = require('./../../util/file-util');
+const express = require("express");
+const router = express.Router();
+const fs = require("fs");
+const {bookFilePath} = require('./../../util/file-util');
+const {executeQuery} = require('./../../util');
+const bookScripts = require('./../../sql-scripts/book');
+const {getChapterTitles} = require('./functions');
 
 
 
@@ -38,23 +41,16 @@ router.get("/single/:bookId/:chapterNumber", (req, res)=> {
 *	@body.param {Integer} bookId 	
 */
 router.get("/titles/:bookId/", (req, res)=> {
-	console.log("fjeifowjfiowefj")
-	const destinationPath = bookFilePath(req.params.bookId);
-
-	fs.readdir(destinationPath, (err, files)=> {
-		var chapterTitles = new Array();
-
-		for(var i = 0; i < files.length; i++){
-			var tokens = files[i].split('-');
-			
-			var fullFileName = tokens.slice(1)[0];
-			var fileNameNoExt = fullFileName.split('.')[0];
-
-			var chapterJSON = {number: tokens[0], name: fileNameNoExt.replace(/_/g, ' ')}
-			chapterTitles.push(chapterJSON);
+	const {bookId} = req.params;
+	const {retrieve} = bookScripts;
+	executeQuery(retrieve, [bookId], (err, book)=>{
+		if(!book.length){
+			res.status(400).send("Could not find book");
+			return;
 		}
-		res.json(chapterTitles);
-	});	
+		getChapterTitles(bookId, res);
+	});
+	
 });
 router.post("/saveDraft/:bookId/:chapterNumber", (req, res)=> {
 

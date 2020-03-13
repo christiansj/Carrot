@@ -66,3 +66,7 @@
   height: 400px;
   width: 500px;
 }
+
+.detail-input{
+  display: none;
+}

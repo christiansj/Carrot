@@ -1,0 +1,32 @@
+.chapter-upload.container{
+  padding: 50px;
+}
+
+.chapter-upload.container > .upload-text{
+  outline: none;
+  border: transparent;
+  border-bottom: 1.5px solid black;
+  border-radius: 0px;
+  margin-bottom: 15px;
+  width: 100%;
+
+}
+.chapter-upload.container > .upload-text.title{
+  font-size: 28px;
+  margin-top: 25px;
+}
+.chapter-upload.container > span > button{
+  margin: 0px 10px;
+}
+.chapter-upload.container > .upload-text.content{
+  margin-top: 50px;
+  
+  font-size: 18px;
+  overflow: auto;
+
+}
+.chapter-upload.container > .upload-text:focus, .book-upload.container > .upload-text:active{
+  border: 0px;
+  outline: none;
+  border-bottom: 1.5px solid lightgreen;
+}

@@ -4,7 +4,7 @@ const {bookFilePath} = require('./../../../../util/file-util');
 
 function getChapterTitles(bookId, response){
     const destinationPath = bookFilePath(bookId);
-    console.log('boo ' + destinationPath)
+  
 	fs.readdir(destinationPath, (err, files)=> {
 		var chapterTitles = new Array();
 

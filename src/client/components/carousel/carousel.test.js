@@ -8,7 +8,9 @@ const expectedProps = {
         <p>1</p>,
         <p>2</p>,
         <p>3</p>
-    ]
+    ],
+    isRenderBottomNav: true,
+    isRenderArrows: true
 }
 describe('Carousel Component', ()=>{
     describe('Rendering', ()=>{

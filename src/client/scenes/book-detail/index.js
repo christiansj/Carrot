@@ -16,7 +16,7 @@ export class BookDetail extends Component {
   componentDidMount() {
     this.fetchAll();
   }
-
+  //TODO separate this function in its own file
   fetchAll() {
     const { bookId } = parseBookUrl(this.props.location);
     const { userId } = this.props.onlineUser;
@@ -62,7 +62,7 @@ export class BookDetail extends Component {
         {BookContainer(bookContainerConfig)}
         <div className="bookDetail">
           <BookDetails {...detailConfig}/>
-       
+          <br/>
           {genreTags(genreTagsConfig)}
           
           <br/>

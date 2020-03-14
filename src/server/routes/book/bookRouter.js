@@ -51,7 +51,7 @@ router.get("/genres/:bookId", (request, response) => {
 
 	executeQuery(retrieve, [bookId], (err, results) => {
 		if (!results.length) {
-			response.statusCode(400).send('Book was not found');
+			response.status(400).send('Book was not found');
 			return;
 		}
 		executeQuery(genresInBook, [bookId], (err, genres) => {
@@ -73,7 +73,7 @@ router.get("/table", (request, response) => {
 
 // GET book/authors/:bookId
 router.get("/authors/:bookId", (request, response) => {
-	const query = bookAuthorScripts.booksInAuthor;
+	const query = bookAuthorScripts.authorsInBook;
 	const { bookId } = request.params;
 	
 	executeQuery(query, [bookId], (err, results) => {

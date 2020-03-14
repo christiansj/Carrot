@@ -1,11 +1,11 @@
 // parameters: Id of book
 const booksInAuthor =`
-SELECT u.username, u.firstName, u.lastName, u.email
+SELECT b.title, b.title, b.folderHash, b.description
 FROM Book b, User u, BookAuthor ba
  WHERE(
      b.bookId = ba.bookId
      and u.userId = ba.authorId
-     and b.bookId = ?
+     and u.username = ?
  );
  `;
 module.exports = booksInAuthor;

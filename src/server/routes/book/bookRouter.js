@@ -121,7 +121,23 @@ router.post("/", (request, response) => {
 	});
 });
 
-
+router.put("/details", (request, response)=>{
+	const {bookId, title, description} = request.body;
+	
+	const {retrieve, update} = bookScripts;
+	executeQuery(retrieve, [bookId], (err, book)=>{
+		if(err){
+			response.status(400).send(err);
+			return;
+		}else if(!book.length){
+			response.status(400).send('book not found');
+			return;
+		}
+		
+		updateRow(retrieve, update, [title, description, book[0].ISBN], bookId, response);
+	})
+	
+});
 // PUT book/:bookId
 router.put("/:bookId", (request, response) => {
 	const { bookId } = request.params;

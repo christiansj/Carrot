@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme';
 import {findByTestAttr, checkProps} from 'client/util';
-import ProfileDropdown from './SplitDropdown';
+import ProfileDropdown from './ProfileDropdown';
 
 const expectedProps = {
     onlineUser: {
@@ -23,7 +23,7 @@ describe('SplitDropdown Component', ()=>{
     describe('Rendering with props', ()=>{
         let wrapper;
         beforeEach(()=>{
-            wrapper = shallow(<SplitDropdown {...expectedProps}/>);
+            wrapper = shallow(<ProfileDropdown {...expectedProps}/>);
         });
     
         test('Should render without errors', ()=>{
@@ -34,7 +34,7 @@ describe('SplitDropdown Component', ()=>{
 
     describe('Checking PropTypes', ()=>{
         test('Should not throw an error', ()=>{
-            const propErr = checkProps(SplitDropdown, expectedProps);
+            const propErr = checkProps(ProfileDropdown, expectedProps);
             expect(propErr).toBeUndefined();
         });
     });

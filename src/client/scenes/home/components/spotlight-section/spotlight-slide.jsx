@@ -5,18 +5,21 @@ import ApiService from 'client/services/Api';
 import BookCover from 'client/components/book-cover';
 
 class SpotlightSlide extends Component {
-    state = {
-        genres: []
-    }
     constructor(props){
         super(props);
+        this.state = {
+            genres: []
+        }
         this.fetchGenres();
     }
+
+
     fetchGenres(){
         const { bookId } = this.props.book;
         new ApiService().execute('GET', `book/genres/${bookId}`)
             .then(res => this.setState({ genres: res.data }))
     }
+
     render() {
         const { book } = this.props;
         const {genres} = this.state;
@@ -26,12 +29,11 @@ class SpotlightSlide extends Component {
         const bookCoverConfig = {
             height: 350,
             width: 240,
-            book,
-            className: 'book-cover'
+            book
         }
+
         return (
             <div className="spotlight-section row">
-    
                 <div className="spotlight-detail col-md-7 col-sm-12">
                     <h1>Spotlight</h1>
                     <div className="spotlight-detail-content">

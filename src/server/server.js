@@ -1,31 +1,26 @@
-const express = require('express'),
-logger = require('morgan'),
-bodyParser = require('body-parser'),
-cookieParser = require('cookie-parser'),
-path = require('path'),
-cors = require('cors')
-formData = require('express-form-data');
-
+const express = require('express');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const path = require('path');
+const cors = require('cors');
 
 const app = express();
+
 app.use(cors());
+app.use(logger('dev'));
+app.use(express.json());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(logger('dev'));
-app.use(express.json());
-
-// app.use(formData.parse());
-app.use(cookieParser());
 //Public Folder
-app.use('/static', express.static(path.join(__dirname+'/public')));
-//app.set('views', path.join(__dirname, './views'));
-//app.set('view engine', 'pug');
+app.use('/static', express.static(path.join(__dirname + '/public')));
 
 // Returns a response to the client
-app.use(("/sql/checkConnection"), function(req,res){res.send(true)});
+app.use(("/sql/checkConnection"), function (req, res) { res.send(true) });
 
 
 app.use("/user/", require("./routes/user/userRouter"));
@@ -38,14 +33,14 @@ app.use("/search/", require("./routes/search/searchRouter"));
 
 app.use("/chapter/", require("./routes/chapter/chapterRouter"));
 
-/**file router */
 app.use("/upload/", require("./routes/upload"));
-// app.use("/fileUpload/", require("./routes/file-upload/fileUploadRouter"));
+
 
 // catch 404 and forward to error handler
 app.use(function (err, req, res, next) {
   throw (new Error(err.message));
 });
+
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
@@ -59,9 +54,13 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
+var port = 8080;
+if (process.env.PORT !== undefined) {
+  port = process.env.PORT;
+}
 //listen on same port listed in package.JSON
-app.listen(process.env.PORT || 8080, ()=>{
-  console.log(`listening on ${process.env.PORT}`);
+app.listen(port, () => {
+  console.log(`listening on port ${port}`);
 });
 
 //export this server

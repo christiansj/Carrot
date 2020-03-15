@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BookCover from './BookContainer';
+import BookContainer from './BookContainer';
 import ApiService from 'client/services/Api';
 import PropTypes from 'prop-types';
 
@@ -17,12 +17,11 @@ export default class BookRow extends Component {
   render() {
     const { bookJSONs } = this.state;
     const { genreName, styleClass } = this.props;
-    const isFeatured = genreName === "Featured" && styleClass === "home-book-row";
     // don't render if there are no books
     if (bookJSONs.length <= 0 || genreName === "Spotlight") {
       return (null);
     }
-
+  
     return (
       <section className="home-book-row">
         <h1>{genreName}</h1>
@@ -30,7 +29,13 @@ export default class BookRow extends Component {
         {/* Render all BookCovers under this genre */}
         <span className="row" style={{ marginLeft: "30px" }}>
           {bookJSONs.map((item, index) => {
-            return BookCover(item, item.title)
+            const bookCoverConfig = {
+              book: item,
+              width: 215,
+              height: 300
+            }
+
+            return BookContainer(bookCoverConfig)
           }
           )}
         </span>

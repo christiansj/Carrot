@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import ApiService from 'client/services/Api'
 import { Link } from 'react-router-dom';
+
+import ApiService from 'client/services/Api';
+import BookCover from 'client/components/book-cover';
 
 class SpotlightSlide extends Component {
     state = {
@@ -20,6 +22,13 @@ class SpotlightSlide extends Component {
         const {genres} = this.state;
 
         const { bookId, description, title } = book;
+
+        const bookCoverConfig = {
+            height: 350,
+            width: 240,
+            book,
+            className: 'book-cover'
+        }
         return (
             <div className="spotlight-section row">
     
@@ -38,9 +47,7 @@ class SpotlightSlide extends Component {
                     </div>
                 </div>
                 <div className="spotlight-book col-md-5 col-sm-12">
-                    <div className="book-cover">
-    
-                    </div>
+                    {BookCover(bookCoverConfig)}
                 </div>
             </div>
         )

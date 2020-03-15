@@ -5,7 +5,7 @@ import ApiService from 'client/services/Api';
 class GenreDropdown extends Component {
     state = { genres: [] }
     componentDidMount() {
-        new ApiService().execute("GET", 'genre')
+        new ApiService().execute("GET", 'genre/with-books')
             .then(res=>this.setState({genres: res.data}))
     }
     render() {

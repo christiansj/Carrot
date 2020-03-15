@@ -76,7 +76,13 @@ router.get("/", function (request, response) {
     });
 });
 
+router.get("/with-books", function(request, response){
+    const query = bookGenreScripts.genresWithBooks;
 
+    executeQuery(query, [], (err, results) => {
+        sendResults(err, results, response);
+    });
+})
 // GET genre/:id
 router.get("/:genreId", (request, response) => {
 

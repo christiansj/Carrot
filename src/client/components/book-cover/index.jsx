@@ -15,7 +15,7 @@ const bookCover = (props = {}) => {
     return (
         <a href={`/book/${bookId}-${title}`}>
             <img src={imagePath} height={height} width={width} alt={title}
-                className={className}
+                className={className + " book-cover"}
                 onError={(e) => {
                     renderPNG(pngCheck, book, e);
                     pngCheck = true;

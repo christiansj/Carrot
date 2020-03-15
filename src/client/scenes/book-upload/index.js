@@ -23,26 +23,29 @@ class BookUpload extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleCheckBox = this.handleCheckBox.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    
         this.handleImageChange = this.handleImageChange.bind(this);
     }
-
+   
     handleSubmit() {
-        var data = new FormData();
         const { title, description, ISBN } = this.state.requestBody;
-
-        data.set("title", title);
-        data.set("description", description);
-        data.set("ISBN", parseInt(ISBN));
-        data.set("authorId", this.props.onlineUser.userId);
-        data.set("genreNames", this.state.genres);
-
+        const body = {
+            title, 
+            description,
+            ISBN: parseInt(ISBN),
+            authorId: this.props.onlineUser.userId,
+            genreNames: this.state.genres
+        }
+        
         axios({
             method: "post",
             url: 'http://localhost:8080/book/upload',
-            data: data,
+            data: body,
             config: { headers: { 'Content-Type': 'multipart/form-data' } }
         })
-            .then(() => {
+            .then((res) => {
+                const bookId = res.data;
+
                 var formData = new FormData();
                 formData.append("bookCover", this.state.bookCover);
                 const config = {
@@ -50,7 +53,7 @@ class BookUpload extends Component {
                         'content-type': 'multipart/form-data'
                     }
                 };
-                axios.post('http://localhost:8080/upload/book-cover', formData, config)
+                axios.post(`http://localhost:8080/upload/book-cover/${bookId}`, formData, config)
 
             })
             .catch(err => console.error(err.response.data))

@@ -1,10 +1,6 @@
 .book-upload.container{
-  display: grid;
-  grid-template-areas: "uploadHeading uploadHeading" 
-        "uploadCover uploadForms";
-  grid-template-columns: 400px 400px;
-  grid-template-rows: auto 500px;
-  grid-column-gap: 25px;
+  
+  padding: 25px 150px;
 }
 .book-upload.container > h1{
   grid-area: uploadHeading;
@@ -12,14 +8,29 @@
 }
 .book-upload.container > .book-upload.upload-cover{
   grid-area: uploadCover;
-  background-color: lightgrey;
 }
-.book-upload.upload-cover > .cover-image{
-  height: 400px;
-
-  background-color: green;
+.book-upload.container > .cover-image{
+  height: 300px;
+  width: 300px;
+  background-color: red;
 }
 .book-upload.container > .book-upload.upload-forms{
   grid-area: uploadForms;
-  background-color: grey;
+}
+
+.hidden{
+  display: none;
+}
+
+.book-upload.container > .upload-text{
+  outline: none;
+  border: transparent;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  margin-bottom: 15px;
+}
+.book-upload.container > .upload-text:focus, .book-upload.container > .upload-text:active{
+  border: 0px;
+  outline: none;
+  border-bottom: 1px solid lightgreen;
 }

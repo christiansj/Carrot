@@ -27,7 +27,7 @@ function insertBookGenres(requestBody, bookId, callback){
             if(err){
                 callback(err, null);
             }else{
-                callback(null, requestBody);
+                callback(null, bookId);
             }
         });
     });

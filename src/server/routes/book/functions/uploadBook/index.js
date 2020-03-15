@@ -26,7 +26,7 @@ function uploadBookFunc(requestBody, response) {
         if(err){
             response.status(400).send(err)
         }else{
-            response.send(finalResult)
+            response.send(finalResult.toString())
         }
     })
 }

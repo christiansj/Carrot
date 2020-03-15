@@ -3,7 +3,7 @@ const fs = require("fs");
 const {bookFilePath} = require('./../../../../util/file-util');
 
 function getChapterTitles(bookId, response){
-    const destinationPath = bookFilePath(bookId);
+    const destinationPath = bookFilePath(bookId)+"content";
   
 	fs.readdir(destinationPath, (err, files)=> {
 		var chapterTitles = new Array();

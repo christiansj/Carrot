@@ -11,7 +11,7 @@ module.exports.getDirectoryHash = getDirectoryHash;
 module.exports.bookFilePath = function (bookId){
 	const directoryHash = getDirectoryHash(bookId);
 	
-	const destinationPath = `./src/server/public/uploads/books/${directoryHash}/${bookId}/content/`;
+	const destinationPath = `./src/server/public/uploads/books/${directoryHash}/${bookId}/`;
 
 	if(!fs.existsSync(destinationPath)){
 		

@@ -99,15 +99,15 @@ router.get("/:bookId", (request, response) => {
 
 // POST book/upload
 router.post("/upload", (request, response) => {
-
+	console.log(request.body)
 	if (Object.keys(request.body).length === 0) {
 		response.status(400).send('empty formdata')
 		return;
 	}
 	var { body } = request;
 	body.ISBN = parseInt(body.ISBN);
-	body.genreNames = body.genreNames.split(",");
-	
+
+	// response.send('ok');
 	uploadBookFunc(body, response);
 });
 

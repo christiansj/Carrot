@@ -29,30 +29,30 @@ const upload = multer({
 /**
 TODO 
 */
-// router.post("/book-upload/", upload.single('book-cover'),  (req, res)=> {
+router.post("/book-upload/", upload.single('book-cover'),  (req, res)=> {
 
-//   dbSession.connection.query("CALL uploadBook(?, ?, ?)", [req.body.bookTitle, req.body.description, req.body.fbID], (err, result)=>{
-//    if(err){
-//      console.log(err)
-//    }
-//   });
+  dbSession.connection.query("CALL uploadBook(?, ?, ?)", [req.body.bookTitle, req.body.description, req.body.fbID], (err, result)=>{
+   if(err){
+     console.log(err)
+   }
+  });
 
-//   dbSession.connection.query(bookMod.insertBookGenre(req.body), (err, result)=> {
-//     if(err){
-//       console.log(err)
-//     }
-//   });
+  dbSession.connection.query(bookMod.insertBookGenre(req.body), (err, result)=> {
+    if(err){
+      console.log(err)
+    }
+  });
 
 
-//   dbSession.connection.query("SELECT bookId from Book WHERE bookId = LAST_INSERT_ID();", (err, result)=> {
-//     if(err){
-//       console.log(err);
-//     }
-//     moveUploadedFile(req, result[0].bookId);
-//   });
+  dbSession.connection.query("SELECT bookId from Book WHERE bookId = LAST_INSERT_ID();", (err, result)=> {
+    if(err){
+      console.log(err);
+    }
+    moveUploadedFile(req, result[0].bookId);
+  });
 
-//   res.send("upload was successful");
-// });
+  res.send("upload was successful");
+});
 
 function makeNewBookCoverPath(req, bookId) {
   var newFilePath = "";
@@ -96,18 +96,18 @@ function moveUploadedFile(req, bookId) {
 }
 
 //Traversity tutorial
-router.post("/picture/", (request, response) => {
+router.post("/picture/", (req, res) => {
   const upload = multer({
     storage: storage,
 
   }).single("sampleImage");
 
-  upload(request, response, (err) => {
+  upload(req, res, (err) => {
     if (err) {
-      response.send(err);
+      res.send(err);
     } else {
-      
-      response.send("test");
+      console.log(req.file);
+      res.send("test");
     }
   })
 })

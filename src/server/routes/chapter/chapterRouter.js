@@ -10,7 +10,7 @@ const {getChapterTitles} = require('./functions');
 
 
 router.get("/single/:bookId/:chapterNumber", (req, res)=> {
-	const destinationPath = bookFilePath(req.params.bookId);
+	const destinationPath = bookFilePath(req.params.bookId)+"content/";
 	
 	fs.readdir(destinationPath, (err, files)=> {
 		var fileName = "";
@@ -57,7 +57,7 @@ router.post("/saveDraft/:bookId/:chapterNumber", (req, res)=> {
 });
 router.post("/upload/:bookId/:chapterNumber", (req, res)=> {
 	const chapterFileName = req.body.chapterTitle.replace(/\s/, "_");
-	const destinationPath = bookFilePath(req.params.bookId);
+	const destinationPath = bookFilePath(req.params.bookId)+"content/";
 	const {chapterNumber} = req.params;
 	console.log(`${destinationPath}${chapterNumber}-${chapterFileName}.txt`);
 	fs.writeFile(`${destinationPath}${chapterNumber}-${chapterFileName}.txt`,

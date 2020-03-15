@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({
 app.use(logger('dev'));
 app.use(express.json());
 
-app.use(formData.parse());
+// app.use(formData.parse());
 app.use(cookieParser());
 //Public Folder
 app.use('/static', express.static(path.join(__dirname+'/public')));

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function bookTitle(props = {}) {
     const {title} = props;
     return (
-        <span id="book-title" className="book-title">
+        <span id="book-title" className="book-title" data-test="bookTitleComponent">
             <span className="detail" data-test="bookTitle">
                 {title}
             </span>
@@ -18,7 +18,7 @@ function renderEditField(props = {}){
     const {userIsAuthor, emitChange, editTitle} = props;
     if(userIsAuthor){
         return  <input type="text" className="detail-input" name="editTitle"
-        onChange={emitChange} value={editTitle} data-test="titleInputInput" />
+        onChange={emitChange} value={editTitle} data-test="bookTitleInput" />
     }
 }
 

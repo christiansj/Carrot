@@ -36,7 +36,7 @@ describe('bookTitle Component', ()=>{
                 wrapper = shallow(bookTitle(expectedProps));
             });
 
-            test('Should not render title input', ()=>{
+            test('Should NOT render title input field', ()=>{
                 const titleInput = findByTestAttr(wrapper, 'bookTitleInput');
                 expect(titleInput.length).toBe(0);
             });
@@ -58,7 +58,7 @@ describe('bookTitle Component', ()=>{
                 wrapper = shallow(bookTitle(expectedAuthorProps));
             });
 
-            test('Should render an input elem for title', ()=>{
+            test('Should render a title input field', ()=>{
                 const titleInput = findByTestAttr(wrapper, 'bookTitleInput');
                 expect(titleInput.length).toBe(1);
             });

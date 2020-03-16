@@ -5,7 +5,7 @@ function bookDescription(props = {}) {
     const { description } = props;
 
     return (
-        <span id="book-description">
+        <span id="book-description" data-test="bookDescriptionComponent">
             <span className="detail" data-test="bookDescription">
                 Preface: {description}
             </span>

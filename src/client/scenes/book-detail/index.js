@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { BookDetails, ChapterList, genreTags } from "./components";
 import bookCover from 'client/components/book-cover';
+import {isEmpty} from 'client/util';
 import { parseBookUrl } from './functions';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -58,6 +59,11 @@ export class BookDetail extends Component {
       book: bookJSON,
       height: 450,
       width: 300
+    }
+    if(isEmpty(bookJSON)){
+      return(
+        <h1>Book not found</h1>
+      )
     }
     return (
       <div className="book-detail">

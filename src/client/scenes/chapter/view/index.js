@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import "./chapter-view.css";
-import themeButton from "./components/font-button/theme-button";
+
 import ChapterNav from "./components/nav/chapter-view-nav";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFont } from '@fortawesome/free-solid-svg-icons';
-import RowDropDown from 'client/components/forms/dropdown/row-drop-down';
-import {FONT_SIZE_RANGE, THEME_BUTTONS} from './constants/index';
+import Dropdown from 'client/components/forms/dropdown';
+import { THEME_BUTTONS} from './constants/index';
 import ApiService from 'client/services/Api';
 
 
@@ -19,6 +19,7 @@ class ChapterViewScene extends Component {
     new ApiService().execute("GET", `/chapter/single/${bookId}/${chapterNumber}/`)
       .then(res => this.setState({ chapterContent: res.data }))
   }
+
 
   componentWillUnmount() {
     document.body.classList.remove("dark-theme");
@@ -48,22 +49,23 @@ class ChapterViewScene extends Component {
   }
 
   render() {
+    const {chapterTitle, chapterContent} = this.state;
     const { chapterString, bookString } = this.props.match.params;
     const bookTokens = bookString.split("-");
-
+    
     return (
       <div className="chapter-view container" >
-        <ChapterNav bookTokens={bookTokens} chapterTokens={chapterString.split("-")} bookTokens={bookTokens} />
+        <ChapterNav bookTokens={bookTokens} chapterTokens={chapterString.split("-")} />
         <br />
         <span>
-          <h1>{this.state.chapterTitle}</h1>
-          {RowDropDown(<FontAwesomeIcon icon={faFont} />, THEME_BUTTONS)}
+          <h1>{chapterTitle}</h1>
+          {Dropdown(<FontAwesomeIcon icon={faFont} />, THEME_BUTTONS)}
         </span>
 
         <hr />
 
         <p className="chapter-content" id="ChapterContent">
-          {this.state.chapterContent}
+          {chapterContent}
         </p>
       </div>
     )

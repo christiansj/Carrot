@@ -1,5 +1,0 @@
- // constructor(props) {
-  //   super(props);
-  //   this.props.allBooks.length === undefined ? this.data = dummyData
-  //     : this.data = this.props.allBooks;
-  // }

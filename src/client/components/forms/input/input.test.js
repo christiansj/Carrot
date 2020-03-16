@@ -1,7 +1,6 @@
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { findByTestAttr, checkProps } from 'client/util';
 import Input from './index';
-import sinon from 'sinon';
 
 describe('Input Component', () => {
     describe('Rendering and events', () => {

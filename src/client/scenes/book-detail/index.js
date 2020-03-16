@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { BookDetails, BookContainer, bookDetailButtons, ChapterList, genreTags } from "./components";
+import { BookDetails, BookContainer, ChapterList, genreTags } from "./components";
 import { parseBookUrl } from './functions';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -66,8 +66,6 @@ export class BookDetail extends Component {
           {genreTags(genreTagsConfig)}
           
           <br/>
-
-         
           <hr />
 
           <ChapterList bookId={bookId} bookTitle={bookJSON.title} />

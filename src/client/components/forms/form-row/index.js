@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const formRow = (props = {}) => {
     const { name, label, value, emitEvent, blurEvent } = props;
     if (name === "description") {
-        return TextArea(name, label, 3, value, emitEvent);
+        return TextArea(name, label, 3, value, emitEvent, blurEvent);
     }
 
     var type = inputType(name, value);

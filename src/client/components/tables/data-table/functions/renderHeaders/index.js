@@ -7,7 +7,7 @@ const renderHeadings = (props = {}) => {
             <tr>
                 {keys.map((keyName, index) => {
                     if (keyName === "dataName") {
-                        return;
+                        return null;
                     }
 
                     return (

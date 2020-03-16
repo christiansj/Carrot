@@ -21,8 +21,8 @@ class DatabaseScene extends Component {
   componentDidUpdate() {
     const { index, isConnected } = this.props;
 
-    if (!this.props.match || this.state.oldTableName === index
-      && isConnected) {
+    if (!this.props.match || (this.state.oldTableName === index
+      && isConnected)) {
       return;
     }
 

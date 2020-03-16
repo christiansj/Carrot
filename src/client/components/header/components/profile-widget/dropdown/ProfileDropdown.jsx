@@ -11,13 +11,13 @@ export default function ProfileDropdown(props={}) {
   }
 
   return (
-    <div class="btn-group" data-test="splitDropdownComponent">
-      <a href={`/user/${onlineUser.username}`} class="btn btn-primary">
-        <img src={onlineUser.picture} style={{ height: '40px', width: '40px' }} />
-        {onlineUser.name}
+    <div className="btn-group" data-test="splitDropdownComponent">
+      <a href={`/user/${onlineUser.username}`} className="btn btn-primary">
+        <img src={onlineUser.picture} style={{ height: '40px', width: '40px' }} alt={''}/>
+        {onlineUser.username}
       </a>
-      <button type="button" class={"btn dropdown-toggle dropdown-toggle-split btn-primary"} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="sr-only">Toggle Dropdown</span>
+      <button type="button" className={"btn dropdown-toggle dropdown-toggle-split btn-primary"} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span className="sr-only">Toggle Dropdown</span>
       </button>
 
       {DropdownMenu(dropdownProps)}

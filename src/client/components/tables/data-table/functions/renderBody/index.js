@@ -34,6 +34,8 @@ const renderRow = (data) => (
           {data[item]}
         </td>
       )
+
+    return null;
   })
 )
 

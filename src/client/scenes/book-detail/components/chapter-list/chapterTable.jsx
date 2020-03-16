@@ -1,9 +1,9 @@
 import React from 'react';
 
-function renderChapterRow  (bookId, bookTitle, chapJSON, index)  {
+function renderChapterRow(bookId, bookTitle, chapJSON, index) {
   const chapterURL = `/content/${bookId}-${bookTitle}/${chapJSON.number}-${chapJSON.name}`;
   return (
-    <tr key={chapJSON + index} scope="col">
+    <tr key={chapJSON + index}>
       <td>
         <a href={chapterURL} >
           {`Chapter ${chapJSON.number}: ${chapJSON.name}`}
@@ -15,7 +15,7 @@ function renderChapterRow  (bookId, bookTitle, chapJSON, index)  {
 }
 
 const chapterTable = (bookId, bookTitle, chapters) => (
-  <table class="table chapters">
+  <table className="table chapters">
     <thead className="thead-dark">
       <tr>
         <th scope="col">Chapter</th>
@@ -24,7 +24,10 @@ const chapterTable = (bookId, bookTitle, chapters) => (
     </thead>
     <tbody>
       {chapters.map((chap, index) => {
-        return renderChapterRow(bookId, bookTitle, chap, index)
+        return (
+          renderChapterRow(bookId, bookTitle, chap, index) 
+
+        )
       }
       )}
     </tbody>

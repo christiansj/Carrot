@@ -6,7 +6,7 @@ import React from 'react';
  */
 const notificationCard = (id, message, styleClass) => (
   <div className={styleClass} id={id}>
-    <button type="button" class="close" aria-label="Close" onClick={() => closeThisCard(id)}>
+    <button type="button" className="close" aria-label="Close" onClick={() => closeThisCard(id)}>
       <span aria-hidden="true">&times;</span>
     </button>
     <span id={id+"Message"}>

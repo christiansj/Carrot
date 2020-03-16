@@ -36,7 +36,11 @@ export class ProfileWidget extends Component {
 }
 
 
+function mapStateToProps(state){
+    return{
 
+    }
+}
 function mapDispatchToProps(dispatch) {
     return {
         logoutUser: () => {
@@ -46,4 +50,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(() => { }, mapDispatchToProps)(ProfileWidget);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileWidget);

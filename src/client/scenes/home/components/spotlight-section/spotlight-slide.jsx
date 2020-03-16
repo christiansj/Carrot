@@ -59,10 +59,10 @@ class SpotlightSlide extends Component {
 function renderGenreTags(genres) {
     return genres.map((genre, index) => {
         if (genre.name === "Spotlight") {
-            return;
+            return null;
         }
         return (
-            <span className="badge badge-secondary">
+            <span className="badge badge-secondary" key={`spotlight-${genre.name}-${index}`}>
                 {genre.name}
             </span>
         )

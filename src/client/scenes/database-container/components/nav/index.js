@@ -1,11 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
+
 import ApiService from 'client/services/Api';
-import { NavLink } from 'react-router-dom';
 import iconMap from './icon-map';
-import { setActiveCreateForm } from "../../../../redux/actions";
-import store from "../../../../redux/stores";
-import { withRouter } from 'react-router-dom';
-import { fireEvent } from '@testing-library/react';
 
 class DatabaseNav extends Component {
     state = {
@@ -42,7 +39,7 @@ class DatabaseNav extends Component {
                 <hr />
                 {tableNames.map((name, index) => {
                     if(name === "book"){
-                        return;
+                        return null;
                     }
                     return renderLink(name, index, "Create", `/admin-dashboard/database/create/${name}`);
                 })}

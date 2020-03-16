@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-/**
- * TODO refactor this ugly code
- * @param {Array} chapterTokens 
- * @param {Array} bookTokens 
- * @param {Array} chapterTitles 
- */
+
+import ApiService from 'client/services/Api';
+
 function forwardButton (chapterTokens, bookTokens, chapterTitles)  {
   const currChapter = chapterTokens[0];
   
   if (currChapter < chapterTitles.length) {
-    const nextChapter = parseInt(currChapter)+1;
+    const nextChapter = parseInt(currChapter, 10)+1;
     const nextChapterName = chapterTitles[currChapter].name;
     return (
       <h5 className="forwardButton">
@@ -19,12 +16,8 @@ function forwardButton (chapterTokens, bookTokens, chapterTitles)  {
     )
   }
 }
-/**
- * 
- * @param {Array} chapterTokens 
- * @param {Array} bookTokens 
- * @param {Array} chapterTitles 
- */
+
+
 function backButton (chapterTokens, bookTokens, chapterTitles) {
   const currChapter = chapterTokens[0];
   if (chapterTokens[0] > 1 && chapterTitles.length > 1) {
@@ -47,9 +40,8 @@ export default class ChapterNav extends Component {
    * links.
    */
   componentDidMount() {
-    fetch(`/chapter/getChapterTitles/${this.props.bookTokens[0]}`)
-      .then(data => data.json())
-      .then(chapterTitles => this.setState({ chapterTitles }));
+    new ApiService().execute('GET', `/chapter/titles/${this.props.bookTokens[0]}`)
+      .then(res => this.setState({ chapterTitles: res.data }));
     this.forceUpdate()
   }
   render = () => {

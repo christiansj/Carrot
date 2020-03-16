@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './../../book-detail.css';
+
 const bookDetailButtons = (props = {}) => {
   const { bookId, title, renderCreateButton, handleEditButton, updateBook } = props;
   return (

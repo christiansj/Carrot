@@ -5,25 +5,24 @@ import ApiService from 'client/services/Api';
 import { Link } from 'react-router-dom';
 
 class UserlistScene extends Component {
-    state = { roleNames: [], prevIndex: 0, index: 0, users: [] }
-    constructor(props){
+
+    constructor(props) {
         super(props);
-        this.state = { 
-            roleNames: [], 
-            prevIndex: 0, 
-            index: 0, 
-            users: [] 
+        this.state = {
+            roleNames: [],
+            prevIndex: 0,
+            index: 0,
+            users: []
         }
         this.handleSelectChange = this.handleSelectChange.bind(this);
     }
-
 
     componentDidMount() {
         new ApiService().execute("GET", "user/rolenames")
             .then(res => {
                 var roleNames = res.data;
                 roleNames.unshift("All");
-                this.setState({ roleNames }, ()=>this.fetchUsers());
+                this.setState({ roleNames }, () => this.fetchUsers());
             })
             .catch(err => {
                 console.log(err.response.data);
@@ -31,17 +30,12 @@ class UserlistScene extends Component {
     }
 
     handleSelectChange(event) {
-
-        const { roleNames, index, prevIndex } = this.state;
+        const { roleNames } = this.state;
         const value = event.target.value;
-        
-        const selectedIndex = roleNames.findIndex(item => item == value);
-        console.log(selectedIndex)
-        // if (selectedIndex === prevIndex) {
-        //     return;
-        // }
 
-        this.setState({ index: selectedIndex },()=>this.fetchUsers())
+        const selectedIndex = roleNames.findIndex(item => item === value);
+    
+        this.setState({ index: selectedIndex }, () => this.fetchUsers())
     }
 
     fetchUsers() {
@@ -56,15 +50,15 @@ class UserlistScene extends Component {
             })
             .catch(err => {
                 console.err(err.response.data);
-            })
+            });
     }
 
     render() {
-        const {roleNames, users} = this.state;
+        const { roleNames, users } = this.state;
         return (
             <div className="jumbotron container">
                 <br />
-                <Link to="/" style={{float: "left"}} onClick={()=>this.props.history.goBack()}>Back</Link>
+                <Link to="/" style={{ float: "left" }} onClick={() => this.props.history.goBack()}>Back</Link>
                 <h1>User List</h1>
                 {SelectInput("table", roleNames, this.handleSelectChange)}
                 <br /><hr /><br />

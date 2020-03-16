@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import ApiService from 'client/services/Api';
-import './../../home.css';
-import SpotlightSlide from './spotlight-slide';
 
+import SpotlightSlide from './spotlight-slide';
 import carousel from '../../../../components/carousel';
+import ApiService from 'client/services/Api';
+
+import './../../home.css';
+
 class SpotlightSection extends Component {
     state = {
         books: [],

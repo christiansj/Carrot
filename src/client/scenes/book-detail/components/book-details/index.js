@@ -12,7 +12,6 @@ class BookDetails extends Component {
             title: '',
             description: ''
         };
-        console.log(this.state.title)
         this.handleEditButton = this.handleEditButton.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.updateBook = this.updateBook.bind(this);
@@ -50,7 +49,7 @@ class BookDetails extends Component {
         const { book } = this.props;
         if (!isEmpty(book) && this.state.title === "") {
             const { title, description } = book;
-            this.setState({ title: book.title, description: description })
+            this.setState({ title, description })
         }
     }
 
@@ -113,8 +112,8 @@ function toggleEditFields(isEditMode) {
     }
 
     var inputs = document.getElementsByClassName('detail-input');
-    console.log(inputs.length)
-    for (var i = 0; i < inputs.length; i++) {
+
+    for (i = 0; i < inputs.length; i++) {
         inputs[i].style.display = inputDisplay;
     }
 }

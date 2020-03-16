@@ -1,37 +1,57 @@
 import React from "react";
-import { Switch, Route, Redirect, BrowserRouter } from "react-router-dom";
-import HomeScene from "./../scenes/HomeScene";
-import BookDetail from "./../scenes/book-detail/BookDetail";
-import Lab from "./../../lab/index";
-import SignIn from "./../../lab/sign-in";
-import MessagesScene from "client/scenes/messages/index";
-import DatabaseContainer from "./../scenes/database-container/";
-import UserDetail from "./../scenes/user-detail/index";
-import ContactRoute from "./../scenes/contact-us/index";
-import ErrorScene from "./../scenes/errors/ErrorScene";
-import AuthorDashboard from "./../scenes/author-dashboard/index";
-import bookUploadScene from "./../scenes/book-upload/index";
+import { Route, Redirect, BrowserRouter, Switch } from "react-router-dom";
+import AdminControlPanel from "client/scenes/admin-control-panel/index";
+import BookDetail from "client/scenes/book-detail/index";
+
+import GenreBookView from "client/scenes/book-genres/";
+
+import HomeScene from "client/scenes/home/index";
+
+import DatabaseContainer from "../scenes/database-container";
+import ChapterViewScene from "client/scenes/chapter/view/index";
+import UserDetail from "../scenes/user-detail";
+import ContactRoute from "../scenes/contact-us";
+import ErrorScene from "../scenes/errors/ErrorScene";
+import BookUploadScene from "../scenes/book-upload/";
 import controlPanelRoutes from "client/scenes/admin-control-panel/routes/routes";
+import ChapterUploadScene from "client/scenes/chapter/upload/index";
+import RegisterForm from "client/components/forms/register";
+import EditForm from "client/components/forms/edit-form/";
+import CreateForm from "client/components/forms/create-form";
+import ViewRecord from "client/components/view-record";
+import SiteHeader from "client/components/header/SiteHeader.jsx";
+
 const routes = (userJSON) => (
   <BrowserRouter>
 
     <div>
+      <Route path="/" component={SiteHeader} />
       <Route exact path="/" render={() => (
-        !userJSON.isLoggedIn ? (<SignIn />) : (<Redirect to="/dashboard/profile/" />)
+        !userJSON || !userJSON.isLoggedIn ? (<h1>Insert sign in message here</h1>) : (<Redirect to="/dashboard/profile/" />)
       )} />
-      <Route path="/dashboard/"  render={() => 
-        (!userJSON.isLoggedIn ? (<Redirect to="/" />) : (<AuthorDashboard userJSON={userJSON}/>))} />
+      <Route exact path="/register/" component={RegisterForm} />
+      <Route exact path="/home/" component={HomeScene} />
+
       <Route exact path="/error/" component={ErrorScene} />
 
+      <Route path="/book/" component={BookDetail} />
+      <Route exact path="/books/:genreName" component={GenreBookView} />
 
-      <Route exact path="/u/" component={BookDetail} />
-      <Route exact path="/lab/" component={Lab} />
-      <Route exact path="/e/" component={DatabaseContainer} />
-      <Route exact path="/user/" component={UserDetail} />
-      <Route exact path="/messages/" component={MessagesScene}/>
-      <Route exact path="/bookUpload/" render={()=>{
-        return bookUploadScene()
-      }}/>
+      <Route path="/content/:bookString/:chapterString/" component={ChapterViewScene} />
+      <Route path="/:bookId-:bookTitle/chapterUpload/" component={ChapterUploadScene} />
+
+      <Switch>
+        <Route exact path="/admin-dashboard/" component={AdminControlPanel} />
+        <Route path="/admin-dashboard/database/" component={DatabaseContainer} />
+        <Route exact path="/admin-dashboard/edit/:tableName/:id" component={EditForm} />
+        <Route exact path="/admin-dashboard/create/:tableName" component={CreateForm} />
+        <Route exact path="/admin-dashboard/view/:tableName/:id" component={ViewRecord} />
+      </Switch>
+
+      <Route path="/user/:username" component={UserDetail} />
+
+      <Route exact path="/bookUpload/" render={() => (<BookUploadScene authorJSON={userJSON} />)} />
+
       {ContactRoute}
       {controlPanelRoutes}
     </div>

@@ -22,9 +22,6 @@ class App extends Component {
    */
   componentDidMount() {
     this.setState({ checkerId: setInterval(() => this.checkServer(), 5000) });
-    fetch("/getAll/Genre")
-      .then(data => data.json())
-      .then(dataArray => this.props.setDataArray("allGenres", dataArray));
   }
 
 

@@ -32,7 +32,7 @@ class BookUpload extends Component {
         const body = {
             title, 
             description,
-            ISBN: parseInt(ISBN),
+            ISBN: parseInt(ISBN, 10),
             authorId: this.props.onlineUser.userId,
             genreNames: this.state.genres
         }

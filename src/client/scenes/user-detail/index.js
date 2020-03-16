@@ -42,7 +42,7 @@ export class UserDetail extends Component {
     const { onlineUser } = this.props;
     const { bookJSONs, userJSON } = this.state;
     const { username } = this.props.match.params;
-    const userId = parseInt(onlineUser.userId);
+    const userId = parseInt(onlineUser.userId, 10);
 
     const banButtonConfig = {
       onlineUser,

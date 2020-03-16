@@ -16,7 +16,7 @@ const Dropdown = (name, items) => (
       <div >
         {items.map((item, index) => {
           return (
-            <span >
+            <span key={`dropdown-component-row-${index}`}>
               {item}
             </span>
           );

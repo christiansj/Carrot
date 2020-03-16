@@ -5,7 +5,7 @@ const DropdownMenu = (props = {}) => {
   const { links, logoutUser} = props;
 
   return (
-    <div class="dropdown-menu" data-test="dropdownComponent">
+    <div className="dropdown-menu" data-test="dropdownComponent">
       {
         links.map((linkJSON, index) => {
           return (

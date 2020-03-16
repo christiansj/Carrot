@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Dropdown from './../dropdown';
 import ApiService from 'client/services/Api';
 
 class GenreDropdown extends Component {
@@ -12,14 +11,14 @@ class GenreDropdown extends Component {
         const {genres} = this.state;
         return (
             <span>
-                <button type="button" class={"btn dropdown-toggle dropdown-toggle-split btn-primary"} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" className={"btn dropdown-toggle dropdown-toggle-split btn-primary"} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span >Genres</span>
                 </button>
                 <div className="dropdown-menu" data-test="dropdownComponent">
                     {
                         genres.map((genre, index) => {
                             if(genre.name === "Spotlight"){
-                                return;
+                                return null;
                             }
                             return (
                                 <a className="dropdown-item" href={`/books/${genre.name}`}

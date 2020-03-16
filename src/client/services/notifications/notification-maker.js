@@ -1,10 +1,3 @@
-import React from "react";
-const notificationButton = (
-  <button onClick={() => makeNotification("card1", "sup, man")}>
-    Note me, baby.
-  </button>
-);
-
 export default function makeNotification(id, content) {
   var card = document.getElementById(id);
 

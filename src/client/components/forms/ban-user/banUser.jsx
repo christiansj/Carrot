@@ -50,11 +50,11 @@ class BanUserForm extends Component {
     })
   }
   handleSubmit() {
-
+    const {userId} = this.props.user;
     this.setState(prevState => ({
       requestBody: {
         ...prevState.requestBody,
-        userId: parseInt(this.props.user.userId)
+        userId: parseInt(userId, 10)
       }
     }), () => {
       new ApiService().execute("POST", "user/ban", this.state.requestBody)

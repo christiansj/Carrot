@@ -9,6 +9,7 @@ import APIService from 'client/services/Api';
  */
 export default class ChapterList extends Component {
   state = { chapters: [] }
+  
   componentDidMount() {
     new APIService().execute("GET", `/chapter/titles/${this.props.bookId}`)
       .then(res => { this.setState({ chapters: res.data }) });

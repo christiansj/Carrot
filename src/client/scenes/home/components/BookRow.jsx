@@ -7,23 +7,23 @@ export default class BookRow extends Component {
   state = { bookJSONs: [] }
 
 
-  componentDidMount(){
+  componentDidMount() {
     new ApiService().execute("GET", `/genre/books/${this.props.genreName}/`)
-    .then(res => this.setState({ bookJSONs: res.data }))
-    .catch((err) => { console.log(err) });
-  this.forceUpdate();
+      .then(res => this.setState({ bookJSONs: res.data }))
+      .catch((err) => { console.log(err) });
+    this.forceUpdate();
   }
 
   render() {
     const { bookJSONs } = this.state;
-    const { genreName, styleClass } = this.props;
+    const { genreName, index } = this.props;
     // don't render if there are no books
     if (bookJSONs.length <= 0 || genreName === "Spotlight") {
       return (null);
     }
-  
+
     return (
-      <section className="home-book-row">
+      <section className="home-book-row" key={`home-bookrow-${index}`}>
         <h1>{genreName}</h1>
         <hr />
         {/* Render all BookCovers under this genre */}
@@ -32,10 +32,14 @@ export default class BookRow extends Component {
             const bookCoverConfig = {
               book: item,
               width: 215,
-              height: 300
+              height: 300,
             }
 
-            return BookContainer(bookCoverConfig)
+            return (
+              <span key={`${item.title}-${index}`}>
+                {BookContainer(bookCoverConfig)}
+              </span>
+            )
           }
           )}
         </span>
@@ -44,7 +48,6 @@ export default class BookRow extends Component {
   }
 }
 BookRow.propTypes = {
-  fefew: PropTypes.string.isRequired,
   genreName: PropTypes.string.isRequired,
-  styleClass: PropTypes.string.isRequired
+  index: PropTypes.number.isRequired
 }

@@ -7,11 +7,11 @@ import "./../service.css";
  */
 class StarButton extends Component{
   state = {starred: false}
-  constructor(props){
-    super(props);
+ 
+  componentDidMount(){
     this.setState({starred: this.props.isStarred});
   }
-
+  
   render(){
     return(
       <div className="star-button" style={{backgroundColor: determineBGColor(this.state.starred)}}

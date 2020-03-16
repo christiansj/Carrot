@@ -21,7 +21,7 @@
   border-radius: 75px;
   position: relative;
   bottom: 115%;
-  left: 75%;
+  left: 100%;
   opacity: .9;
 }
 .star-button:hover{
@@ -91,4 +91,5 @@
   padding: 5px 30px;
   overflow: auto;
   margin: auto;
+  border: 1px solid black;
 }

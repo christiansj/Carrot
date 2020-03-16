@@ -4,12 +4,17 @@
 }
 /** header */
 header {
+  position: fixed !important;
+  width: 100%;
+  top: 0px;
+ 
   color: white;
 
-  padding: 5px 45px !important;
+  padding: 5px 65px !important;
   font-size:  16px;
   
   border-bottom: 3px solid orange;
+  z-index: 1;
 }
 
 header > div > ul > li > .btn-primary:hover{
@@ -23,8 +28,13 @@ header > div > button {
 header > a{
   color: orange;
 }
+
+#AppContent{
+  margin-top: 60px;
+}
 .app-name{
   font-size: 20px;
+  margin-right: 15px;
 }
 .app-name:hover{
   color: orange;
@@ -56,3 +66,4 @@ header > a{
   font-size: 64px;
   color: rgb(235, 167, 43);
 }
+

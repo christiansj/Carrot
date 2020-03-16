@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import { BookDetails, BookContainer, ChapterList, genreTags } from "./components";
+import { BookDetails, ChapterList, genreTags } from "./components";
+import bookCover from 'client/components/book-cover';
 import { parseBookUrl } from './functions';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -46,26 +47,30 @@ export class BookDetail extends Component {
     const genreTagsConfig = {
       genres: genreJSONs
     }
-    const bookContainerConfig = {
-      bookId,
-      bookJSON
-    }
+ 
     const detailConfig = {
       book: bookJSON,
       authors: authorJSONs,
       userIsAuthor,
       location: this.props.location
     }
-
+    const bookCoverConfig = {
+      book: bookJSON,
+      height: 450,
+      width: 300
+    }
     return (
       <div className="book-detail">
-        {BookContainer(bookContainerConfig)}
+        <div className="bookContainer">
+          {bookCover(bookCoverConfig)}
+        </div>
+
         <div className="bookDetail">
-          <BookDetails {...detailConfig}/>
-          <br/>
+          <BookDetails {...detailConfig} />
+          <br />
           {genreTags(genreTagsConfig)}
-          
-          <br/>
+
+          <br />
           <hr />
 
           <ChapterList bookId={bookId} bookTitle={bookJSON.title} />

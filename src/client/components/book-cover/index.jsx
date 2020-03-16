@@ -1,4 +1,5 @@
 import React from 'react';
+
 const renderPNG = (pngCheck, bookJSON, e) => {
     if (pngCheck) return;
     const { bookId, folderHash } = bookJSON;

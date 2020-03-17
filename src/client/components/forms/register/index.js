@@ -46,7 +46,7 @@ export default class RegisterForm extends Component {
 
     render() {
         return (
-            <div className="jumbotron container">
+            <div className="jumbotron container" data-test="registerFormComponent">
            
                 <h3>Create an Account</h3>
                 {
@@ -58,12 +58,17 @@ export default class RegisterForm extends Component {
                             value: this.state.requestBody[name],
                             emitEvent: this.handleInputChange
                         }
-                        return formRow(formRowConfig);
+                        return (<span key={`register-field-${index}`}>
+                            { formRow(formRowConfig)}
+                        </span> )
+                       
                     })
                 }
                 <p style={{color: "red"}}>{this.state.errMessage}</p>
                 <div>
-                    <button className="btn btn-primary" onClick={this.handleRegister}>Register</button>
+                    <button className="btn btn-primary" onClick={this.handleRegister} data-test="registerButton">
+                        Register
+                    </button>
                 </div>
             </div>
         )

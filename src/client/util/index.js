@@ -13,6 +13,13 @@ export const checkProps = (component, expectedProps) => {
     return propsErr;
 }
 
+export const testInputField = (component, name, type) => {
+    const inputs = component.find('input');
+    const input = inputs.find(`[name='${name}']`);
+    expect(input.length).toBe(1);
+    expect(input.prop('type')).toBe(type);
+}
+
 export const isEmpty = (obj) =>{
     return !obj || Object.keys(obj).length === 0;
 }

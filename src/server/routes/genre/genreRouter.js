@@ -19,15 +19,13 @@ router.get("/unique/:fieldName/:value", (request, response) => {
 
 // GET genre/books/:genreId
 router.get("/books/:genreId", (request, response) => {
-    
-
     const { genreId } = request.params;
     const retrieve  = genreScripts.retrieve(genreId);
     const booksInGenre = bookGenreScripts.booksInGenre(genreId);
 
     executeQuery(retrieve, [genreId], (err, genre)=>{
         if(!genre.length){
-            response.status(400).send("invalid genre");
+            response.status(404).send("Could not find genre");
             return;
         }
         executeQuery(booksInGenre, [genreId], (err, books) => {
@@ -68,22 +66,26 @@ router.get("/create-form", (request, response) => {
     response.send(resBody);
 });
 // GET genre/
-router.get("/", function (request, response) {
+router.get("/", function (request, response, next) {
     const query = genreScripts.databaseTable;
 
     executeQuery(query, [], (err, results) => {
-        sendResults(err, results, response);
+        sendResults(err, results, response, false);
     });
 });
 
+
+//GET /genre/with-books
 router.get("/with-books", function(request, response){
     const query = bookGenreScripts.genresWithBooks;
 
     executeQuery(query, [], (err, results) => {
         sendResults(err, results, response);
     });
-})
-// GET genre/:id
+});
+
+
+// GET genre/:genreId
 router.get("/:genreId", (request, response) => {
 
     const { genreId } = request.params;
@@ -103,7 +105,7 @@ router.post("/", (request, response) => {
 
 
 // PUT genre/:genreId
-router.put('/:genreId', (request, response) => {
+router.put('/:genreId', (request, response, next) => {
     const { genreId } = request.params;
     const { name } = request.body;
     const retrieve = genreScripts.retrieve(genreId);

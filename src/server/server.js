@@ -58,10 +58,13 @@ var port = 8080;
 if (process.env.PORT !== undefined) {
   port = process.env.PORT;
 }
-//listen on same port listed in package.JSON
-app.listen(port, () => {
-  console.log(`listening on port ${port}`);
-});
+
+// keep app from relistening on tests
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`listening on port ${port}`);
+  });  
+}
 
 //export this server
 module.exports = app;

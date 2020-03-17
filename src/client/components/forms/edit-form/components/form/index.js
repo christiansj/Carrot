@@ -53,7 +53,7 @@ export class Form extends Component {
 
 
     renderForm() {
-        const { requestBody } = this.state;
+        const { requestBody } = this.props;
         if (isEmpty(requestBody)) {
             return (
                 <h2 data-test="errorMessage">

@@ -4,7 +4,7 @@ import ApiService from 'client/services/Api';
 import Input from 'client/components/forms/input';
 import { setOnlineUser } from 'client/redux/actions/user';
 
-class SignInForm extends Component {
+export class SignInForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,12 +30,7 @@ class SignInForm extends Component {
 
         new ApiService().execute('POST', 'user/login', { identity, password })
             .then(res => {
-                console.log(res.data)
                 this.props.loginUser(res.data);
-
-            })
-            .then(() => {
-                console.log(this.props.onlineUser);
             })
             .catch(err => {
                 this.setState({ errorMessage: err.response.data });
@@ -64,12 +59,12 @@ class SignInForm extends Component {
 
 
         return (
-            <div>
+            <div data-test='signInFormComponent'>
                 <h4>Sign In</h4>
                 {Input(identityProps)}
                 {Input(passwordProps)}
                 <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
-                <button type="button" onClick={() => this.handleSubmit()} id="register-button">
+                <button type="button" onClick={() => this.handleSubmit()} id="login-button" data-test="loginButton">
                     Login
                 </button>
             </div>

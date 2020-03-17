@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import ApiService from 'client/services/Api';
 import { renderFields } from './../../functions';
-import { withRouter } from 'react-router-dom';
+import { isEmpty } from 'client/util';
 
 export class Form extends Component {
     constructor(props) {
@@ -51,7 +54,7 @@ export class Form extends Component {
 
     renderForm() {
         const { requestBody } = this.state;
-        if (!requestBody) {
+        if (isEmpty(requestBody)) {
             return (
                 <h2 data-test="errorMessage">
                     Unable to find object
@@ -94,4 +97,10 @@ export class Form extends Component {
     }
 }
 
+
+Form.propTypes = {
+    requestBody: PropTypes.object.isRequired,
+    id: PropTypes.number.isRequired,
+    tableName: PropTypes.string.isRequired
+}
 export default withRouter(Form);

@@ -5,7 +5,7 @@ import Form from './components/form';
 import './edit-form.css';
 class EditForm extends Component {
     state = {
-        requestBody: null
+        requestBody: {}
     }
 
     componentDidMount() {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ApiService from 'client/services/Api';
+import PropTypes from 'prop-types';
 
+import ApiService from 'client/services/Api';
 
 class BanUserForm extends Component {
   constructor(props) {
@@ -17,14 +18,6 @@ class BanUserForm extends Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.verifyInput = this.verifyInput.bind(this);
-  }
-
-  componentDidMount() {
-    if (this.props.match !== undefined) {
-
-      alert('squack')
-    }
-
   }
 
   handleInputChange(event) {
@@ -49,8 +42,9 @@ class BanUserForm extends Component {
       isValidInput
     })
   }
+
   handleSubmit() {
-    const {userId} = this.props.user;
+    const { userId } = this.props.user;
     this.setState(prevState => ({
       requestBody: {
         ...prevState.requestBody,
@@ -65,16 +59,19 @@ class BanUserForm extends Component {
 
   render() {
     var { reason, dateUnbanned } = this.state.requestBody;
+    const { userId } = this.props.user;
+    if (!userId) {
+      return <h3>User not found</h3>;
+    }
     return (
-      <div>
-        {JSON.stringify(this.state.requestBody)}
-        <div className="form-group">
-          <label for="reason">Reason</label>
+      <div data-test="banUserFormComponent">
+        <div className="form-group" data-test="reasonInputGroup">
+          <label htmlFor="reason">Reason</label>
           <br />
           <textarea name="reason" rows={7} value={reason} onChange={this.handleInputChange} />
         </div>
-        <div className="form-group">
-          <label for="bannedUntil">Banned until: </label>
+        <div className="form-group" data-test="bannedUntilInputGroup">
+          <label htmlFor="bannedUntil">Banned until</label>
           <input type="datetime-local" id="bannedUntil" name="dateUnbanned" value={dateUnbanned} onChange={this.handleInputChange} />
         </div>
 
@@ -89,5 +86,11 @@ class BanUserForm extends Component {
 
 function isNotEmpty(str) {
   return str.trim() !== "";
+}
+
+BanUserForm.propTypes = {
+  user: PropTypes.shape({
+    userId: PropTypes.number.isRequired
+  })
 }
 export default BanUserForm;

@@ -8,6 +8,13 @@ export const findByTestAttr = (component, attr) => {
     return wrapper;
 }
 
+export const findAndTestText = (component, attr, expectedText) => {
+    const element = findByTestAttr(component, attr);
+    
+    expect(element.length).toBe(1);
+    expect(element.text()).toBe(expectedText);
+}
+
 export const checkProps = (component, expectedProps) => {
     const propsErr = checkPropTypes(component.propTypes, expectedProps, 'props', component.name);
     return propsErr;
@@ -19,6 +26,8 @@ export const testInputField = (component, name, type) => {
     expect(input.length).toBe(1);
     expect(input.prop('type')).toBe(type);
 }
+
+
 
 export const isEmpty = (obj) =>{
     return !obj || Object.keys(obj).length === 0;

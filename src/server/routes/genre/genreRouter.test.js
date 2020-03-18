@@ -1,8 +1,11 @@
-const { testGet, testPost, deleteLastRecord, createTestRecord, testDelete } = require('./../../util/test');
+const { testGet, testPost, deleteLastRecord, createTestRecord, resetAutoIncrement, testDelete, testPut, getLastInsertId } = require('./../../util/test');
 const { executeQuery } = require('./../../util');
 const genreScripts = require('./../../sql-scripts/genre');
 
 describe('genreRouter', () => {
+    afterEach(()=>{
+        resetAutoIncrement('genre', 'genreId')
+    })
 
     describe('GET /genre/', () => {
         test('Should respond with list of all genres', (done) => {
@@ -75,12 +78,12 @@ describe('genreRouter', () => {
 
     describe('POST genre/ (existing genre)', () => {
         beforeEach(() => {
-            createTestRecord(genreScripts.create, ['__test_genre__']);
+            createTestRecord(genreScripts.create, ['__post_genre__']);
         });
 
         test('Should return 400 for creating existing genre', (done) => {
             let data = {
-                name: '__test_genre__'
+                name: '__post_genre__'
             };
             const expectedHeader = 'text/html; charset=utf-8';
             testPost('/genre/', data, expectedHeader, 400, done);
@@ -93,7 +96,7 @@ describe('genreRouter', () => {
 
     describe('DELETE genre/:genreId', ()=>{
         beforeEach(()=>{
-            createTestRecord(genreScripts.create, ['test_genre__']);
+            createTestRecord(genreScripts.create, ['__delete_genre__']);
         });
 
         test('Should delete a test genre and return 204', (done)=>{
@@ -104,4 +107,23 @@ describe('genreRouter', () => {
             });
         });
     });
+
+    describe('PUT genre/:genreId', ()=>{
+        beforeEach(() => {
+            createTestRecord(genreScripts.create, ['__but_genre__']);
+        });
+
+        test('Should update a genre and return 200', (done)=>{
+            const data = {
+                name: '__put_genre__'
+            };
+            getLastInsertId((err, id)=>{
+                testPut(`/genre/${id}`, data, 200, done);
+            });
+        });
+
+        afterEach(() => {
+            deleteLastRecord(genreScripts.deleteRecord)
+        });
+    })
 });

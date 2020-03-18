@@ -8,7 +8,7 @@ describe('genreRouter', () => {
     });
 
     describe('GET /genre/', () => {
-        test('Should respond with list of all genres', (done) => {
+        test('Should return all genres - 200', (done) => {
             const expectedHeader = 'application/json; charset=utf-8';
             testGet('/genre', expectedHeader, 200, done);
         });
@@ -16,49 +16,43 @@ describe('genreRouter', () => {
 
 
     describe('GET /genre/:genreId', () => {
-        test('Should respond with an existing genre', (done) => {
+        test('Should return a genre - 200', (done) => {
             const expectedHeader = 'application/json; charset=utf-8';
             testGet('/genre/1', expectedHeader, 200, done);
-        });
-
-
-        test('Should respond with a 404 status code', (done) => {
-            const expectedHeader = 'text/html; charset=utf-8';
-            testGet('/genre/9999', expectedHeader, 404, done);
         });
     });
 
 
     describe('GET /genre/books/:genreId', () => {
-        test('Should respond with an existing genre\'s books', (done) => {
+        test('Should return a genre\'s books - 200', (done) => {
             const expectedHeader = 'application/json; charset=utf-8';
             testGet('/genre/books/1', expectedHeader, 200, done);
         });
     });
 
     describe('GET /genre/with-books', () => {
-        test('Should respond with genres that have books', (done) => {
+        test('Should return genres that have books - 200', (done) => {
             const expectedHeader = 'application/json; charset=utf-8';
             testGet('/genre/with-books', expectedHeader, 200, done);
         });
     });
 
     describe('GET /genre/create-form', () => {
-        test('Should respond with a JSON for a genre create-form', (done) => {
+        test('Should respond with a JSON for a genre create-form - 200', (done) => {
             const expectedHeader = 'application/json; charset=utf-8';
             testGet('/genre/create-form', expectedHeader, 200, done);
         });
     });
 
     describe('GET /genre/table', () => {
-        test('Should respond with a genres for a table', (done) => {
+        test('Should respond with a genres for a table - 200', (done) => {
             const expectedHeader = 'application/json; charset=utf-8';
             testGet('/genre/table', expectedHeader, 200, done);
         });
     });
 
     describe('POST /genre/', () => {
-        test('Should create a genre and return 201', (done) => {
+        test('Should create a genre - 201', (done) => {
             let data = {
                 name: 'Test Genre'
             };
@@ -76,7 +70,7 @@ describe('genreRouter', () => {
             createTestRecord(genreScripts.create, ['__post_genre__']);
         });
 
-        test('Should return 400 for creating existing genre', (done) => {
+        test('Should return BAD REQUEST on creating existing genre - 400', (done) => {
             let data = {
                 name: '__post_genre__'
             };
@@ -95,7 +89,7 @@ describe('genreRouter', () => {
             createTestRecord(genreScripts.create, ['__but_genre__']);
         });
 
-        test('Should update a genre and return 200', (done)=>{
+        test('Should update a genre - 200', (done)=>{
             const data = {
                 name: '__put_genre__'
             };
@@ -114,7 +108,7 @@ describe('genreRouter', () => {
             createTestRecord(genreScripts.create, ['__delete_genre__']);
         });
 
-        test('Should delete a test genre and return 204', (done)=>{
+        test('Should delete a test genre - 204', (done)=>{
             executeQuery('SELECT LAST_INSERT_ID()', [], (err, results)=>{
                 var lastInsertId = results[0]['LAST_INSERT_ID()'];
              

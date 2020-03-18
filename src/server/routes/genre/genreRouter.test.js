@@ -1,7 +1,7 @@
-const { testGet, testPost, deleteLastRecord, createTestRecord } = require('./../../util/test');
-
+const { testGet, testPost, deleteLastRecord, createTestRecord, testDelete } = require('./../../util/test');
+const { executeQuery } = require('./../../util');
 const genreScripts = require('./../../sql-scripts/genre');
-// const genreScripts = require('./../../sql-scripts/genre');
+
 describe('genreRouter', () => {
 
     describe('GET /genre/', () => {
@@ -60,9 +60,6 @@ describe('genreRouter', () => {
     });
 
     describe('POST genre/', () => {
-        afterEach(() => {
-            deleteLastRecord(genreScripts.deleteRecord)
-        });
         test('Should create a genre and return 201', (done) => {
             let data = {
                 name: 'Test Genre'
@@ -70,23 +67,41 @@ describe('genreRouter', () => {
             const expectedHeader = 'application/json; charset=utf-8';
             testPost('/genre/', data, expectedHeader, 201, done);
         });
-    });
 
-    describe('POST genre/ (existing genre)', ()=>{
-        beforeEach(()=>{
-            createTestRecord(genreScripts.create, ['__test_genre__']);
-        });
         afterEach(() => {
             deleteLastRecord(genreScripts.deleteRecord)
         });
-        test('Should return 400 on existing genre', (done)=>{
+    });
+
+    describe('POST genre/ (existing genre)', () => {
+        beforeEach(() => {
+            createTestRecord(genreScripts.create, ['__test_genre__']);
+        });
+
+        test('Should return 400 for creating existing genre', (done) => {
             let data = {
                 name: '__test_genre__'
             };
             const expectedHeader = 'text/html; charset=utf-8';
             testPost('/genre/', data, expectedHeader, 400, done);
         });
-    })
 
+        afterEach(() => {
+            deleteLastRecord(genreScripts.deleteRecord)
+        });
+    });
 
+    describe('DELETE genre/:genreId', ()=>{
+        beforeEach(()=>{
+            createTestRecord(genreScripts.create, ['test_genre__']);
+        });
+
+        test('Should delete a test genre and return 204', (done)=>{
+            executeQuery('SELECT LAST_INSERT_ID()', [], (err, results)=>{
+                var lastInsertId = results[0]['LAST_INSERT_ID()'];
+             
+                testDelete(`/genre/${lastInsertId}`, 204, done);
+            });
+        });
+    });
 });

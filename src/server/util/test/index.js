@@ -3,10 +3,16 @@ const deleteLastRecord = require('./functions/deleteLastRecord');
 const testGet = require('./functions/testGet');
 const testPost = require('./functions/testPost');
 const testDelete = require('./functions/testDelete');
+const testPut = require('./functions/testPut');
+const getLastInsertId = require('./functions/getLastInsertId');
+const resetAutoIncrement = require('./functions/resetAutoIncrement');
 module.exports ={
     createTestRecord,
     deleteLastRecord,
     testGet,
     testPost,
-    testDelete
+    testPut, 
+    testDelete,
+    getLastInsertId,
+    resetAutoIncrement
 }

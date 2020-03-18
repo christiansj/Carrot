@@ -1,17 +1,12 @@
 const { executeQuery } = require('./../../../index');
+const getLastInsertId = require('./../getLastInsertId');
 
 module.exports = function (deleteScript) {
-    executeQuery('select LAST_INSERT_ID()', [], (err, results) => {
-        if (err) {
-            console.log(`err ${err}`);
-            return;
-        }
-
-        var lastInsertId = results[0]['LAST_INSERT_ID()'];
-        executeQuery(deleteScript, [lastInsertId], (err, results) => {
+    getLastInsertId((err, id)=>{
+        executeQuery(deleteScript, [id], (err, results) => {
             if (err) {
                 console.log(`err ${err}`);
             }
         });
-    });
+    })
 }

@@ -99,6 +99,10 @@ router.post("/", (request, response) => {
     const query = genreScripts.create;
     const { name } = request.body;
     executeQuery(query, [name], (err, results) => {
+        if(err && err.code === 'ER_DUP_ENTRY'){
+            response.status(400).send(err.sqlMessage);
+            return;
+        }
         sendResults(err, results, response, true);
     });
 });

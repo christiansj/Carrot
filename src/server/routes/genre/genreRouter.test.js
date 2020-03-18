@@ -5,7 +5,7 @@ const genreScripts = require('./../../sql-scripts/genre');
 describe('genreRouter', () => {
     afterEach(()=>{
         resetAutoIncrement('genre', 'genreId')
-    })
+    });
 
     describe('GET /genre/', () => {
         test('Should respond with list of all genres', (done) => {
@@ -34,11 +34,6 @@ describe('genreRouter', () => {
             const expectedHeader = 'application/json; charset=utf-8';
             testGet('/genre/books/1', expectedHeader, 200, done);
         });
-
-        test('Should respond with a 404 status code', (done) => {
-            const expectedHeader = 'text/html; charset=utf-8';
-            testGet('/genre/books/9999', expectedHeader, 404, done);
-        });
     });
 
     describe('GET /genre/with-books', () => {
@@ -55,14 +50,14 @@ describe('genreRouter', () => {
         });
     });
 
-    describe('GET genre/table', () => {
+    describe('GET /genre/table', () => {
         test('Should respond with a genres for a table', (done) => {
             const expectedHeader = 'application/json; charset=utf-8';
             testGet('/genre/table', expectedHeader, 200, done);
         });
     });
 
-    describe('POST genre/', () => {
+    describe('POST /genre/', () => {
         test('Should create a genre and return 201', (done) => {
             let data = {
                 name: 'Test Genre'
@@ -76,7 +71,7 @@ describe('genreRouter', () => {
         });
     });
 
-    describe('POST genre/ (existing genre)', () => {
+    describe('POST /genre/ (existing genre)', () => {
         beforeEach(() => {
             createTestRecord(genreScripts.create, ['__post_genre__']);
         });
@@ -94,21 +89,8 @@ describe('genreRouter', () => {
         });
     });
 
-    describe('DELETE genre/:genreId', ()=>{
-        beforeEach(()=>{
-            createTestRecord(genreScripts.create, ['__delete_genre__']);
-        });
-
-        test('Should delete a test genre and return 204', (done)=>{
-            executeQuery('SELECT LAST_INSERT_ID()', [], (err, results)=>{
-                var lastInsertId = results[0]['LAST_INSERT_ID()'];
-             
-                testDelete(`/genre/${lastInsertId}`, 204, done);
-            });
-        });
-    });
-
-    describe('PUT genre/:genreId', ()=>{
+    
+    describe('PUT /genre/:genreId', ()=>{
         beforeEach(() => {
             createTestRecord(genreScripts.create, ['__but_genre__']);
         });
@@ -125,5 +107,37 @@ describe('genreRouter', () => {
         afterEach(() => {
             deleteLastRecord(genreScripts.deleteRecord)
         });
-    })
+    });
+
+    describe('DELETE /genre/:genreId', ()=>{
+        beforeEach(()=>{
+            createTestRecord(genreScripts.create, ['__delete_genre__']);
+        });
+
+        test('Should delete a test genre and return 204', (done)=>{
+            executeQuery('SELECT LAST_INSERT_ID()', [], (err, results)=>{
+                var lastInsertId = results[0]['LAST_INSERT_ID()'];
+             
+                testDelete(`/genre/${lastInsertId}`, 204, done);
+            });
+        });
+    });
+
+    describe('Nonexistent genre tests - should return 404', ()=>{
+        test('GET /genre/:genreId', (done) => {
+            const expectedHeader = 'text/html; charset=utf-8';
+            testGet('/genre/books/9999', expectedHeader, 404, done);
+        });
+
+        test('PUT /genre/:genreId', (done)=>{
+            const data = {
+                name: 'Bad Genre'
+            };
+            testPut('/genre/9999', data, 404, done);
+        });
+
+        test('DELETE /genre/:genreId', (done)=>{
+            testDelete('/genre/9999', 404, done);
+        });
+    });
 });

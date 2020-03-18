@@ -20,8 +20,9 @@ function sendResults(err, results, response, isSendOne = false) {
     response.status(500).send(err);
     return;
   }
+
   // for POST requests
-  if(typeof(results) === 'object' && results.insertId !== undefined){
+  if(typeof(results) === 'object' && Object.keys(results).includes("insertId") && results.insertId !== 0 ){
     response.status(201).json({insertId: results.insertId});
     return;
   }

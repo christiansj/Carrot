@@ -1,12 +1,11 @@
-const request = require('supertest');
-const app = require('./../../server');
-module.exports.testGet = (url, expectVal, statusCode,  done) => {
-    request(app)
-        .get(url)
-        .set('Accept', 'application/json')
-        .expect('Content-Type', expectVal)
-        .expect(statusCode)
-        .end(err=>{
-            err ? done.fail(err) : done()
-        })
+const createTestRecord = require('./functions/createTestRecord');
+const deleteLastRecord = require('./functions/deleteLastRecord');
+const testGet = require('./functions/testGet');
+const testPost = require('./functions/testPost');
+
+module.exports ={
+    createTestRecord,
+    deleteLastRecord,
+    testGet,
+    testPost
 }

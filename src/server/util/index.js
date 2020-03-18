@@ -107,7 +107,7 @@ module.exports.uniqueCheck = function(props = {}){
       if(!results.length){
           response.status(204).send();
       }else{
-          response.status(400).send();
+          response.status(200).send();
       }
   });
 }

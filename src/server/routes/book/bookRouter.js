@@ -121,9 +121,9 @@ router.post("/", (request, response) => {
 	});
 });
 
-router.put("/details", (request, response)=>{
-	const {bookId, title, description} = request.body;
-	
+router.put("/details/:bookId", (request, response)=>{
+	const {title, description} = request.body;
+	const {bookId} = request.params;
 	const {retrieve, update} = bookScripts;
 	executeQuery(retrieve, [bookId], (err, book)=>{
 		if(err){

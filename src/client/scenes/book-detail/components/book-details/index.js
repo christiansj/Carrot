@@ -46,7 +46,7 @@ class BookDetails extends Component {
             description: editDescription
         }
 
-        new ApiService().execute('PUT', 'book/details', data)
+        new ApiService().execute('PUT', `book/details/${bookId}`, data)
             .then(window.location.reload())
             .catch(err => console.log(err));
     }

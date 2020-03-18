@@ -3,7 +3,9 @@ const { connection } = require('./../modules/dbSession');
 function executeQuery(query, parameters = [], callback) {
   connection.query(query, parameters, function (err, result) {
     if (err) {
-      console.log(err);
+      if(process.env.NODE_ENV !== 'test'){
+        console.log(err);
+      }
       callback(err, null);
     } else {
       callback(null, result);
@@ -15,17 +17,25 @@ module.exports.executeQuery = executeQuery;
 
 function sendResults(err, results, response, isSendOne = false) {
   if (err) {
-    response.sendStatus(500).send(err);
+    response.status(500).send(err);
+    return;
+  }
+  // for POST requests
+  if(typeof(results) === 'object' && results.insertId !== undefined){
+    response.status(201).json({insertId: results.insertId});
     return;
   }
 
   if (!results.length) {
     response.sendStatus(204);
+    return;
   }
   else if (isSendOne) {
     response.json(results[0]);
+    return;
   } else {
     response.json(results);
+    return;
   }
 }
 module.exports.sendResults = sendResults;
@@ -35,7 +45,7 @@ module.exports.updateRow = function (retrieveScript, updateScript, parameters, i
 
   executeQuery(retrieveScript, [id], (err, foundResults) => {
     if (!foundResults.length) {
-      response.status(400).send(`Update error: Initial data row was not found`);
+      response.status(404).send(`Update error: Initial data row was not found`);
       return;
     }
 
@@ -62,7 +72,7 @@ module.exports.deleteRow = function (retrieveScript, deleteScript, id, response)
 
   executeQuery(retrieveScript, [id], (err, results) => {
     if (!results.length) {
-      response.status(400).send(`Delete Error: Intitial data row was not found`);
+      response.status(404).send(`Delete Error: Intitial data row was not found`);
       return;
     }
 
@@ -76,7 +86,7 @@ module.exports.deleteRow = function (retrieveScript, deleteScript, id, response)
 module.exports.retrieveRow = function (retrieveScript, id, response) {
   executeQuery(retrieveScript, [id], (err, results) => {
     if (!results.length) {
-      response.status(400).send('Retrieve Error: Data row was not found');
+      response.status(404).send('Retrieve Error: Data row was not found');
       return;
     }
     sendResults(err, results, response, true);
@@ -97,7 +107,7 @@ module.exports.uniqueCheck = function(props = {}){
       if(!results.length){
           response.status(204).send();
       }else{
-          response.status(200).send();
+          response.status(400).send();
       }
   });
 }

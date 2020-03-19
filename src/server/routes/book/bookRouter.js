@@ -4,7 +4,6 @@ const bookScripts = require('./../../sql-scripts/book');
 const bookGenreScripts = require('./../../sql-scripts/bookGenre');
 const bookAuthorScripts = require('./../../sql-scripts/bookAuthor');
 const { uploadBookFunc } = require('./functions/')
-const upload = require('./../../multer');
 
 // GET book/unique/:fieldName/:value
 router.get("/unique/:fieldName/:value", (request, response) => {
@@ -130,7 +129,7 @@ router.put("/details/:bookId", (request, response)=>{
 			response.status(400).send(err);
 			return;
 		}else if(!book.length){
-			response.status(400).send('book not found');
+			response.status(404).send('book not found');
 			return;
 		}
 		

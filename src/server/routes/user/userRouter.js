@@ -52,15 +52,15 @@ router.get("/username/:username", (request, response) => {
 // GET user/books/:username
 router.get("/books/:username", (request, response) => {
     const getUser = userScripts.byUsername;
-    const {booksInAuthor} = bookAuthorScripts;
-    const {username} = request.params;
+    const { booksInAuthor } = bookAuthorScripts;
+    const { username } = request.params;
 
-    executeQuery(getUser, [username], (err, user)=>{
-        if(!user.length){
-            response.status(400).send('user not found');
+    executeQuery(getUser, [username], (err, user) => {
+        if (!user.length) {
+            response.status(404).send('user not found');
             return;
         }
-        executeQuery(booksInAuthor, [username], (err, books)=>{
+        executeQuery(booksInAuthor, [username], (err, books) => {
             sendResults(err, books, response, false);
         });
     });
@@ -84,9 +84,6 @@ router.get("/role/:role", (request, response) => {
 
 // POST user/login
 router.post("/login", (request, response) => {
-    const { identity, password } = request.body;
-
-
     loginUser(request.body, response);
 });
 
@@ -109,13 +106,13 @@ router.post("/ban", (request, response) => {
     const banUser = banUserScripts.create;
     const { retrieve } = userScripts;
 
-    executeQuery(retrieve, [userId], (err, user)=>{
-        if(!user.length){
-            response.status(400).send("user was not found");
+    executeQuery(retrieve, [userId], (err, user) => {
+        if (!user.length) {
+            response.status(404).send("user was not found");
             return;
         }
 
-        executeQuery(banUser, [userId, reason, dateUnbanned, userId], (err, result)=>{
+        executeQuery(banUser, [userId, reason, dateUnbanned, userId], (err, result) => {
             sendResults(err, result, response);
         });
     });
@@ -129,7 +126,7 @@ router.put("/setRole/:userId/:role", (request, response) => {
 
     executeQuery(retrieve, [userId], (err, user) => {
         if (!user.length) {
-            response.status(400).send("User was not found!");
+            response.status(404).send("User was not found!");
             return;
         }
         executeQuery(setRole, [role, userId], (err, result) => {

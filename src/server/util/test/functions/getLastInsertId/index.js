@@ -1,5 +1,7 @@
 const { executeQuery } = require('./../../../index');
 
+
+
 module.exports = function(callback){
     executeQuery('SELECT LAST_INSERT_ID()', [], (err, results)=>{
         if (err) {
@@ -7,6 +9,12 @@ module.exports = function(callback){
             callback(err, null);
         }
         var lastInsertId = results[0]['LAST_INSERT_ID()'];
-        callback(null, lastInsertId);
+        if(lastInsertId === 0 || !lastInsertId){
+            
+            callback('did not find lastInsertId', null)
+        }else{
+            callback(null, lastInsertId);
+        }
+       
     })
 }

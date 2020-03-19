@@ -69,7 +69,7 @@ describe('bookRouter', ()=>{
         });
 
         afterEach(() => {
-            deleteLastRecord(bookScripts.deleteRecord)
+            deleteLastRecord(bookScripts.deleteRecord, 'book', 'bookId')
         });
     });
 

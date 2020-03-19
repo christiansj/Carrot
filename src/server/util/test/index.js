@@ -6,6 +6,7 @@ const testDelete = require('./functions/testDelete');
 const testPut = require('./functions/testPut');
 const getLastInsertId = require('./functions/getLastInsertId');
 const resetAutoIncrement = require('./functions/resetAutoIncrement');
+const getMaxId = require('./functions/getMaxId');
 module.exports ={
     createTestRecord,
     deleteLastRecord,
@@ -14,5 +15,6 @@ module.exports ={
     testPut, 
     testDelete,
     getLastInsertId,
-    resetAutoIncrement
+    resetAutoIncrement,
+    getMaxId
 }

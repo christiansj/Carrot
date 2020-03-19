@@ -61,7 +61,7 @@ describe('genreRouter', () => {
         });
 
         afterEach(() => {
-            deleteLastRecord(genreScripts.deleteRecord)
+            deleteLastRecord(genreScripts.deleteRecord, 'genre', 'genreId');
         });
     });
 
@@ -79,7 +79,7 @@ describe('genreRouter', () => {
         });
 
         afterEach(() => {
-            deleteLastRecord(genreScripts.deleteRecord)
+            deleteLastRecord(genreScripts.deleteRecord, 'genre', 'genreId')
         });
     });
 
@@ -99,7 +99,7 @@ describe('genreRouter', () => {
         });
 
         afterEach(() => {
-            deleteLastRecord(genreScripts.deleteRecord)
+            deleteLastRecord(genreScripts.deleteRecord, 'genre', 'genreId')
         });
     });
 

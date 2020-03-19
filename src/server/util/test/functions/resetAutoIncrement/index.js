@@ -1,16 +1,15 @@
 const { executeQuery } = require('./../../../index');
-
+const getMaxId  = require('./../getMaxId');
 const query = (tableName) => `ALTER TABLE ${tableName} AUTO_INCREMENT = ?;`;
 
-function resetAutoIncrement(tableName, idName){
-    executeQuery(`SELECT MAX(${idName}) FROM ${tableName}`, [], (err, results)=>{
-        if(err){
+function resetAutoIncrement(tableName, idName) {
+    getMaxId(tableName, idName, (err, maxId) => {
+        if (err) {
             console.log(err);
             return;
         }
-        var maxId = results[0][`MAX(${idName})`];
-        executeQuery(query(tableName), [ maxId+1], (err, results)=>{
-            if(err){
+        executeQuery(query(tableName), [maxId + 1], (err, results) => {
+            if (err) {
                 console.log(err);
             }
         })

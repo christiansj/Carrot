@@ -116,4 +116,8 @@ describe('bookRouter', ()=>{
             testPut(`/book/details/9999`, data, 404, done);
         });
     });
+
+    afterAll(()=>{
+        resetAutoIncrement('book', 'bookId');
+    });
 });

@@ -158,8 +158,8 @@ router.put("/deactivate/:userId", (request, response) => {
 router.put('/:userId', (request, response) => {
     const { userId } = request.params;
     const { username, firstName, lastName, role } = request.body;
-
-    updateRow(userScripts, [username, firstName, lastName, role], userId, response);
+    const {retrieve, update} = userScripts;
+    updateRow(retrieve, update, [username, firstName, lastName, role], userId, response);
 });
 
 module.exports = router;

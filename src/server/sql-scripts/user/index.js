@@ -9,7 +9,7 @@ const login = require('./scripts/login');
 const register = require('./scripts/register');
 const preLogin = require('./scripts/preLogin');
 const setRole = require('./scripts/setRole');
-
+const deleteRecord = require('./scripts/delete');
 // const {emailCheck, usernameCheck} = require('./scripts/uniqueFieldScripts');
 module.exports = {
     setRole,
@@ -22,5 +22,6 @@ module.exports = {
     retrieveByRole,
     editForm,
     update,
-    preLogin
+    preLogin,
+    deleteRecord
 }

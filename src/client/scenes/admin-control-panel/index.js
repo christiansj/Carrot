@@ -1,17 +1,23 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import "./admin-control-panel.css";
 
+import { roles } from 'constants/user/';
+import { connect } from 'react-redux';
 import panelButton from "./components/buttons/panel-button";
 import buttonJSONs from "./data/buttonJSONs";
-
-class AdminControlPanel extends PureComponent {
+import ErrorScene from "client/scenes/errors/ErrorScene";
+import { isEmpty } from "client/util";
+class AdminControlPanel extends Component {
   render() {
-
+    const {onlineUser} = this.props;
+    if (isEmpty(onlineUser) ||onlineUser.role < roles.ADMIN) {
+      return ErrorScene("403");
+    }
     return (
       <div className="admin-control-panel container">
 
         {buttonJSONs.map((item, index) =>
-          <a href={item.url} key={"panelButton"+index}>
+          <a href={item.url} key={"panelButton" + index}>
             {panelButton(item.icon, item.buttonText)}
           </a>
         )}
@@ -21,4 +27,9 @@ class AdminControlPanel extends PureComponent {
   }
 }
 
-export default AdminControlPanel;
+function mapStateToProps(state) {
+  return {
+    onlineUser: state.onlineUser
+  }
+}
+export default connect(mapStateToProps)(AdminControlPanel);

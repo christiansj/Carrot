@@ -4,6 +4,11 @@ import SelectInput from "client/components/forms/select/select-input";
 import ApiService from 'client/services/Api';
 import { Link } from 'react-router-dom';
 
+import {connect} from 'react-redux';
+import { roles } from 'constants/user/';
+import ErrorScene from "client/scenes/errors/ErrorScene";
+import { isEmpty } from "client/util";
+
 class UserlistScene extends Component {
 
     constructor(props) {
@@ -55,6 +60,10 @@ class UserlistScene extends Component {
 
     render() {
         const { roleNames, users } = this.state;
+        const {onlineUser} = this.props;
+        if (isEmpty(onlineUser) ||onlineUser.role < roles.ADMIN) {
+            return ErrorScene("403");
+          }
         return (
             <div className="jumbotron container">
                 <br />
@@ -68,5 +77,9 @@ class UserlistScene extends Component {
         )
     }
 }
-
-export default UserlistScene;
+function mapStateToProps(state){
+    return {
+        onlineUser: state.onlineUser
+    }
+}
+export default connect(mapStateToProps)(UserlistScene);

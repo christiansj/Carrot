@@ -1,0 +1,20 @@
+INSERT INTO User(firstName, lastName, email, username, role)
+	VALUES
+		("Stephen", "Leacock", "stephen@example.com", "stephenL", 2),
+		("Svante", "Arrhenius", "svante@example.com", "svanteA", 2),
+		("H.G", "Wells", "hgw@example.com", "hgw", 2),
+		("Robert", "Louis", "robert@example.com", "robertL", 2),
+		("Frank", "Swinnerton", "frank@example.com", "frankS", 2),
+		("Fergus", "Hume", "fergus@example.com", "fergusH", 2),
+		("Henry", "Senton", "henry@example.com", "henryS", 2),
+		("F", "Kafka", "fKafka@example.com", "fKafka", 2),
+		("Talbot", "Mundy", "talbot@example.com", "tablotM", 2),
+		("James", "Joyce", "james@example.com", "jamesJ", 2),
+		("Evelyn", "Visian", "evelynV@example.com", "evelynC", 2),
+		("R.J", "Manion", "rj@example.com", "rjManion", 2),
+		("John Philip", "Quinn", "john@example.com", "johnP", 2),
+		("Alfred", "Yockney", "alfred@example.com", "alfredY", 2),
+		("Leign", "North", "leigh@example.com", "leighN", 2),
+		("David", "MacGibbon", "david@example.com", "davidM", 2),
+		("George", "Younghusband", "george@example.com", "georgeY", 2),
+		("Evelyn Philip", "Shirley", "evelynP@example.com", "evelynP", 2);

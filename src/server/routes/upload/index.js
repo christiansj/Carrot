@@ -11,7 +11,7 @@ router.post("/book-cover/:bookId", (request, response) => {
       callback(null, bookFilePath(bookId))
     },
     filename: function (req, file, callback) {
-      callback(null, "0" + path.extname(file.originalname));
+      callback(null, "cover" + path.extname(file.originalname));
     }
   });
 

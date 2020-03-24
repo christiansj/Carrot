@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const renderPNG = (pngCheck, bookJSON, e) => {
     if (pngCheck) return;
     const { bookId, folderHash } = bookJSON;
-    e.target.src = `http://localhost:8080/static/uploads/books/${folderHash}/${bookId}/0.png`;
+    e.target.src = `http://localhost:8080/static/uploads/books/${folderHash}/${bookId}/cover.png`;
 }
 
 const bookCover = (props = {}) => {
@@ -12,7 +12,7 @@ const bookCover = (props = {}) => {
     const { bookId, title, folderHash } = book;
     var pngCheck = false;
 
-    const imagePath = `http://localhost:8080/static/uploads/books/${folderHash}/${bookId}/0.jpg`;
+    const imagePath = `http://localhost:8080/static/uploads/books/${folderHash}/${bookId}/cover.jpg`;
 
     return (
         <a href={`/book/${bookId}-${title}`} data-test="bookCoverComponent">

@@ -26,9 +26,7 @@ const routes = (userJSON) => (
 
     <div>
       <Route path="/" component={SiteHeader} />
-      <Route exact path="/" render={() => (
-        !userJSON || !userJSON.isLoggedIn ? (<h1>Insert sign in message here</h1>) : (<Redirect to="/dashboard/profile/" />)
-      )} />
+      <Route exact path="/" component={HomeScene} />
       <Route exact path="/register/" component={RegisterForm} />
       <Route exact path="/home/" component={HomeScene} />
 

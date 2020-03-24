@@ -5,4 +5,4 @@ VALUES
 	("Fantasy"),
 	("Fiction"),
 	("Historical"),
-	("Featured");
+	("Spotlight");

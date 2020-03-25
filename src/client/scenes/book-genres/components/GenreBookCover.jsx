@@ -10,15 +10,17 @@ const GenreBookCover = (bookJSON, bookTitle, index) => {
 
   return (
     <div className="genre-book-cover container col-12 col-md-6" key={`book-cover-${index}`}>
-
       {bookCover(bookCoverConfig)}
-      <span className="genre-book-cover details">
-        <p>
+      <span className="genre-book-cover details" >
+        <p style={{textOverflow: 'ellipsis'}}>
           <a href={`/book/${bookJSON.bookId}-${bookTitle}`}>
             {bookJSON.title}
           </a>
           <br />
-          {bookJSON.description}
+          <span >
+            {bookJSON.description}
+          </span>
+
         </p>
       </span>
     </div>

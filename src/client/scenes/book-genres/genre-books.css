@@ -4,7 +4,7 @@
 
 .genre-book-cover.container{
   display: grid;
-  padding: 50px 150px;
+  padding: 50px 100px;
   grid-template-areas: "genreBookCover genreBookDetails";
   grid-template-columns: 200px auto;
   
@@ -18,12 +18,8 @@
 }
 .genre-book-cover.container > .genre-book-cover.details{
   grid-area: genreBookDetails;
-  height: inherit;
   text-align: left !important;
   overflow: hidden;
-
-}
-.genre-book-cover.details > p > a{
-  font-size: 20px;
-  text-align: left;
+  text-overflow: ellipsis !important;
+  max-height: 300px;
 }

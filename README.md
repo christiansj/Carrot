@@ -7,10 +7,11 @@
 [![Generic badge](https://img.shields.io/badge/supertest-v4.0.2-tan.svg)](https://www.npmjs.com/package/supertest)
 [![Generic badge](https://img.shields.io/badge/mysql-v8.0.17-lightgrey.svg)](https://www.mysql.com/)
 
-A web application that allows authors to share their literary works with the Internet. 
+Source code for carrot - a web application that allows authors to share their literary works with the Internet. 
 
 
 # Features
+
 - User authentication
 - User roles/privileges
 - REST API

@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS mock_carrot;
+CREATE DATABASE mock_carrot;
+use mock_carrot;
 source scripts/create/createBook.sql
 source scripts/insert/insert/insertBook.sql
 

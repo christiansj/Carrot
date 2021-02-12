@@ -46,7 +46,7 @@
   width: 100%;
 
   text-align: left;
-  background-color: skyblue;
+  background-color: #87ceeb;
   padding: 35px;
 }
 .spotlight-detail{
@@ -70,5 +70,17 @@
 }
 
 .spotlight-detail-content{
-  background-color: white;
+  background-color: #87ead3;
+  margin-top: 55px;
+  padding: 15px;
+}
+
+.spotlight-detail-content h3 a{
+  color: black !important;
+  font-weight: bold;
+}
+
+.spotlight-detail-content .start-reading-btn{
+  background-color: #437569;
+  color: white;
 }
